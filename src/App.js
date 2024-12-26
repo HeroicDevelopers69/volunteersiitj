@@ -1,10 +1,16 @@
 import './App.css';
+import Navbar from '../components/navbar';
+import Footer from '../components/footer';
+import Home from './pages/home';
+
 
 function App() {
   return (
-    <div className="text-3xl flex justify-center items-center">
-      Hello
-    </div>
+    <>
+      <Navbar/>
+      <Home/>
+      <Footer/>
+    </>
   );
 }
 
