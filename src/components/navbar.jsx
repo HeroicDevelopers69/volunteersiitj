@@ -8,7 +8,7 @@ const Navbar = () => {
     <div className='flex items-center tracking-tight font-roboto justify-between relative dark:bg-black dark:text-white m-0'>
       <div className="start flex">
         <img src={logo} alt="Logo" className='h-[30px]' />
-        <div className="name ml-[10px] text-[24px] hover:underline cursor-pointer decoration-blue-900 hover:text-blue-900">Volunteers</div>
+        <div className="name ml-[10px] text-[24px] hover:underline cursor-pointer dark:text-white text-black decoration-blue-900 hover:text-blue-900">Volunteers</div>
       </div>
       <div className="buttons items-center md:flex h-[20px] hidden">
         <button className='bg-gray-300 mx-1 px-2 py-1 text-lg rounded hover:bg-gray-400 hover:scale-105 border hover:border-black transition-transform dark:bg-[rgb(91,89,89)] dark:hover:bg-[rgb(47,47,47)] dark:hover:border dark:hover:border-white' id='form'>Forms</button>
