@@ -25,7 +25,7 @@ const CardFieldList = ({ label, items }) => {
 const CardMessage = ({ message }) => {
   return (
     <div className='w-full px-2 py-1'>
-      <p className='w-full text-justify p-1 border-2 border-gray-400'>{message.substr(0, 215)}{(message.length > 215 && '...')}</p>
+      <p className='w-full text-justify p-1 border-2 border-gray-400'>{(message.length < 215)? message : message.substr(0, 215)+'...'}</p>
     </div>
   )
 }

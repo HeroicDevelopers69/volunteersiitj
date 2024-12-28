@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from "../assets/images/logo.svg";
 import ToggleTheme from './buttons/themebutton';
 import ShowMenu from './buttons/menu';
 
@@ -7,7 +6,7 @@ const Navbar = () => {
   return (
     <div className='flex items-center tracking-tight font-roboto justify-between relative dark:bg-black dark:text-white m-0'>
       <div className="start flex">
-        <img src={logo} alt="Logo" className='h-[30px]' />
+        <img src='/assets/images/logo.svg' alt="Logo" className='h-[30px]' />
         <div className="name ml-[10px] text-[24px] hover:underline cursor-pointer decoration-blue-900 hover:text-blue-900">Volunteers</div>
       </div>
       <div className="buttons items-center md:flex h-[20px] hidden">
