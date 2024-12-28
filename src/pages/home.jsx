@@ -8,6 +8,7 @@ const Home = () => {
   return (
     <>
         <Hero/>
+        {/* There is a conditional on title in section.jsx, update that if changing title*/}
         <Section title='Apply'/>
         <Section title='News'/>
     </>

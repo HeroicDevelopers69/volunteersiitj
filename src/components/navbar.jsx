@@ -1,14 +1,13 @@
 import React from 'react';
-import logo from "../assets/images/logo.svg";
 import ToggleTheme from './buttons/themebutton';
 import ShowMenu from './buttons/menu';
 
 const Navbar = () => {
   return (
-    <div className='flex items-center tracking-tight font-roboto justify-between relative dark:bg-black dark:text-white m-0'>
+    <div className='flex items-center tracking-tight font-roboto justify-between relative dark:bg-black dark:text-white m-0 z-20'>
       <div className="start flex">
-        <img src={logo} alt="Logo" className='h-[30px]' />
-        <div className="name ml-[10px] text-[24px] hover:underline cursor-pointer dark:text-white text-black decoration-blue-900 hover:text-blue-900">Volunteers</div>
+        <img src='/assets/images/logo.svg' alt="Logo" className='h-[30px]' />
+        <div className="name ml-[10px] text-[24px] hover:underline cursor-pointer decoration-blue-900 hover:text-blue-900">Volunteers</div>
       </div>
       <div className="buttons items-center md:flex h-[20px] hidden">
         <button className='bg-transparent mx-1 px-2 py-1 text-lg rounded hover:bg-gray-100 hover:scale-105 border hover:border-black transition-transform dark:hover:bg-gray-950 dark:hover:border dark:hover:border-white' id='form'>Forms</button>
