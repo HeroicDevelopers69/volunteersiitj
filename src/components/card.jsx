@@ -65,17 +65,17 @@ const Card = ({advertisement}) => {
     timeColor = 'yellow';
   }
   return (
-    <div className='max-w-96 w-full transition-transform duration-100 hover:scale-[1.01]'>
+    <div className='max-w-96 dark:text-white dark:bg-black w-full duration-100 hover:scale-[1.01] font-roboto shadow-2xl shadow-black/75 dark:shadow-white/15 dark:shadow-xl hover:animate-glow transition-shadow dark:border-white dark:hover:animate-glowd'>
       <div className='max-w-96 w-full flex flex-col items-center justify-between border-2 border-gray-600 px-2 pt-2'>
-        <h1 className='bg-black text-white w-full py-2 px-1 text-center transition-transform duration-300 tracking-wider hover:tracking-[10px]'>
+        <h1 className='bg-black dark:bg-white dark:text-black font-mono text-white w-full py-2 px-1 text-center transition-transform duration-300 tracking-wider hover:tracking-[10px]'>
           {advertisement.title}
         </h1>
         {content.map((element)=> {return element})}
         <div className='w-full px-2 pt-4 pb-2 flex justify-between'>
-          <button className='px-3 py-2 bg-purple-700 text-white border-2 rounded-sm transition-transform duration-100 hover:scale-110 active:bg-purple-600 active:border-purple-900'>
+          <button className='px-3 py-2 bg-purple-700 text-white border-2 dark:border-black rounded-sm transition-transform duration-100 hover:scale-110 active:bg-purple-600 active:border-purple-900'>
             Know More
           </button>
-          <button className='px-3 py-2 bg-green-700 text-white border-2 rounded-sm transition-transform duration-100 hover:scale-110 active:bg-green-600 active:border-green-900'>
+          <button className='px-3 py-2 bg-green-700 text-white border-2 rounded-sm transition-transform duration-100 hover:scale-110 active:bg-green-600 active:border-green-900 dark:border-black'>
             Apply
           </button>
         </div>

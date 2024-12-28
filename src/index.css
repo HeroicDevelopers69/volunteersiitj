@@ -3,13 +3,25 @@
 @tailwind components;
 @tailwind utilities;
 
+html,
+body {
+  @apply transition-all duration-300;
+  background: white;
+  /* Smooth transitions */
+}
+
+html.dark{
+  background-color: black;
+  color: white;
+}
+
 #pane {
-    transition: transform 200ms ease-in-out, opacity 200ms ease-in-out;
-    transform: translateX(-200%);
-    opacity: 0;
-  }
-  
-  #pane.show {
-    transform: translateX(-0%);
-    opacity: 1;
-  }
+  transition: transform 200ms ease-in-out, opacity 500ms ease-in-out;
+  transform: translateY(-150%);
+  opacity: 0;
+}
+
+#pane.show {
+  transform: translateY(-0%);
+  opacity: 1;
+}

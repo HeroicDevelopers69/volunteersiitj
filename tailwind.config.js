@@ -8,6 +8,20 @@ module.exports = {
       fontFamily: {
         roboto: ["'Roboto'", ...defaultTheme.fontFamily.sans],
       },
+      keyframes: {
+        glow: {
+          '0%, 100%': { boxShadow: '0 0 10px 1px rgba(0,0,0,0.5)' },
+          '50%': { boxShadow: '0 1px 20px 1px rgba(0,0,0,1)' },
+        },
+        glowd: {
+          '0%, 100%': { boxShadow: '0 0 10px 1px rgba(255,255,255,0.5)' },
+          '50%': { boxShadow: '0 1px 20px 1px rgba(255,255,255,1)' },
+        },
+      },
+      animation: {
+        glow: 'glow 2s infinite',
+        glowd: 'glowd 2s infinite',
+      },
     },
   },
   plugins: [],
