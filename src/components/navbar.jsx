@@ -17,7 +17,7 @@ const Navbar = () => {
         <button className='bg-gray-300 mx-1 px-2 py-1 text-lg rounded hover:bg-gray-400 hover:scale-105 hover:border hover:border-black transition-transform dark:bg-[rgb(91,89,89)] dark:hover:bg-[rgb(47,47,47)] dark:hover:border dark:hover:border-white' id='contact'>Contact Us</button>
         < ToggleTheme />
       </div>
-      <div className="flex items-center relative ">
+      <div className="flex items-center relative md:hidden">
         <ToggleTheme />
         <ShowMenu />
         <div
