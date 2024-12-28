@@ -29,9 +29,9 @@ const ToggleTheme = () => {
     return (
         <button
             onClick={toggleTheme}
-            className="home-btn mx-1"
+            className="bg-gray-300 mx-1 px-2 py-1 text-lg rounded hover:bg-gray-400 hover:scale-105 hover:border hover:border-black transition-transform dark:bg-[rgb(91,89,89)] dark:hover:bg-[rgb(47,47,47)] dark:hover:border dark:hover:border-white"
         >
-            {darkMode ? <img src={darkImage} alt="Dark" className='p-[1px] h-[15px] w-[15px] md:h-[26px] md:w-[26px] invert' /> : <img src={lightImage} alt="Light" className='p-[1px] h-[16px] w-[16px] md:h-[26px] md:w-[26px] ' />}
+            {darkMode ? <img src={darkImage} alt="Dark" className='p-[1px] h-[15px] w-[15px] md:h-[26px] md:w-[26px] invert bg-transparent' /> : <img src={lightImage} alt="Light" className='p-[1px] h-[16px] w-[16px] md:h-[26px] md:w-[26px] bg-transparent' />}
         </button>
     );
 };

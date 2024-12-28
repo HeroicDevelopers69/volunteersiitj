@@ -2,16 +2,6 @@
   text-align: center;
 }
 
-.dark * {
-  color: white;
-  background-color: #000;
-}
-
-* {
-  color: black;
-  background-color: white;
-}
-
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -45,72 +35,6 @@
 
   to {
     transform: rotate(360deg);
-  }
-}
-
-img {
-  background-color: transparent;
-}
-
-.dark img {
-  background-color: transparent;
-}
-
-.home-btn {
-  background-color: rgb(209, 206, 206);
-  margin: 0px 5px;
-  padding: 2px 8px;
-  font-size: 18px;
-  border-radius: 3px;
-
-  &:hover {
-    background-color: rgb(182, 179, 179);
-    transform: scale(1.05);
-    border: solid 1px black;
-  }
-}
-
-.dark .home-btn {
-  background-color: rgb(91, 89, 89);
-  margin: 0px 5px;
-  padding: 2px 8px;
-  font-size: 18px;
-  border-radius: 3px;
-
-  &:hover {
-    background-color: rgb(47, 47, 47);
-    transform: scale(1.05);
-    border: solid 1px white;
-  }
-}
-
-.mob-home-btn {
-  background-color: rgb(209, 206, 206);
-  margin: 0px 5px;
-  width: 100px;
-  padding: 2px 8px;
-  font-size: 17px;
-  border-radius: 3px;
-
-  &:hover {
-    background-color: rgb(182, 179, 179);
-    transform: scale(1.05);
-    border: solid 1px black;
-  }
-}
-
-.dark .mob-home-btn {
-  background-color: rgb(91, 89, 89);
-  margin: 0px 5px;
-  width: 100px;
-  padding: 2px 8px;
-  font-size: 17px;
-  border-radius: 3px;
-
-  &:hover {
-    background-color: rgb(47, 47, 47);
-    transform: scale(1.05);
-    border: solid 1px white;
   }
 }
 
