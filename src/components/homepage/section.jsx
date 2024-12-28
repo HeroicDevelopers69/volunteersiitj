@@ -14,7 +14,7 @@ const Section = ({title}) => {
             <h1 className='text-2xl transition-transform duration-300 hover:-translate-y-1'>{title}</h1>
             <SearchBox/>
         </div>
-        <div className='w-full grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3'>
+        <div className='w-full grid grid-cols-1 gap-x-3 gap-y-10 md:grid-cols-2 lg:grid-cols-3'>
             {title.toLowerCase()==='apply' && advertisements.map((element)=>{
             return <Card advertisement={element}/>
           })}
