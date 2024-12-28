@@ -2,3 +2,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+#pane {
+    transition: transform 1s ease-in-out, opacity 100ms ease-in-out;
+    opacity: 0;
+  }
+  
+  #pane.show {
+    opacity: 1;
+  }
