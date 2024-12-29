@@ -21,7 +21,9 @@ const Footer = () => {
   return (
     <>
       <div className="h-10"></div>
-      <footer className={`py-10 w-full ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-white text-black'}`}>
+      <footer
+        className={`py-10 w-full ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-gray-200 text-black'}`}
+      >
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Logo and Description */}
           <div>
@@ -42,7 +44,7 @@ const Footer = () => {
                 style={{ height: '80px', width: '80px', borderRadius: '50%' }}
               />
             </div>
-            <p className={`text-sm ${isDarkMode ? 'text-gray-100' : 'text-gray-700'}`}>
+            <p className={`text-sm ${isDarkMode ? 'text-gray-100' : 'text-gray-700'}`} >
               Stay Connected with Volunteer Opportunities at IIT Jodhpur!
               <br />
               <br />
@@ -128,7 +130,7 @@ const Footer = () => {
       {/* Theme Toggle Button */}
       <button
         onClick={toggleTheme}
-        className={`fixed bottom-4 right-4 p-3 rounded-full ${isDarkMode ? 'bg-white text-black' : 'bg-black text-white'}`}
+        className={`fixed bottom-4 right-4 p-3 rounded-full ${isDarkMode ? 'bg-white text-black' : 'bg-black text-white'} z-50`}
       >
         {isDarkMode ? '🌞' : '🌙'}
       </button>
