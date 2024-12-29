@@ -48,7 +48,8 @@ const Card = ({advertisement}) => {
         break
       }
     }
-
+    // Limiting number of fileds to 5
+    if(content.length>=5)break;
   }
 
   let date = new Date();
