@@ -7,8 +7,8 @@ const NewsCard = ({ news }) => {
                 <div className='w-full'>
                     <img className='max-h-60' src={news.imgsrc} alt="IMG" />
                 </div>
-                <h1 className='w-full text-xl font-bold text-justify py-4'>{news.title}</h1>
-                <p className='w-full text-justify'>
+                <h1 className='w-full text-xl font-bold text-justify py-4 dark:text-white'>{news.title}</h1>
+                <p className='w-full text-justify dark:text-white'>
                     {(news.description.length < 430) ? news.description : news.description.substr(0, 430)+'...'}
                 </p>
             </div>
