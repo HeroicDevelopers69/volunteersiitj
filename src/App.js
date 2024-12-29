@@ -1,6 +1,7 @@
 import Navbar from './components/navbar';
 import Footer from './components/footer';
 import Home from './pages/home';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
 
 function App() {
