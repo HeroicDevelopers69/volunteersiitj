@@ -6,15 +6,15 @@ const Field = ({ component, onChange, onDelete }) => {
   };
 
   return (
-    <div className="w-full flex justify-between gap-x-2 items-center py-2 px-4 bg-gray-50 rounded-md shadow-sm hover:shadow-md transition">
+    <div className="w-full flex justify-between gap-x-2 items-center py-2 px-4 bg-gray-50 rounded-md shadow-sm hover:shadow-md transition-all duration-300 ease-in-out transform hover:scale-[1.04] hover:ring-1 hover:ring-black">
       <button
         onClick={() => onDelete(component.id)}
-        className="px-3 py-1 bg-red-500 text-white rounded-full hover:bg-red-600 active:scale-95"
+        className="px-3 py-1 bg-red-500 text-white rounded-full hover:bg-red-600 active:scale-95 transition-all duration-300"
       >
         ✖
       </button>
       <input
-        className="w-1/3 px-3 py-1 text-sm border rounded-md focus:outline-blue-500"
+        className="w-1/3 px-3 py-1 text-sm border rounded-md focus:outline-blue-500 transition-all duration-300 ease-in-out"
         type="text"
         value={component.label}
         onChange={handleChange}
@@ -22,7 +22,7 @@ const Field = ({ component, onChange, onDelete }) => {
         placeholder="Label"
       />
       <input
-        className="w-2/3 px-3 py-1 text-sm border rounded-md focus:outline-blue-500"
+        className="w-2/3 px-3 py-1 text-sm border rounded-md focus:outline-blue-500 transition-all duration-300 ease-in-out"
         type="text"
         value={component.value}
         onChange={handleChange}
@@ -39,16 +39,16 @@ const FieldMessage = ({ component, onChange, onDelete }) => {
   };
 
   return (
-    <div className="w-full flex items-center gap-x-2 py-2 px-4 bg-gray-50 rounded-md shadow-sm hover:shadow-md transition">
+    <div className="w-full flex items-center gap-x-2 py-2 px-4 bg-gray-50 rounded-md shadow-sm hover:shadow-md transition-all duration-300 ease-in-out transform hover:scale-[1.04] hover:ring-1 hover:ring-black">
       <button
         onClick={() => onDelete(component.id)}
-        className="px-3 py-1 bg-red-500 text-white rounded-full hover:bg-red-600 active:scale-95"
+        className="px-3 py-1 bg-red-500 text-white rounded-full hover:bg-red-600 active:scale-95 transition-all duration-300"
       >
         ✖
       </button>
       <textarea
         onChange={handleChange}
-        className="w-full px-3 py-2 text-sm border rounded-md focus:outline-blue-500"
+        className="w-full px-3 py-2 text-sm border rounded-md focus:outline-blue-500 transition-all duration-300 ease-in-out"
         name="message"
         placeholder="Message"
         value={component.message}
@@ -83,17 +83,17 @@ const FieldList = ({ component, onChange, onDelete }) => {
   };
 
   return (
-    <div className="w-full flex flex-col gap-2 py-4 pr-6 pl-4 bg-gray-50 rounded-md shadow-sm hover:shadow-md transition">
+    <div className="w-full flex flex-col gap-2 py-4 pr-6 pl-4 bg-gray-50 rounded-md shadow-sm hover:shadow-md transition-all duration-300 ease-in-out transform hover:scale-[1.04] hover:ring-1 hover:ring-black">
       <div className="flex">
         <button
-          className="px-3 py-1 bg-red-500 text-white rounded-full hover:bg-red-600 active:scale-95"
+          className="px-3 py-1 bg-red-500 text-white rounded-full hover:bg-red-600 active:scale-95 transition-all duration-300"
           onClick={() => onDelete(component.id)}
         >
           ✖
         </button>
         <div className="flex w-full ml-2 justify-between items-center">
           <input
-            className="w-2/5 px-3 py-1 text-sm border rounded-md focus:outline-blue-500"
+            className="w-2/5 px-3 py-1 text-sm border rounded-md focus:outline-blue-500 transition-all duration-300 ease-in-out"
             type="text"
             value={component.label}
             onChange={handleLabelChange}
@@ -101,7 +101,7 @@ const FieldList = ({ component, onChange, onDelete }) => {
             placeholder="Label"
           />
           <button
-            className="md:px-3 px-1 py-1 bg-green-500 md:text-[14px] text-[10px] text-white rounded-full hover:bg-green-600 active:scale-95"
+            className="md:px-3 px-1 py-1 bg-green-500 md:text-[14px] text-[10px] text-white rounded-full hover:bg-green-600 active:scale-95 transition-all duration-300"
             onClick={handleAdd}
           >
             ➕ Add Item
@@ -109,18 +109,20 @@ const FieldList = ({ component, onChange, onDelete }) => {
         </div>
       </div>
       {items.map((item, index) => (
-        <div key={index} className="flex items-center gap-2">
-          <input
-            className="w-full px-3 py-1 text-sm border rounded-md focus:outline-blue-500"
-            type="text"
-            value={item}
-            onChange={(e) => handleListChange(e, index)}
-            name={`item-${index}`}
-            placeholder={`List Item ${index + 1}`}
-          />
+        <div key={index} className="flex items-center w-full gap-2 m-auto transition-all duration-300 ease-in-out transform">
+          <div className='transition-all duration-300 ease-in-out transform w-full hover:scale-[1.01] hover:ring-1 hover:ring-black hover:rounded-md'>
+            <input
+              className="w-full px-3 py-1 text-sm border rounded-md focus:outline-blue-500 transition-all duration-300 ease-in-out"
+              type="text"
+              value={item}
+              onChange={(e) => handleListChange(e, index)}
+              name={`item-${index}`}
+              placeholder={`List Item ${index + 1}`}
+            />
+          </div>
           {index > 1 && (
             <button
-              className="px-3 py-1 bg-red-500 text-white rounded-full hover:bg-red-600 active:scale-95"
+              className="px-3 py-1 bg-red-500 text-white rounded-full hover:bg-red-600 active:scale-95 transition-all duration-300"
               onClick={() => handleDeleteItem(index)}
             >
               ✖
@@ -131,7 +133,6 @@ const FieldList = ({ component, onChange, onDelete }) => {
     </div>
   );
 };
-
 
 const MakeAd = () => {
   const [title, setTitle] = useState('');
@@ -197,11 +198,11 @@ const MakeAd = () => {
 
   return (
     <div className="mt-10 p-6 bg-gray-100 h-[600px] max-h-[600px] flex flex-col gap-6 dark:bg-gray-900">
-      <h1 className="text-3xl font-bold dark:text-white">Create Your Advertisement</h1>
+      <h1 className="text-3xl font-bold dark:text-white transition-all duration-300 ease-in-out">Create Your Advertisement</h1>
       <div className="flex flex-col md:flex-row gap-6 h-full">
-        <div className="w-full max-h-[500px] overflow-y-auto bg-white shadow-lg rounded-md p-6 flex flex-col gap-4">
+        <div className="w-full max-h-[500px] overflow-y-auto bg-white shadow-lg rounded-md p-6 flex flex-col gap-4 transition-all duration-300 ease-in-out">
           <input
-            className="w-full px-4 py-2 text-xl font-semibold border-b mb-4 focus:outline-none"
+            className="w-full px-4 py-2 text-xl font-semibold border-b mb-4 focus:outline-none transition-all duration-300"
             placeholder="Enter Advertisement Title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
@@ -261,7 +262,6 @@ const MakeAd = () => {
         </div>
       </div>
     </div>
-
   );
 };
 
