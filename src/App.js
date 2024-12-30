@@ -8,7 +8,7 @@ import { Route, Routes } from 'react-router-dom';
 function App() {
   return (
     <>
-      <div className="w-full bg-white dark:bg-black">
+      <div className='w-full bg-gray-200 dark:bg-black'>
         <div className="max-w-7xl w-11/12 mx-auto px-4 pt-4 flex flex-col">
           <Navbar />
           <Routes>

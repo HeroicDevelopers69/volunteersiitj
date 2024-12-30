@@ -4,26 +4,31 @@ export const advertisements = [
         title: "IGNUS 2024",
         sequence: [
             {
+                id: 0,
                 type: "field",
                 label: "Role",
                 value: "Volunteer"
             },
             {
+                id: 1,
                 type: "fieldList",
                 label: "Pre-requisite",
                 items: ["Python","MERN","NEXT"]
             },
             {
+                id: 2,
                 type: "field",
                 label: "Time",
                 value: "2hrs per day"
             },
             {
+                id: 3,
                 type: "fieldList",
                 label: "Benefits",
                 items: ["Working with senior","Fest Management"]
             },
             {
+                id: 4,
                 type: "message",
                 message: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iusto, repellat, nulla quis consequatur unde maiores necessitatibus dignissimos mollitia saepe laudantium sequi beatae sunt blanditiis a ut quasi eligendi autem impedit. Quam sunt qui quas totam!"
             }
