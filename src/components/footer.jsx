@@ -32,7 +32,7 @@ const Footer = () => {
     <>
       <div className="h-10"></div>
       <footer
-        className={`py-10 w-full ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-gray-200 text-black'}`}
+        className={`py-10 w-full ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-gray-300 text-black'}`}
       >
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Logo and Description */}
@@ -64,7 +64,7 @@ const Footer = () => {
 
           {/* Navigation Links */}
           <div style={{ padding: '20px 70px' }}>
-            <h3 className="text-xl font-semibold mb-4">Quick Links</h3>
+            <h3 className="text-xl font-semibold mb-4 ml-1">Quick Links</h3>
             <ul className="space-y-2">
               <li><AnimatedUnderline text="Home" /> </li>
               <li><AnimatedUnderline text="Current Opportunities" /> </li>
@@ -108,7 +108,7 @@ const Footer = () => {
       {/* Theme Toggle Button */}
       <button
         onClick={toggleTheme}
-        className={`fixed bottom-4 right-4 p-3 rounded-full ${isDarkMode ? 'bg-white text-black' : 'bg-black text-white'} z-50 hover:scale-110`}
+        className={`transform fixed bottom-4 right-4 p-3 rounded-full border-0 ${isDarkMode ? 'bg-white hover:shadow-gray-700/65 hover:shadow-lg' : 'bg-black text-white'} z-50 hover:scale-110  hover:shadow-black/75 hover:shadow-lg`}
       >
         {isDarkMode ? '🌞' : '🌙'}
       </button>
