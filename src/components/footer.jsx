@@ -34,7 +34,7 @@ const Footer = () => {
       <footer
         className={`py-10 w-full ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-gray-300 text-black'}`}
       >
-        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="max-w-7xl px-6 flex flex-col md:grid md:grid-cols-3 gap-8">
           {/* Logo and Description */}
           <div>
             <div
@@ -54,7 +54,7 @@ const Footer = () => {
                 style={{ height: '80px', width: '80px', borderRadius: '50%' }}
               />
             </div>
-            <p className={`text-sm ${isDarkMode ? 'text-gray-100' : 'text-gray-700'}`} >
+            <p className={`text-sm ${isDarkMode ? 'text-gray-100' : 'text-gray-700'}`}>
               Stay Connected with Volunteer Opportunities at IIT Jodhpur!
               <br />
               <br />
@@ -63,7 +63,7 @@ const Footer = () => {
           </div>
 
           {/* Navigation Links */}
-          <div style={{ padding: '20px 70px' }}>
+          <div className="w-full md:w-auto md:ml-10 px-0 text-left mt-4 md:mt-0">
             <h3 className="text-xl font-semibold mb-4 ml-1">Quick Links</h3>
             <ul className="space-y-2">
               <li><AnimatedUnderline text="Home" /> </li>
@@ -74,7 +74,7 @@ const Footer = () => {
           </div>
 
           {/* Contact Information */}
-          <div style={{ padding: '20px 10px' }}>
+          <div className="flex flex-col justify-start md:justify-start items-start mt-4 md:mt-0">
             <h3 className="text-xl font-semibold mb-4">Get in Touch</h3>
             <ul className="space-y-2">
               <li className="flex items-center">
@@ -104,6 +104,8 @@ const Footer = () => {
           </div>
         </div>
       </footer>
+
+
 
       {/* Theme Toggle Button */}
       <button
