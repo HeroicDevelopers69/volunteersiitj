@@ -17,11 +17,17 @@ module.exports = {
           '0%, 100%': { boxShadow: '0 0 10px 1px rgba(255,255,255,0.5)' },
           '50%': { boxShadow: '0 1px 20px 1px rgba(255,255,255,1)' },
         },
+        underline: {
+          '0%': { width: '0%', left: '50%' },
+          '50%': { width: '100%', left: '0%' },
+          '100%': { width: '0%', left: '50%' },
+        },
       },
       animation: {
         glow: 'glow 2s infinite',
         glowd: 'glowd 2s infinite',
         spinOnce: 'spinOnce 1s ease-in-out', // Play spin once for 1 second
+        underline: 'underline 3s infinite',
       },
     },
   },
