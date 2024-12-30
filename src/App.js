@@ -1,9 +1,10 @@
+import '@fortawesome/fontawesome-free/css/all.min.css';
+import { Route, Routes } from 'react-router-dom';
 import Navbar from './components/navbar';
 import Footer from './components/footer';
 import Home from './pages/home';
 import AdvertiserDashboard from './pages/advertiserDashboard'
-import '@fortawesome/fontawesome-free/css/all.min.css';
-import { Route, Routes } from 'react-router-dom';
+import ContactUs from './pages/contactUs';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Routes>
             <Route path='/' element={<Home />} />
             <Route path='/advertiserDashboard' element={<AdvertiserDashboard />} />
+            <Route path='/contactus' element={<ContactUs/>}/>
           </Routes>
           <Footer />
         </div>
