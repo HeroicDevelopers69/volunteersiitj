@@ -108,7 +108,7 @@ const Footer = () => {
       {/* Theme Toggle Button */}
       <button
         onClick={toggleTheme}
-        className={`fixed bottom-4 right-4 p-3 rounded-full ${isDarkMode ? 'bg-white text-black' : 'bg-black text-white'} z-50`}
+        className={`fixed bottom-4 right-4 p-3 rounded-full ${isDarkMode ? 'bg-white text-black' : 'bg-black text-white'} z-50 hover:scale-110`}
       >
         {isDarkMode ? '🌞' : '🌙'}
       </button>
