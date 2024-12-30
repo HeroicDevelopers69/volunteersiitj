@@ -4,7 +4,7 @@ const Field = ({ component, onChange, onDelete }) => {
   const handleChange = (e) => { onChange(component.id, e.target.name, e.target.value) };
   return (
     <div className='w-full flex justify-between gap-x-1 py-1 px-1'>
-      <button onDoubleClick={() => onDelete(component.id)} className='px-2 -ml-7 bg-rose-600 text-white active:scale-105'>-</button>
+      <button onClick={() => onDelete(component.id)} className='px-2 -ml-7 bg-rose-600 text-white active:scale-105'>-</button>
       <input className='w-2/5 pl-1 font-bold border-2 border-gray-300' type="text" value={component.label} onChange={handleChange} name='label' placeholder='Label' />
       <input className='w-full pr-1 text-right border-2 border-gray-300' type="text" value={component.value} onChange={handleChange} name='value' placeholder='Value' />
     </div>
@@ -15,7 +15,7 @@ const FieldMessage = ({ component, onChange, onDelete }) => {
   const handleChange = (e) => { onChange(component.id, e.target.name, e.target.value) };
   return (
     <div className='flex items-center gap-x-1 py-2 px-1'>
-      <button onDoubleClick={() => onDelete(component.id)} className='px-2 h-fit -ml-7 bg-rose-600 text-white active:scale-105'>-</button>
+      <button onClick={() => onDelete(component.id)} className='px-2 h-fit -ml-7 bg-rose-600 text-white active:scale-105'>-</button>
       <textarea onChange={handleChange} className='w-full min-h-32 p-1 border-2 border-gray-300' name="message" placeholder='Message' value={component.message} />
     </div>
   )
@@ -50,7 +50,7 @@ const FieldList = ({ component, onChange, onDelete }) => {
     content.push(
       <div className='flex w-56 gap-x-2' key={i}>
         <input onChange={(e) => handleListChange(e, i)} className='w-full pr-1 text-right border-2 border-gray-300' type='text' value={items[i]} name={`${i}`}  placeholder={`List Item ${i + 1}`} />
-        <button className='px-2 -mr-9 bg-rose-300' onDoubleClick={()=>handleDeleteItem(i)}>-</button>
+        {i>1 && <button className='px-2 -mr-9 bg-rose-300' onClick={()=>handleDeleteItem(i)}>-</button>}
       </div>
     );
   }
@@ -62,7 +62,7 @@ const FieldList = ({ component, onChange, onDelete }) => {
 
   return (
     <div className='w-full flex items-center px-1 py-1'>
-      <button onDoubleClick={() => onDelete(component.id)} className='px-2 h-fit -ml-7 bg-rose-600 text-white active:scale-105'>-</button>
+      <button onClick={() => onDelete(component.id)} className='px-2 h-fit -ml-7 bg-rose-600 text-white active:scale-105'>-</button>
       <div className='w-full flex justify-between gap-x-1 px-1'>
         <div className='w-2/5 h-full flex flex-col justify-between gap-y-1'>
           <input className='h-fit pl-1 font-bold border-2 border-gray-300' type="text" value={component.label} onChange={handleLabelChange} name='label' placeholder='Label' />
@@ -155,8 +155,8 @@ const MakeAd = () => {
   }
 
   return (
-    <div className='w-full min-h-screen flex flex-col gap-y-4 mt-7'>
-      <h1 className='whitespace-nowrap text-lg font-bold'>Make Advertisement</h1>
+    <div className='w-full min-h-screen flex flex-col mt-7'>
+      <h1 className='whitespace-nowrap text-2xl font-bold tracking-tighter mb-3'>Step 1 - Make Advertisement</h1>
       <div className='w-full py-6 flex gap-x-8'>
         <div className='w-full max-w-96 min-h-[34rem] flex flex-col'>
           <div className='w-full min-h-[30rem] bg-white dark:bg-gray-900'>
