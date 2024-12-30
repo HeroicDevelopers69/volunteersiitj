@@ -66,7 +66,7 @@ const Card = ({advertisement}) => {
     timeColor = 'yellow';
   }
   return (
-    <div className='max-w-96 dark:text-white dark:bg-black w-full transition-transform duration-300 hover:scale-[1.01] font-roboto shadow-2xl  shadow-black/75 hover:shadow-black/80  dark:shadow-white/15 dark:shadow-xl dark:border-white'>
+    <div className='max-w-96 bg-white dark:text-white dark:bg-black w-full transition-transform duration-300 hover:scale-[1.01] font-roboto shadow-2xl  shadow-black/75 hover:shadow-black/80  dark:shadow-white/15 dark:shadow-xl dark:border-white'>
       <div className='max-w-96 w-full flex flex-col items-center justify-between border-2 border-gray-600 px-2 pt-2'>
         <h1 className='bg-black dark:bg-white dark:text-black font-mono text-white w-full py-2 px-1 text-center transition-transform duration-300 tracking-wider hover:tracking-[10px]'>
           {advertisement.title}
