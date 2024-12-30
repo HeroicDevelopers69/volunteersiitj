@@ -18,6 +18,16 @@ const Footer = () => {
     document.documentElement.classList.toggle('dark', isDarkMode); // Apply the dark class to the root element
   }, [isDarkMode]);
 
+  const AnimatedUnderline = ({ text }) => {
+    return (
+      <div class="flex justify-start items-center">
+        <a href="#" class="relative group ml-1">
+          {text}
+          <span class={`absolute left-0 bottom-0 w-0 h-[1px] ${isDarkMode ? 'bg-white' : 'bg-black'} transition-all duration-500 group-hover:w-full`}></span>
+        </a>
+      </div>
+    );
+  };
   return (
     <>
       <div className="h-10"></div>
@@ -56,42 +66,10 @@ const Footer = () => {
           <div style={{ padding: '20px 70px' }}>
             <h3 className="text-xl font-semibold mb-4">Quick Links</h3>
             <ul className="space-y-2">
-              <li>
-                <a
-                  href="#"
-                  className={`hover:${isDarkMode ? 'text-white' : 'text-gray-700'}`}
-                  style={{ padding: '5px' }}
-                >
-                  Home
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className={`hover:${isDarkMode ? 'text-white' : 'text-gray-700'}`}
-                  style={{ padding: '5px' }}
-                >
-                  Current Opportunities
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className={`hover:${isDarkMode ? 'text-white' : 'text-gray-700'}`}
-                  style={{ padding: '5px' }}
-                >
-                  Submit Your Application
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className={`hover:${isDarkMode ? 'text-white' : 'text-gray-700'}`}
-                  style={{ padding: '5px' }}
-                >
-                  Contact Us
-                </a>
-              </li>
+              <li><AnimatedUnderline text="Home" /> </li>
+              <li><AnimatedUnderline text="Current Opportunities" /> </li>
+              <li><AnimatedUnderline text="Submit Your Application" /> </li>
+              <li><AnimatedUnderline text="Contact Us" /> </li>
             </ul>
           </div>
 
@@ -116,7 +94,7 @@ const Footer = () => {
             &copy; 2024 VolunteersIITJ. Empowering students through meaningful engagement.
           </p>
           <div className="flex justify-center mt-4 space-x-4">
-            <a href="https://github.com/HeroicDevelopers69/volunteersiitj" className={`text-gray-400 hover:${isDarkMode ? 'text-white' : 'text-gray-700'}`}>
+            <a href="https://github.com/HeroicDevelopers69/volunteersiitj" target='_blank' className={`text-gray-400 hover:${isDarkMode ? 'text-white' : 'text-gray-700'}`}>
               <i className="fab fa-github"></i>
             </a>
 
