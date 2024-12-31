@@ -196,7 +196,7 @@ export const RedoButton = ({ onClick, disabled }) => (
 export const PreviewButton = ({ onClick, disabled }) => (
   <button
     onClick={onClick}
-    className='w-full bg-gray-500 text-white py-2 px-4 rounded-md shadow-md hover:bg-gray-600 disabled:bg-gray-600 active:scale-95 disabled:active:scale-100'
+    className='w-full bg-gray-500 text-white py-2 px-4 rounded-md shadow-md hover:bg-gray-600 disabled:bg-gray-400 active:scale-95 disabled:active:scale-100'
     disabled={disabled}
   >
     <div className="flex items-center justify-center">
