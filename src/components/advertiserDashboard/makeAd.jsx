@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 
-import { Field, FieldList, FieldMessage } from './makeAdComponents';
+import { Field, FieldList, FieldMessage, RestoreLastButton } from './makeAdComponents';
 import { FieldButton, FieldListButton, FieldMessageButton, ClearAllButton, UndoButton, RedoButton } from './makeAdComponents';
 
 const MakeAd = () => {
   const [title, setTitle] = useState('');
   const [deadline, setDeadline] = useState('');
   const [sequence, setSequence] = useState([]);
-  const [history, setHistory] = useState([]);
-  const [undohistory, setundoHistory] = useState([]);
+  const [lastDeleted, setLastDeleted] = useState({});
 
   const handleClick = (type) => {
     const id = Date.now();
@@ -25,9 +24,7 @@ const MakeAd = () => {
         newComponent = { ...newComponent, message: '' };
         break;
     }
-
     setSequence([...sequence, newComponent]);
-    setHistory([...history, { action: 'add', component: newComponent }]);
   };
 
   const handleChange = (id, name, value) => {
@@ -39,51 +36,30 @@ const MakeAd = () => {
   };
 
   const handleDelete = (id) => {
-    const deleted = sequence.find((component) => component.id === id);
-    setHistory([...history, { action: 'delete', component: deleted }]);
+    let deletedIndex = 0;
+    setLastDeleted({
+      deletedComponent:(sequence.filter((component, index) => {
+        if(component.id === id){
+          deletedIndex = index;
+        }
+        return component.id === id
+      })
+      )[0], 
+      deletedIndex:deletedIndex
+    });
     setSequence(sequence.filter((component) => component.id !== id));
+    console.log(lastDeleted);
   };
 
-  const handleClearAll = () => {
-    setHistory([...history, { action: 'clear', components: [...sequence] }]);
-    setSequence([]);
-    setundoHistory([])
-  };
-
-  const handleUndo = () => {
-    const lastAction = history.pop();
-    setundoHistory([...undohistory, lastAction])
-    if (lastAction) {
-      if (lastAction.action === 'add') {
-        setSequence(sequence.filter((component) => component.id !== lastAction.component.id));
-      } else if (lastAction.action === 'delete') {
-        setSequence([...sequence, lastAction.component]);
-      } else if (lastAction.action === 'clear') {
-        setSequence(lastAction.components);
-      }
-      setHistory([...history]);
-    }
-  };
-
-  const handleRedo = () => {
-    const prevAction = undohistory.pop();
-    setHistory([...history, prevAction])
-    switch (prevAction.action) {
-      case 'add':
-        setSequence([...sequence, prevAction.component])
-        break;
-      case 'delete':
-        setSequence(sequence.filter((component) => component.id !== prevAction.component.id));
-        break;
-      case 'clear':
-        setSequence([])
-        break;
-    }
+  const handleRestoreLast = () =>{
+    setSequence([
+      ...sequence.slice(0,lastDeleted.deletedIndex),
+      {...lastDeleted.deletedComponent},
+      ...sequence.slice(lastDeleted.deletedIndex)
+    ])
+    setLastDeleted({});
   }
 
-  const isUndoDisabled = history.length === 0;
-  const isRedoDisabled = undohistory.length === 0;
-  const isClearAllDisabled = sequence.length === 0;
 
   return (
     <div className="mt-10 p-6 bg-gray-100 min-h-[600px] flex flex-col gap-6 dark:bg-gray-900">
@@ -146,11 +122,8 @@ const MakeAd = () => {
           <FieldButton onClick={() => handleClick('field')} />
           <FieldListButton onClick={() => handleClick('fieldList')} />
           <FieldMessageButton onClick={() => handleClick('fieldMessage')} />
-          <ClearAllButton onClick={handleClearAll} isDisabled={isClearAllDisabled} />
-          <div className="flex gap-2">
-            <UndoButton onClick={handleUndo} his={isUndoDisabled} />
-            <RedoButton onClick={handleRedo} his={isRedoDisabled} />
-          </div>
+          <ClearAllButton onClick={() =>setSequence([])} isDisabled={sequence.length === 0} />
+          <RestoreLastButton onClick={handleRestoreLast} isDisabled={Object.keys(lastDeleted).length===0} />
         </div>
       </div>
     </div>

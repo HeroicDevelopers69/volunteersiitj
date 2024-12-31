@@ -1,5 +1,16 @@
 import React, { useState, useEffect } from 'react';
 
+const AnimatedUnderline = ({ text, href, isDarkMode }) => {
+  return (
+    <div class="flex justify-start items-center">
+      <a href={href} class="relative group ml-1">
+        {text}
+        <span class={`absolute left-0 bottom-0 w-0 h-[1px] ${isDarkMode ? 'bg-white' : 'bg-black'} transition-all duration-500 group-hover:w-full`}></span>
+      </a>
+    </div>
+  );
+};
+
 const Footer = () => {
   // Check local storage for saved theme
   const [isDarkMode, setIsDarkMode] = useState(() => {
@@ -18,16 +29,7 @@ const Footer = () => {
     document.documentElement.classList.toggle('dark', isDarkMode); // Apply the dark class to the root element
   }, [isDarkMode]);
 
-  const AnimatedUnderline = ({ text }) => {
-    return (
-      <div class="flex justify-start items-center">
-        <a href="#" class="relative group ml-1">
-          {text}
-          <span class={`absolute left-0 bottom-0 w-0 h-[1px] ${isDarkMode ? 'bg-white' : 'bg-black'} transition-all duration-500 group-hover:w-full`}></span>
-        </a>
-      </div>
-    );
-  };
+
   return (
     <>
       <div className="h-10"></div>
@@ -66,10 +68,10 @@ const Footer = () => {
           <div className="w-full md:w-auto md:ml-10 px-0 text-left mt-4 md:mt-0">
             <h3 className="text-xl font-semibold mb-4 ml-1">Quick Links</h3>
             <ul className="space-y-2">
-              <li><AnimatedUnderline text="Home" /> </li>
-              <li><AnimatedUnderline text="Current Opportunities" /> </li>
-              <li><AnimatedUnderline text="Submit Your Application" /> </li>
-              <li><AnimatedUnderline text="Contact Us" /> </li>
+              <li><AnimatedUnderline text="Home" href='/'/> </li>
+              <li><AnimatedUnderline text="Current Opportunities" href='/' isDarkMode={isDarkMode}/> </li>
+              <li><AnimatedUnderline text="Submit Your Application" href='/' isDarkMode={isDarkMode}/> </li>
+              <li><AnimatedUnderline text="About Us" href='/aboutus' isDarkMode={isDarkMode} /> </li>
             </ul>
           </div>
 

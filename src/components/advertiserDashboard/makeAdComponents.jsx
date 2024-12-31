@@ -8,13 +8,13 @@ export const Field = ({ component, onChange, onDelete }) => {
   return (
     <div className="w-full flex justify-between gap-x-2 items-center py-2 px-4 bg-gray-50 rounded-md shadow-sm hover:shadow-md transition-all duration-300 ease-in-out transform hover:scale-[1.04] hover:ring-1 hover:ring-black">
       <button
-        onClick={() => onDelete(component.id)}
-        className="px-3 py-1 bg-red-500 text-white rounded-full hover:bg-red-600 active:scale-95 transition-all duration-300"
+        onDoubleClick={() => onDelete(component.id)}
+        className="px-2 py-1 bg-red-500 text-white rounded-full hover:bg-red-600 active:scale-95 transition-all duration-300"
       >
         ✖
       </button>
       <input
-        className="w-1/3 px-3 py-1 text-sm border rounded-md focus:outline-blue-500 transition-all duration-300 ease-in-out"
+        className="w-1/3 px-3 py-1 text-sm border font-semibold rounded-md focus:outline-blue-500 transition-all duration-300 ease-in-out"
         type="text"
         value={component.label}
         onChange={handleChange}
@@ -41,8 +41,8 @@ export const FieldMessage = ({ component, onChange, onDelete }) => {
   return (
     <div className="w-full flex items-center gap-x-2 py-2 px-4 bg-gray-50 rounded-md shadow-sm hover:shadow-md transition-all duration-300 ease-in-out transform hover:scale-[1.04] hover:ring-1 hover:ring-black">
       <button
-        onClick={() => onDelete(component.id)}
-        className="px-3 py-1 bg-red-500 text-white rounded-full hover:bg-red-600 active:scale-95 transition-all duration-300"
+        onDoubleClick={() => onDelete(component.id)}
+        className="px-2 py-1 bg-red-500 text-white rounded-full hover:bg-red-600 active:scale-95 transition-all duration-300"
       >
         ✖
       </button>
@@ -86,14 +86,14 @@ export const FieldList = ({ component, onChange, onDelete }) => {
     <div className="w-full flex flex-col gap-2 py-4 pr-6 pl-4 bg-gray-50 rounded-md shadow-sm hover:shadow-md transition-all duration-300 ease-in-out transform hover:scale-[1.04] hover:ring-1 hover:ring-black">
       <div className="flex">
         <button
-          className="px-3 py-1 bg-red-500 text-white rounded-full hover:bg-red-600 active:scale-95 transition-all duration-300"
-          onClick={() => onDelete(component.id)}
+          className="px-2 py-1 bg-red-500 text-white rounded-full hover:bg-red-600 active:scale-95 transition-all duration-300"
+          onDoubleClick={() => onDelete(component.id)}
         >
           ✖
         </button>
         <div className="flex w-full ml-2 justify-between items-center">
           <input
-            className="w-2/5 px-3 py-1 text-sm border rounded-md focus:outline-blue-500 transition-all duration-300 ease-in-out"
+            className="w-2/5 px-3 py-1 text-sm border font-semibold rounded-md focus:outline-blue-500 transition-all duration-300 ease-in-out"
             type="text"
             value={component.label}
             onChange={handleLabelChange}
@@ -123,7 +123,7 @@ export const FieldList = ({ component, onChange, onDelete }) => {
           {index > 1 && (
             <button
               className="px-3 py-1 bg-red-500 text-white rounded-full hover:bg-red-600 active:scale-95 transition-all duration-300"
-              onClick={() => handleDeleteItem(index)}
+              onDoubleClick={() => handleDeleteItem(index)}
             >
               ✖
             </button>
@@ -165,7 +165,7 @@ export const FieldMessageButton = ({ onClick }) => (
 
 export const ClearAllButton = ({ onClick, isDisabled }) => (
   <button
-    onClick={onClick}
+    onDoubleClick={onClick}
     className={`w-full bg-red-500 text-white py-2 px-4 rounded-md shadow-md hover:bg-red-600 active:scale-95 ${isDisabled ? 'disabled:bg-red-900 disabled:active:scale-100' : ''}`}
     disabled={isDisabled} // Disable button if isDisabled is true
   >
@@ -173,22 +173,12 @@ export const ClearAllButton = ({ onClick, isDisabled }) => (
   </button>
 );
 
-export const UndoButton = ({ onClick, his }) => (
+export const RestoreLastButton = ({ onClick, isDisabled }) => (
   <button
     onClick={onClick}
-    className={`w-full bg-blue-500 text-white py-2 px-4 rounded-md shadow-md hover:bg-blue-600 active:scale-95 ${his ? 'disabled:bg-blue-900 disabled:active:scale-100' : 'bg-blue-500'}`}
-    disabled={his}
+    className={`w-full bg-blue-500 text-white py-2 px-4 rounded-md shadow-md hover:bg-blue-600 active:scale-95 ${isDisabled ? 'disabled:bg-blue-900 disabled:active:scale-100' : ''}`}
+    disabled={isDisabled} // Disable button if isDisabled is true
   >
-    <i className="fas fa-rotate-left"></i>
-  </button>
-);
-
-export const RedoButton = ({ onClick, his }) => (
-  <button
-    onClick={onClick}
-    className={`w-full bg-blue-500 text-white py-2 px-4 rounded-md shadow-md hover:bg-blue-600 active:scale-95 ${his ? 'disabled:bg-blue-900 disabled:active:scale-100' : 'bg-blue-500'}`}
-    disabled={his}
-  >
-    <i className="fas fa-rotate-right"></i>
+    Restore Last Component
   </button>
 );
