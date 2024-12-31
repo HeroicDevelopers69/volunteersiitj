@@ -1,4 +1,5 @@
 import React from 'react'
+import { TextInput,DropDown } from './makeFormComponents';
 
 const Button = ({text,bgColor,onClick}) => {
     return(
@@ -14,16 +15,25 @@ const MakeForm = () => {
       <h1 className="text-3xl font-bold dark:text-white transition-all duration-300 ease-in-out">Step 2 - Create Form</h1>
       <div className="flex flex-col md:flex-row gap-6 h-full">
         <div className="w-full min-h-[500px] overflow-y-visible bg-white shadow-lg rounded-md p-6 flex flex-col gap-4 transition-all duration-300 ease-in-out">
-
+          <div className='flex gap-x-2 border-b-2 border-black'>
+            <span>Name, Roll number and Email are provided by default.</span>
+            <span>If you want anything else add below.</span>
+          </div>
+          <div className='w-full flex flex-col gap-y-2'>
+            <TextInput/>
+            <DropDown/>
+          </div>
         </div>
         <div className='w-full md:w-1/3 flex flex-col gap-y-4'>
           <Button text='Text Input' bgColor='blue' onClick={()=>console.log("Clicked")}/>
-          <Button text='Number Input' bgColor='green' onClick={()=>console.log("Clicked")}/>
-          <Button text='Email Input' bgColor='yellow' onClick={()=>console.log("Clicked")}/>
-          <Button text='File Input' bgColor='blue' onClick={()=>console.log("Clicked")}/>
+          <Button text='Drop down' bgColor='blue' onClick={()=>console.log("Clicked")}/>
+          <Button text='Radio Input' bgColor='blue' onClick={()=>console.log("Clicked")}/>
+          <Button text='Number Input' bgColor='blue' onClick={()=>console.log("Clicked")}/>
+          <Button text='Email Input' bgColor='blue' onClick={()=>console.log("Clicked")}/>
+          <Button text='File Input' bgColor='green' onClick={()=>console.log("Clicked")}/>
           <Button text='Image Input' bgColor='green' onClick={()=>console.log("Clicked")}/>
-          <Button text='DateTime Input' bgColor='blue' onClick={()=>console.log("Clicked")}/>
-          <Button text='Date Input' bgColor='green' onClick={()=>console.log("Clicked")}/>
+          <Button text='DateTime Input' bgColor='yellow' onClick={()=>console.log("Clicked")}/>
+          <Button text='Date Input' bgColor='yellow' onClick={()=>console.log("Clicked")}/>
           <Button text='Time Input' bgColor='yellow' onClick={()=>console.log("Clicked")}/>
           <Button text='Save' bgColor='red' onClick={()=>console.log("Clicked")}/>
         </div>

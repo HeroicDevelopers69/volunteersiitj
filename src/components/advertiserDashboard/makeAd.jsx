@@ -3,6 +3,9 @@ import Card from '../card';
 import { Field, FieldList, FieldMessage } from './makeAdComponents';
 import { FieldButton, FieldListButton, FieldMessageButton, ClearAllButton, UndoButton, RedoButton, PreviewButton } from './makeAdComponents';
 
+let nextId = 0;
+let adId = 0;
+
 const MakeAd = () => {
   const [title, setTitle] = useState('');
   const [deadline, setDeadline] = useState('');
@@ -18,7 +21,7 @@ const MakeAd = () => {
   }, [sequence, deadline, title]);
 
   const handleClick = (type) => {
-    const id = Date.now();
+    const id = nextId++;
     let newComponent = { id, type };
 
     switch (type) {
@@ -132,46 +135,20 @@ const MakeAd = () => {
     } else if (!deadline) {
       alert('Please select a deadline before previewing.');
       return;
-     } else if (sequence.length < 3) return alert('Please add at least 3 items to preview.')
-    const updatedSequence = sequence.filter((component) => component.label.toLowerCase() !== 'creator');
-    for (let component of sequence) {
+     } else if (sequence.length < 3){
+      alert('Please add at least 3 items to preview.')
+      return; 
+     }
 
-      if (component.type === 'field' && (!component.label || !component.value)) return alert('Please enter the value of Label and Value or remove it.')
-      if (component.type === 'fieldList') {
-        if (!component.label) {
-          alert('Please fill out the label for the Items list before previewing or remove it.');
-          return;
-        }
-        for (let item of component.items) {
-          if (!item || item.trim() === '') {
-            alert('Please fill out all items in the Items list before previewing.');
-            return;
-          }
-        }
-      }
-      if (component.type === 'fieldMessage' && (!component.message)) return alert('Please enter a message in message field or remove it.')
-      if (component.label.toLowerCase() === 'creator') {
-        setAdvertisement(prevAdvertisement => ({
-          ...prevAdvertisement,
-          creator: component.value,
-          sequence: updatedSequence,
-        }));
-      } else {
-        setAdvertisement(prevAdvertisement => ({
-          ...prevAdvertisement,
-          creator: 'IITJ',
-          sequence: updatedSequence,
-        }));
-      }
-      sequence.filter((element, index) => element.label.toLowerCase() !== 'creator')
-    }
-    setShowPreview(true);
-  };
-
-  const isUndoDisabled = history.length === 0;
-  const isRedoDisabled = undohistory.length === 0;
-  const isPrevDisabled = sequence.length === 0 || title.length === 0;
-  const isClearAllDisabled = sequence.length === 0;
+     setAdvertisement({
+      id: adId++,
+      title: title,
+      sequence: sequence,
+      deadline: deadline,
+      creator: "Admin"
+     })
+     setShowPreview(true);
+  }
 
   const handleDeadlineChange = (e) => {
     const selectedDate = new Date(e.target.value); // Convert input value to a Date object
@@ -192,7 +169,7 @@ const MakeAd = () => {
 
   return (
     <div className="mt-10 p-6 bg-gray-100 min-h-[600px] flex flex-col gap-6 dark:bg-gray-900">
-      <h1 className="text-3xl font-bold dark:text-white transition-all duration-300 ease-in-out">Create Your Advertisement</h1>
+      <h1 className="text-3xl font-bold dark:text-white transition-all duration-300 ease-in-out">Step 1 - Create Your Advertisement</h1>
       <div className="flex flex-col md:flex-row gap-6 h-full">
         <div className="w-full min-h-[500px] overflow-y-visible bg-white shadow-lg rounded-md p-6 flex flex-col gap-4 transition-all duration-300 ease-in-out">
           <div className="flex items-center gap-2">
@@ -254,12 +231,12 @@ const MakeAd = () => {
           <FieldButton onClick={() => handleClick('field')} />
           <FieldListButton onClick={() => handleClick('fieldList')} />
           <FieldMessageButton onClick={() => handleClick('fieldMessage')} />
-          <ClearAllButton onClick={handleClearAll} isDisabled={isClearAllDisabled} />
+          <ClearAllButton onClick={handleClearAll} disabled={sequence.length === 0} />
           <div className="flex gap-2">
-            <UndoButton onClick={handleUndo} his={isUndoDisabled} />
-            <RedoButton onClick={handleRedo} his={isRedoDisabled} />
+            <UndoButton onClick={handleUndo} disabled={history.length === 0} />
+            <RedoButton onClick={handleRedo} disabled={undohistory.length === 0} />
           </div>
-          <PreviewButton onClick={handlePreview} his={isPrevDisabled} />
+          <PreviewButton onClick={handlePreview} disabled={sequence.length === 0 || title.length === 0 || !deadline} />
         </div>
       </div>
 
