@@ -29,7 +29,16 @@ const Footer = () => {
     document.documentElement.classList.toggle('dark', isDarkMode); // Apply the dark class to the root element
   }, [isDarkMode]);
 
-
+  const AnimatedUnderline = ({ text }) => {
+    return (
+      <div className="flex justify-start items-center">
+        <a href="#" className="relative group ml-1">
+          {text}
+          <span className={`absolute left-0 bottom-0 w-0 h-[1px] ${isDarkMode ? 'bg-white' : 'bg-black'} transition-all duration-500 group-hover:w-full`}></span>
+        </a>
+      </div>
+    );
+  };
   return (
     <>
       <div className="h-10"></div>

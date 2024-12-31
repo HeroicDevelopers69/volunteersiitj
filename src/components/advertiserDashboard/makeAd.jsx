@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
-import { Field, FieldList, FieldMessage, RestoreLastButton } from './makeAdComponents';
-import { FieldButton, FieldListButton, FieldMessageButton, ClearAllButton, UndoButton, RedoButton } from './makeAdComponents';
+import { Field, FieldList, FieldMessage } from './makeAdComponents';
+import { FieldButton, FieldListButton, FieldMessageButton, ClearAllButton, UndoButton, RedoButton, PreviewButton } from './makeAdComponents';
 
 const MakeAd = () => {
   const [title, setTitle] = useState('');
@@ -23,14 +23,26 @@ const MakeAd = () => {
       case 'fieldMessage':
         newComponent = { ...newComponent, message: '' };
         break;
+      default:
+        break;
     }
-    setSequence([...sequence, newComponent]);
+
+    setSequence((prevSequence) => {
+      const updatedSequence = [...prevSequence, newComponent];
+      setHistory((prevHistory) => [...prevHistory, { action: 'add', component: newComponent }]);
+      return updatedSequence;
+    });
   };
 
   const handleChange = (id, name, value) => {
-    setSequence(
-      sequence.map((component) =>
+    setSequence((prevSequence) =>
+      prevSequence.map((component) =>
         component.id === id ? { ...component, [name]: value } : component
+      )
+    );
+    setHistory((prevHistory) =>
+      prevHistory.map((entry) =>
+        entry.component.id === id ? { ...entry, component: { ...entry.component, [name]: value } } : entry
       )
     );
   };
@@ -51,15 +63,67 @@ const MakeAd = () => {
     console.log(lastDeleted);
   };
 
-  const handleRestoreLast = () =>{
-    setSequence([
-      ...sequence.slice(0,lastDeleted.deletedIndex),
-      {...lastDeleted.deletedComponent},
-      ...sequence.slice(lastDeleted.deletedIndex)
-    ])
-    setLastDeleted({});
-  }
+  const handleUndo = () => {
+    if (history.length === 0) return;
 
+    const newHistory = [...history];
+    const lastAction = newHistory.pop();
+
+    if (lastAction) {
+      setundoHistory((prevUndoHistory) => [...prevUndoHistory, lastAction]);
+
+      switch (lastAction.action) {
+        case 'add':
+          setSequence((prevSequence) =>
+            prevSequence.filter((component) => component.id !== lastAction.component.id)
+          );
+          break;
+        case 'delete':
+          setSequence((prevSequence) => [...prevSequence, lastAction.component]);
+          break;
+        case 'clear':
+          setSequence(lastAction.components);
+          break;
+        default:
+          break;
+      }
+    }
+
+    setHistory(newHistory);
+  };
+
+  const handleRedo = () => {
+    if (undohistory.length === 0) return;
+
+    const newUndoHistory = [...undohistory];
+    const prevAction = newUndoHistory.pop();
+
+    if (prevAction) {
+      setHistory((prevHistory) => [...prevHistory, prevAction]);
+
+      switch (prevAction.action) {
+        case 'add':
+          setSequence((prevSequence) => [...prevSequence, prevAction.component]);
+          break;
+        case 'delete':
+          setSequence((prevSequence) =>
+            prevSequence.filter((component) => component.id !== prevAction.component.id)
+          );
+          break;
+        case 'clear':
+          setSequence([]);
+          break;
+        default:
+          break;
+      }
+    }
+
+    setundoHistory(newUndoHistory);
+  };
+
+  const isUndoDisabled = history.length === 0;
+  const isRedoDisabled = undohistory.length === 0;
+  const isClearAllDisabled = sequence.length === 0;
 
   return (
     <div className="mt-10 p-6 bg-gray-100 min-h-[600px] flex flex-col gap-6 dark:bg-gray-900">
@@ -122,8 +186,12 @@ const MakeAd = () => {
           <FieldButton onClick={() => handleClick('field')} />
           <FieldListButton onClick={() => handleClick('fieldList')} />
           <FieldMessageButton onClick={() => handleClick('fieldMessage')} />
-          <ClearAllButton onClick={() =>setSequence([])} isDisabled={sequence.length === 0} />
-          <RestoreLastButton onClick={handleRestoreLast} isDisabled={Object.keys(lastDeleted).length===0} />
+          <ClearAllButton onClick={handleClearAll} isDisabled={isClearAllDisabled} />
+          <div className="flex gap-2">
+            <UndoButton onClick={handleUndo} his={isUndoDisabled} />
+            <RedoButton onClick={handleRedo} his={isRedoDisabled} />
+          </div>
+          <PreviewButton onClick={handleRedo} his={isRedoDisabled} />
         </div>
       </div>
     </div>

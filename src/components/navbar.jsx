@@ -5,10 +5,10 @@ import { Link } from 'react-router-dom';
 const [isDarkMode] = localStorage.getItem('theme');
 const AnimatedUnderline = ({ link, text }) => {
   return (
-    <div class="flex justify-start items-center">
+    <div className="flex justify-start items-center">
       <Link to={`${link}`} className='relative group bg-transparent mx-1 px-2 py-1 text-lg rounded  hover:scale-105 border hover:border-white transition-transform' id='form'>{text}
-        <span class={`absolute right-0 bottom-0 w-0 h-[2px] ${isDarkMode ? 'bg-white' : 'bg-black'} transition-all duration-200 group-hover:w-full`}></span>
-        <span class={`absolute right-0 bottom-0 h-0 w-[2px] ${isDarkMode ? 'bg-white' : 'bg-black'} transition-all duration-200 group-hover:h-full`}></span>
+        <span className={`absolute right-0 bottom-0 w-0 h-[2px] ${isDarkMode ? 'bg-white' : 'bg-black'} transition-all duration-200 group-hover:w-full`}></span>
+        <span className={`absolute right-0 bottom-0 h-0 w-[2px] ${isDarkMode ? 'bg-white' : 'bg-black'} transition-all duration-200 group-hover:h-full`}></span>
       </Link>
     </div >
   );
