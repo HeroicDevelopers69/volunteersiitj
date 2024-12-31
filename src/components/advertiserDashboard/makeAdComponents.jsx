@@ -192,3 +192,18 @@ export const RedoButton = ({ onClick, his }) => (
     <i className="fas fa-rotate-right"></i>
   </button>
 );
+
+export const PreviewButton = ({ onClick }) => (
+  <button
+    onClick={onClick}
+    className={`w-full bg-gray-500 text-white py-2 px-4 rounded-md shadow-md hover:bg-gray-600 active:scale-95`}
+  >
+    <div className="flex items-center justify-center">
+      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M2.458 12C3.732 7.943 7.522 5 12 5c4.478 0 8.268 2.943 9.542 7-.41 1.29-1.054 2.445-1.885 3.39M15.054 15.463C14.373 16.16 13.249 17 12 17c-1.249 0-2.373-.84-3.054-1.537" />
+      </svg>
+      <span className="ml-2 text-white">Preview</span>
+    </div>
+  </button>
+);
