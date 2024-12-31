@@ -16,7 +16,7 @@ const FieldMessage = ({ component, onChange, onDelete }) => {
   return (
     <div className='flex items-center gap-x-1 py-2 px-1'>
       <button onClick={() => onDelete(component.id)} className='px-2 h-fit -ml-7 bg-rose-600 text-white active:scale-105'>-</button>
-      <textarea onChange={handleChange} className='w-full min-h-32 p-1 border-2 border-gray-300' name="message" placeholder='Message' value={component.message} />
+      <textarea onChange={handleChange} className='w-full min-h-24 p-1 border-2 border-gray-300' name="message" placeholder='Message' value={component.message} />
     </div>
   )
 }
@@ -42,15 +42,15 @@ const FieldList = ({ component, onChange, onDelete }) => {
 
   const handleDeleteItem = (i) => {
     setItems((prevItems) => prevItems.filter((_, index) => index !== i));
-    setNumberOfItems((prevCount) => prevCount - 1); 
+    setNumberOfItems((prevCount) => prevCount - 1);
   };
 
   let content = [];
   for (let i = 0; i < numberOfItems; i++) {
     content.push(
       <div className='flex w-56 gap-x-2' key={i}>
-        <input onChange={(e) => handleListChange(e, i)} className='w-full pr-1 text-right border-2 border-gray-300' type='text' value={items[i]} name={`${i}`}  placeholder={`List Item ${i + 1}`} />
-        {i>1 && <button className='px-2 -mr-9 bg-rose-300' onClick={()=>handleDeleteItem(i)}>-</button>}
+        <input onChange={(e) => handleListChange(e, i)} className='w-full pr-1 text-right border-2 border-gray-300' type='text' value={items[i]} name={`${i}`} placeholder={`List Item ${i + 1}`} />
+        {i > 1 && <button className='px-2 -mr-9 bg-rose-300' onClick={() => handleDeleteItem(i)}>-</button>}
       </div>
     );
   }
@@ -136,6 +136,10 @@ const MakeAd = () => {
     setSequence(sequence.filter((component) => component.id !== id))
   }
 
+  const handleSave = () => {
+    
+  }
+
   const content = [];
   for (let component of sequence) {
     switch (component.type) {
@@ -158,7 +162,7 @@ const MakeAd = () => {
     <div className='w-full min-h-screen flex flex-col mt-7'>
       <h1 className='whitespace-nowrap text-2xl font-bold tracking-tighter mb-3'>Step 1 - Make Advertisement</h1>
       <div className='w-full py-6 flex gap-x-8'>
-        <div className='w-full max-w-96 min-h-[34rem] flex flex-col'>
+        <div className='w-full max-w-96 min-h-[30rem] flex flex-col'>
           <div className='w-full min-h-[30rem] bg-white dark:bg-gray-900'>
             <h1 className='bg-black dark:bg-white dark:text-black font-mono text-black w-full py-2 px-1 text-center'>
               <input className='px-1 text-center tracking-wider' placeholder='Title' type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
@@ -170,10 +174,15 @@ const MakeAd = () => {
             <input className='px-1' placeholder='Title' type='datetime-local' value={deadline} onChange={(e) => setDeadline(e.target.value)} />
           </div>
         </div>
-        <div className='w-full flex gap-4 min-h-96 p-5'>
-          <FieldButton onClick={() => handleClick('field')} />
-          <FieldListButton onClick={() => handleClick('fieldList')} />
-          <FieldMessageButton onClick={() => handleClick('fieldMessage')} />
+        <div className='w-full flex flex-col justify-between'>
+          <div className='w-full flex gap-4 min-h-96 p-5'>
+            <FieldButton onClick={() => handleClick('field')} />
+            <FieldListButton onClick={() => handleClick('fieldList')} />
+            <FieldMessageButton onClick={() => handleClick('fieldMessage')} />
+          </div>
+          <div className='w-full text-right min-h-9'>
+            <button onClick={handleSave} className='text-xl text-white px-5 py-1 bg-purple-600 transition-transform border-2 border-purple-800 hover:scale-110 active:bg-purple-500'>Save</button>
+          </div>
         </div>
       </div>
     </div>
