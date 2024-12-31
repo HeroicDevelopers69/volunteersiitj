@@ -29,7 +29,7 @@ export const advertisements = [
             },
             {
                 id: 4,
-                type: "message",
+                type: "fieldMessage",
                 message: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iusto, repellat, nulla quis consequatur unde maiores necessitatibus dignissimos mollitia saepe laudantium sequi beatae sunt blanditiis a ut quasi eligendi autem impedit. Quam sunt qui quas totam!"
             }
         ],
@@ -61,7 +61,7 @@ export const advertisements = [
                 items: ["Working with senior","Fest Management"]
             },
             {
-                type: "message",
+                type: "fieldMessage",
                 message: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iusto, repellat, nulla quis consequatur unde maiores necessitatibus dignissimos mollitia saepe laudantium sequi beatae sunt blanditiis a ut quasi eligendi autem impedit. Quam sunt qui quas totam!"
             }
         ],
@@ -93,7 +93,7 @@ export const advertisements = [
                 items: ["Working with senior","Fest Management"]
             },
             {
-                type: "message",
+                type: "fieldMessage",
                 message: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iusto, repellat, nulla quis consequatur unde maiores necessitatibus dignissimos mollitia saepe laudantium sequi beatae sunt blanditiis a ut quasi eligendi autem impedit. Quam sunt qui quas totam!"
             }
         ],
@@ -125,7 +125,7 @@ export const advertisements = [
                 items: ["Working with senior","Fest Management"]
             },
             {
-                type: "message",
+                type: "fieldMessage",
                 message: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iusto, repellat, nulla quis consequatur unde maiores necessitatibus dignissimos mollitia saepe laudantium sequi beatae sunt blanditiis a ut quasi eligendi autem impedit. Quam sunt qui quas totam!"
             }
         ],
@@ -157,7 +157,7 @@ export const advertisements = [
                 items: ["Working with senior","Fest Management"]
             },
             {
-                type: "message",
+                type: "fieldMessage",
                 message: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iusto, repellat, nulla quis consequatur unde maiores necessitatibus dignissimos mollitia saepe laudantium sequi beatae sunt blanditiis a ut quasi eligendi autem impedit. Quam sunt qui quas totam!"
             }
         ],
