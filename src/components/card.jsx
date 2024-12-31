@@ -43,13 +43,13 @@ const Card = ({advertisement}) => {
         content.push(<CardFieldList label={component.label} items={component.items} />)
         break
       }
-      case 'message':{
+      case 'fieldMessage':{
         content.push(<CardMessage message={component.message}/>)
         break
       }
     }
     // Limiting number of fileds to 5
-    if(content.length>=5)break;
+    if(content.length>5)break;
   }
 
   let date = new Date();
@@ -87,7 +87,7 @@ const Card = ({advertisement}) => {
       </div>
 
       {/* To get required tailwind classes */}
-      <p className='hidden text-yellow-400'><p className='text-green-400'><p className='text-red-400'></p></p></p>
+      <p className='hidden text-yellow-400'><span className='text-green-400'><span className='text-red-400'></span></span></p>
     </div>
   )
 }

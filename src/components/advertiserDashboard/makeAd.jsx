@@ -16,10 +16,6 @@ const MakeAd = () => {
   const [advertisement, setAdvertisement] = useState([]);
 
 
-  useEffect(() => {
-    setAdvertisement({ "sequence": sequence, "deadline": deadline, "title": title });
-  }, [sequence, deadline, title]);
-
   const handleClick = (type) => {
     const id = nextId++;
     let newComponent = { id, type };
@@ -52,8 +48,12 @@ const MakeAd = () => {
       )
     );
     setHistory((prevHistory) =>
-      prevHistory.map((entry) =>
-        entry.component.id === id ? { ...entry, component: { ...entry.component, [name]: value } } : entry
+      prevHistory.map((entry) =>{
+        if(entry.component && entry.component.id === id){
+          return{ ...entry, component: { ...entry.component, [name]: value } } 
+        }
+        return entry
+      }
       )
     );
   };
@@ -139,7 +139,7 @@ const MakeAd = () => {
       alert('Please add at least 3 items to preview.')
       return; 
      }
-
+     console.log(sequence);
      setAdvertisement({
       id: adId++,
       title: title,
