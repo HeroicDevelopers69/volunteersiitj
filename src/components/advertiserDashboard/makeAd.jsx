@@ -132,7 +132,7 @@ const MakeAd = () => {
     } else if (!deadline) {
       alert('Please select a deadline before previewing.');
       return;
-    } //else if (sequence.length < 3) return alert('Please add at least 3 items to preview.')
+     } else if (sequence.length < 3) return alert('Please add at least 3 items to preview.')
     const updatedSequence = sequence.filter((component) => component.label.toLowerCase() !== 'creator');
     for (let component of sequence) {
 
@@ -164,7 +164,6 @@ const MakeAd = () => {
         }));
       }
       sequence.filter((element, index) => element.label.toLowerCase() !== 'creator')
-      console.log(advertisement)
     }
     setShowPreview(true);
   };
@@ -245,10 +244,10 @@ const MakeAd = () => {
             <input
               className="px-2 py-2 text-sm md:text-md font-semibold border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black transition-all duration-300 bg-gradient-to-r from-gray-100 to-gray-300 text-gray-800 hover:scale-105 focus:ring-offset-2 transform ease-in-out"
               type="datetime-local"
-              onChange={handleDeadlineChange} // Use the custom handler
+              onChange={handleDeadlineChange}
               placeholder="Select Deadline"
             />
-            {deadline && <div className="text-gray-700 mt-2">{deadline}</div>} {/* Display the formatted deadline */}
+            {deadline && <div className="text-gray-700 mt-2">{deadline}</div>}
           </div>
         </div>
         <div className="md:w-1/3 w-full flex flex-col  gap-4">
