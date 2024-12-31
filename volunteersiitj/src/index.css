@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+#pane {
+  transition: transform 200ms ease-in-out, opacity 500ms ease-in-out;
+  transform: translateY(-150%);
+  opacity: 0;
+}
+
+#pane.show {
+  transform: translateY(-0%);
+  opacity: 1;
+}
