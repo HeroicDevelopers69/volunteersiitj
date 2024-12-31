@@ -7,7 +7,8 @@ const MakeAd = () => {
   const [title, setTitle] = useState('');
   const [deadline, setDeadline] = useState('');
   const [sequence, setSequence] = useState([]);
-  const [lastDeleted, setLastDeleted] = useState({});
+  const [history, setHistory] = useState([]);
+  const [undohistory, setundoHistory] = useState([]);
 
   const handleClick = (type) => {
     const id = Date.now();
@@ -48,19 +49,15 @@ const MakeAd = () => {
   };
 
   const handleDelete = (id) => {
-    let deletedIndex = 0;
-    setLastDeleted({
-      deletedComponent:(sequence.filter((component, index) => {
-        if(component.id === id){
-          deletedIndex = index;
-        }
-        return component.id === id
-      })
-      )[0], 
-      deletedIndex:deletedIndex
-    });
+    const deleted = sequence.find((component) => component.id === id);
+    setHistory([...history, { action: 'delete', component: deleted }]);
     setSequence(sequence.filter((component) => component.id !== id));
-    console.log(lastDeleted);
+  };
+
+  const handleClearAll = () => {
+    setHistory([...history, { action: 'clear', components: [...sequence] }]);
+    setSequence([]);
+    setundoHistory([])
   };
 
   const handleUndo = () => {

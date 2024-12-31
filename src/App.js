@@ -5,7 +5,6 @@ import Footer from './components/footer';
 import Home from './pages/home';
 import AdvertiserDashboard from './pages/advertiserDashboard'
 import ContactUs from './pages/contactUs';
-import AboutUs from './pages/aboutUs';
 
 function App() {
   return (
@@ -17,7 +16,6 @@ function App() {
             <Route path='/' element={<Home />} />
             <Route path='/advertiserDashboard' element={<AdvertiserDashboard />} />
             <Route path='/contactus' element={<ContactUs/>}/>
-            <Route path='/aboutus' element={<AboutUs/>}/>
           </Routes>
           <Footer />
         </div>
