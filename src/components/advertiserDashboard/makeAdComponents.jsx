@@ -193,10 +193,11 @@ export const RedoButton = ({ onClick, his }) => (
   </button>
 );
 
-export const PreviewButton = ({ onClick }) => (
+export const PreviewButton = ({ onClick, his }) => (
   <button
     onClick={onClick}
-    className={`w-full bg-gray-500 text-white py-2 px-4 rounded-md shadow-md hover:bg-gray-600 active:scale-95`}
+    className={`w-full bg-gray-500 text-white py-2 px-4 rounded-md shadow-md hover:bg-gray-600 active:scale-95 ${his ? 'hidden disabled:active:scale-100' : 'bg-gray-500'}`}
+    disabled={his}
   >
     <div className="flex items-center justify-center">
       <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
