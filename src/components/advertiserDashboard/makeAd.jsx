@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 
-import { Field,FieldList,FieldMessage } from './makeAdComponents';
-import { FieldButton,FieldListButton,FieldMessageButton,ClearAllButton,UndoButton} from './makeAdComponents';
+import { Field, FieldList, FieldMessage } from './makeAdComponents';
+import { FieldButton, FieldListButton, FieldMessageButton, ClearAllButton, UndoButton, RedoButton } from './makeAdComponents';
 
 const MakeAd = () => {
   const [title, setTitle] = useState('');
   const [deadline, setDeadline] = useState('');
   const [sequence, setSequence] = useState([]);
   const [history, setHistory] = useState([]);
+  const [undohistory, setundoHistory] = useState([]);
 
   const handleClick = (type) => {
     const id = Date.now();
@@ -46,10 +47,12 @@ const MakeAd = () => {
   const handleClearAll = () => {
     setHistory([...history, { action: 'clear', components: [...sequence] }]);
     setSequence([]);
+    setundoHistory([])
   };
 
   const handleUndo = () => {
     const lastAction = history.pop();
+    setundoHistory([...undohistory, lastAction])
     if (lastAction) {
       if (lastAction.action === 'add') {
         setSequence(sequence.filter((component) => component.id !== lastAction.component.id));
@@ -62,7 +65,24 @@ const MakeAd = () => {
     }
   };
 
+  const handleRedo = () => {
+    const prevAction = undohistory.pop();
+    setHistory([...history, prevAction])
+    switch (prevAction.action) {
+      case 'add':
+        setSequence([...sequence, prevAction.component])
+        break;
+      case 'delete':
+        setSequence(sequence.filter((component) => component.id !== prevAction.component.id));
+        break;
+      case 'clear':
+        setSequence([])
+        break;
+    }
+  }
+
   const isUndoDisabled = history.length === 0;
+  const isRedoDisabled = undohistory.length === 0;
   const isClearAllDisabled = sequence.length === 0;
 
   return (
@@ -127,7 +147,10 @@ const MakeAd = () => {
           <FieldListButton onClick={() => handleClick('fieldList')} />
           <FieldMessageButton onClick={() => handleClick('fieldMessage')} />
           <ClearAllButton onClick={handleClearAll} isDisabled={isClearAllDisabled} />
-          <UndoButton onClick={handleUndo} his={isUndoDisabled} />
+          <div className="flex gap-2">
+            <UndoButton onClick={handleUndo} his={isUndoDisabled} />
+            <RedoButton onClick={handleRedo} his={isRedoDisabled} />
+          </div>
         </div>
       </div>
     </div>
