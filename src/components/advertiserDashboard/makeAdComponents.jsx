@@ -1,4 +1,4 @@
-import { useEffect,useState } from "react";
+import { useEffect, useState } from "react";
 
 export const Field = ({ component, onChange, onDelete }) => {
   const handleChange = (e) => {
@@ -137,48 +137,58 @@ export const FieldList = ({ component, onChange, onDelete }) => {
 // BUTTONS
 
 export const FieldButton = ({ onClick }) => (
-    <button
-      onClick={onClick}
-      className="w-full bg-blue-500 text-white py-2 px-4 rounded-md shadow-md hover:bg-blue-600 active:scale-95"
-    >
-      Add Label
-    </button>
+  <button
+    onClick={onClick}
+    className="w-full bg-blue-500 text-white py-2 px-4 rounded-md shadow-md hover:bg-blue-600 active:scale-95"
+  >
+    Add Label
+  </button>
 );
 
 export const FieldListButton = ({ onClick }) => (
-<button
+  <button
     onClick={onClick}
     className="w-full bg-teal-500 text-white py-2 px-4 rounded-md shadow-md hover:bg-teal-600 active:scale-95"
->
+  >
     Add List of Items
-</button>
+  </button>
 );
 
 export const FieldMessageButton = ({ onClick }) => (
-<button
+  <button
     onClick={onClick}
     className="w-full bg-yellow-500 text-white py-2 px-4 rounded-md shadow-md hover:bg-yellow-600 active:scale-95"
->
+  >
     Add Message
-</button>
+  </button>
 );
 
 export const ClearAllButton = ({ onClick, isDisabled }) => (
-<button
+  <button
     onClick={onClick}
     className={`w-full bg-red-500 text-white py-2 px-4 rounded-md shadow-md hover:bg-red-600 active:scale-95 ${isDisabled ? 'disabled:bg-red-900 disabled:active:scale-100' : ''}`}
     disabled={isDisabled} // Disable button if isDisabled is true
->
+  >
     Clear All
-</button>
+  </button>
 );
 
 export const UndoButton = ({ onClick, his }) => (
-<button
+  <button
     onClick={onClick}
-    className={`w-full bg-green-500 text-white py-2 px-4 rounded-md shadow-md hover:bg-green-600 active:scale-95 ${his ? 'disabled:bg-green-900 disabled:active:scale-100' : 'bg-green-500'}`}
-    disabled={his} // Correctly apply the disabled state
->
-    Undo
-</button>
+    className={`w-full bg-blue-500 text-white py-2 px-4 rounded-md shadow-md hover:bg-blue-600 active:scale-95 ${his ? 'disabled:bg-blue-900 disabled:active:scale-100' : 'bg-blue-500'}`}
+    disabled={his}
+  >
+    <i className="fas fa-rotate-left"></i>
+  </button>
+);
+
+export const RedoButton = ({ onClick, his }) => (
+  <button
+    onClick={onClick}
+    className={`w-full bg-blue-500 text-white py-2 px-4 rounded-md shadow-md hover:bg-blue-600 active:scale-95 ${his ? 'disabled:bg-blue-900 disabled:active:scale-100' : 'bg-blue-500'}`}
+    disabled={his}
+  >
+    <i className="fas fa-rotate-right"></i>
+  </button>
 );
