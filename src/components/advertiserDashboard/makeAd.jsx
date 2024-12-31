@@ -139,6 +139,7 @@ const MakeAd = () => {
   const [deadline, setDeadline] = useState('');
   const [sequence, setSequence] = useState([]);
   const [history, setHistory] = useState([]);
+  const [undohistory, setundoHistory] = useState([]);
 
   const handleClick = (type) => {
     const id = Date.now();
@@ -181,6 +182,7 @@ const MakeAd = () => {
 
   const handleUndo = () => {
     const lastAction = history.pop();
+    setundoHistory([...undohistory, lastAction]);
     if (lastAction) {
       if (lastAction.action === 'add') {
         setSequence(sequence.filter((component) => component.id !== lastAction.component.id));
@@ -193,7 +195,24 @@ const MakeAd = () => {
     }
   };
 
+  const handleRedo = () => {
+    const prevAction = undohistory.pop()
+    switch (prevAction.action) {
+      case 'add':
+        setSequence([...sequence, prevAction.component])
+        break;
+      case 'delete':
+        setSequence(sequence.filter((component) => component.id !== prevAction.component.id));
+        break;
+      case 'clear':
+        setSequence([]);
+        break;
+    }
+    setHistory([...history, prevAction])
+  }
+
   const isUndoDisabled = history.length === 0;
+  const isRedoDisabled = undohistory.length === 0;
   const isClearAllDisabled = sequence.length === 0;
 
   return (
@@ -258,7 +277,10 @@ const MakeAd = () => {
           <FieldListButton onClick={() => handleClick('fieldList')} />
           <FieldMessageButton onClick={() => handleClick('fieldMessage')} />
           <ClearAllButton onClick={handleClearAll} isDisabled={isClearAllDisabled} />
-          <UndoButton onClick={handleUndo} his={isUndoDisabled} />
+          <div className="flex gap-5">
+            <UndoButton onClick={handleUndo} his={isUndoDisabled} />
+            <RedoButton onClick={handleRedo} his={isRedoDisabled} />
+          </div>
         </div>
       </div>
     </div>
@@ -270,7 +292,7 @@ export default MakeAd;
 const FieldButton = ({ onClick }) => (
   <button
     onClick={onClick}
-    className="w-full bg-blue-500 text-white py-2 px-4 rounded-md shadow-md hover:bg-blue-600 active:scale-95"
+    className="w-full bg-green-500 text-white py-2 px-4 rounded-md shadow-md hover:bg-green-600 active:scale-95"
   >
     Add Label
   </button>
@@ -307,9 +329,20 @@ const ClearAllButton = ({ onClick, isDisabled }) => (
 const UndoButton = ({ onClick, his }) => (
   <button
     onClick={onClick}
-    className={`w-full bg-green-500 text-white py-2 px-4 rounded-md shadow-md hover:bg-green-600 active:scale-95 ${his ? 'disabled:bg-green-900 disabled:active:scale-100' : 'bg-green-500'}`}
+    className={`w-full bg-blue-500 text-white py-2 px-4 rounded-md shadow-md hover:bg-blue-600 active:scale-95 ${his ? 'disabled:bg-blue-900 disabled:active:scale-100' : 'bg-blue-500'}`}
     disabled={his} // Correctly apply the disabled state
   >
-    Undo
+    <i className="fas fa-rotate-left"></i>
   </button>
 );
+
+const RedoButton = ({ onClick, his }) => (
+  <button
+    onClick={onClick}
+    className={`w-full bg-blue-500 text-white py-2 px-4 rounded-md shadow-md hover:bg-blue-600 active:scale-95 ${his ? 'disabled:bg-blue-900 disabled:active:scale-100' : 'bg-blue-500'}`}
+    disabled={his} // Correctly apply the disabled state
+  >
+    <i className="fas fa-rotate-right"></i>
+  </button>
+);
+
