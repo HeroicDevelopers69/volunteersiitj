@@ -93,7 +93,7 @@ const MakeAd = () => {
           break;
       }
     }
-    setUndoHistory(newUndoHistory);
+    setundoHistory(newUndoHistory);
   };
 
   const isUndoDisabled = history.length === 0;
