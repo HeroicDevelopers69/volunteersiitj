@@ -24,16 +24,26 @@ const MakeAd = () => {
       case 'fieldMessage':
         newComponent = { ...newComponent, message: '' };
         break;
+      default:
+        break;
     }
 
-    setSequence([...sequence, newComponent]);
-    setHistory([...history, { action: 'add', component: newComponent }]);
+    setSequence((prevSequence) => {
+      const updatedSequence = [...prevSequence, newComponent];
+      setHistory((prevHistory) => [...prevHistory, { action: 'add', component: newComponent }]);
+      return updatedSequence;
+    });
   };
 
   const handleChange = (id, name, value) => {
-    setSequence(
-      sequence.map((component) =>
+    setSequence((prevSequence) =>
+      prevSequence.map((component) =>
         component.id === id ? { ...component, [name]: value } : component
+      )
+    );
+    setHistory((prevHistory) =>
+      prevHistory.map((entry) =>
+        entry.component.id === id ? { ...entry, component: { ...entry.component, [name]: value } } : entry
       )
     );
   };
@@ -52,16 +62,21 @@ const MakeAd = () => {
 
   const handleUndo = () => {
     if (history.length === 0) return;
+
     const newHistory = [...history];
     const lastAction = newHistory.pop();
-    setundoHistory([...undohistory, lastAction]);
+
     if (lastAction) {
+      setundoHistory((prevUndoHistory) => [...prevUndoHistory, lastAction]);
+
       switch (lastAction.action) {
         case 'add':
-          setSequence(sequence.filter((component) => component.id !== lastAction.component.id));
+          setSequence((prevSequence) =>
+            prevSequence.filter((component) => component.id !== lastAction.component.id)
+          );
           break;
         case 'delete':
-          setSequence([...sequence, lastAction.component]);
+          setSequence((prevSequence) => [...prevSequence, lastAction.component]);
           break;
         case 'clear':
           setSequence(lastAction.components);
@@ -70,21 +85,27 @@ const MakeAd = () => {
           break;
       }
     }
+
     setHistory(newHistory);
   };
 
   const handleRedo = () => {
     if (undohistory.length === 0) return;
+
     const newUndoHistory = [...undohistory];
     const prevAction = newUndoHistory.pop();
-    setHistory([...history, prevAction]);
+
     if (prevAction) {
+      setHistory((prevHistory) => [...prevHistory, prevAction]);
+
       switch (prevAction.action) {
         case 'add':
-          setSequence([...sequence, prevAction.component]);
+          setSequence((prevSequence) => [...prevSequence, prevAction.component]);
           break;
         case 'delete':
-          setSequence(sequence.filter((component) => component.id !== prevAction.component.id));
+          setSequence((prevSequence) =>
+            prevSequence.filter((component) => component.id !== prevAction.component.id)
+          );
           break;
         case 'clear':
           setSequence([]);
@@ -93,6 +114,7 @@ const MakeAd = () => {
           break;
       }
     }
+
     setundoHistory(newUndoHistory);
   };
 
