@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { Field, FieldList, FieldMessage } from './makeAdComponents';
-import { FieldButton, FieldListButton, FieldMessageButton, ClearAllButton, UndoButton, RedoButton } from './makeAdComponents';
+import { FieldButton, FieldListButton, FieldMessageButton, ClearAllButton, UndoButton, RedoButton, PreviewButton } from './makeAdComponents';
 
 const MakeAd = () => {
   const [title, setTitle] = useState('');
@@ -51,7 +51,7 @@ const MakeAd = () => {
   };
 
   const handleUndo = () => {
-    const lastAction = history.pop();
+    const lastAction = history.pop()
     setundoHistory([...undohistory, lastAction])
     if (lastAction) {
       if (lastAction.action === 'add') {
@@ -151,6 +151,7 @@ const MakeAd = () => {
             <UndoButton onClick={handleUndo} his={isUndoDisabled} />
             <RedoButton onClick={handleRedo} his={isRedoDisabled} />
           </div>
+          <PreviewButton onClick={handleRedo} his={isRedoDisabled} />
         </div>
       </div>
     </div>
