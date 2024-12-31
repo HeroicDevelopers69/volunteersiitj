@@ -51,35 +51,50 @@ const MakeAd = () => {
   };
 
   const handleUndo = () => {
-    const lastAction = history.pop()
-    setundoHistory([...undohistory, lastAction])
+    if (history.length === 0) return;
+    const newHistory = [...history];
+    const lastAction = newHistory.pop();
+    setundoHistory([...undohistory, lastAction]);
     if (lastAction) {
-      if (lastAction.action === 'add') {
-        setSequence(sequence.filter((component) => component.id !== lastAction.component.id));
-      } else if (lastAction.action === 'delete') {
-        setSequence([...sequence, lastAction.component]);
-      } else if (lastAction.action === 'clear') {
-        setSequence(lastAction.components);
+      switch (lastAction.action) {
+        case 'add':
+          setSequence(sequence.filter((component) => component.id !== lastAction.component.id));
+          break;
+        case 'delete':
+          setSequence([...sequence, lastAction.component]);
+          break;
+        case 'clear':
+          setSequence(lastAction.components);
+          break;
+        default:
+          break;
       }
-      setHistory([...history]);
     }
+    setHistory(newHistory);
   };
 
   const handleRedo = () => {
-    const prevAction = undohistory.pop();
-    setHistory([...history, prevAction])
-    switch (prevAction.action) {
-      case 'add':
-        setSequence([...sequence, prevAction.component])
-        break;
-      case 'delete':
-        setSequence(sequence.filter((component) => component.id !== prevAction.component.id));
-        break;
-      case 'clear':
-        setSequence([])
-        break;
+    if (undohistory.length === 0) return;
+    const newUndoHistory = [...undohistory];
+    const prevAction = newUndoHistory.pop();
+    setHistory([...history, prevAction]);
+    if (prevAction) {
+      switch (prevAction.action) {
+        case 'add':
+          setSequence([...sequence, prevAction.component]);
+          break;
+        case 'delete':
+          setSequence(sequence.filter((component) => component.id !== prevAction.component.id));
+          break;
+        case 'clear':
+          setSequence([]);
+          break;
+        default:
+          break;
+      }
     }
-  }
+    setundoHistory(newUndoHistory);
+  };
 
   const isUndoDisabled = history.length === 0;
   const isRedoDisabled = undohistory.length === 0;
