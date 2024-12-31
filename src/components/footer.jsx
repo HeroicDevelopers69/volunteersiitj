@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   // Check local storage for saved theme
@@ -18,13 +19,13 @@ const Footer = () => {
     document.documentElement.classList.toggle('dark', isDarkMode); // Apply the dark class to the root element
   }, [isDarkMode]);
 
-  const AnimatedUnderline = ({ text }) => {
+  const AnimatedUnderline = ({ text, link }) => {
     return (
       <div className="flex justify-start items-center">
-        <a href="#" className="relative group ml-1">
+        <Link to={`/${link}`} className="relative group ml-1">
           {text}
           <span className={`absolute left-0 bottom-0 w-0 h-[1px] ${isDarkMode ? 'bg-white' : 'bg-black'} transition-all duration-500 group-hover:w-full`}></span>
-        </a>
+        </Link>
       </div>
     );
   };
@@ -66,10 +67,11 @@ const Footer = () => {
           <div className="w-full md:w-auto md:ml-10 px-0 text-left mt-4 md:mt-0">
             <h3 className="text-xl font-semibold mb-4 ml-1">Quick Links</h3>
             <ul className="space-y-2">
-              <li><AnimatedUnderline text="Home" /> </li>
-              <li><AnimatedUnderline text="Current Opportunities" /> </li>
-              <li><AnimatedUnderline text="Submit Your Application" /> </li>
-              <li><AnimatedUnderline text="Contact Us" /> </li>
+              <li><AnimatedUnderline text="Home" link={'#'} /> </li>
+              <li><AnimatedUnderline text="Current Opportunities" link={''}/> </li>
+              <li><AnimatedUnderline text="Submit Your Application" link={''}/> </li>
+              <li><AnimatedUnderline text="Contact Us" link={'contactus'}/> </li>
+              <li><AnimatedUnderline text="About Us" link={'aboutus'}/> </li>
             </ul>
           </div>
 
