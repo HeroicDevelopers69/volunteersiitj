@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const NewsCard = ({ news = { title: '', description: '', publisher: '', imgsrc: '' } }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isImageLoaded, setIsImageLoaded] = useState(false);
 
   return (
-    <div className="max-w-md w-full bg-white dark:bg-gray-800 rounded-xl shadow-lg transform transition-all duration-300 hover:scale-[1.02] hover:shadow-xl cursor-pointer">
+    <Link
+    to='/showNews'
+    state={{news:news}} 
+    className="max-w-md w-full bg-white dark:bg-gray-800 rounded-xl shadow-lg transform transition-all duration-300 hover:scale-[1.02] hover:shadow-xl cursor-pointer">
       <div className="border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden">
         <div className="relative w-full h-60 bg-gray-100 dark:bg-gray-900">
           <img
@@ -53,7 +57,7 @@ const NewsCard = ({ news = { title: '', description: '', publisher: '', imgsrc: 
         <span>Published By</span>
         <span className="font-medium">{news.publisher}</span>
       </div>
-    </div>
+    </Link>
   );
 };
 
