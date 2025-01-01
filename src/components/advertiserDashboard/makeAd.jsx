@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import {useLocalStorage} from '../../customHooks/useLocalStorage';
 import Card from '../card';
 import { Field, FieldList, FieldMessage } from './makeAdComponents';
 import { FieldButton, FieldListButton, FieldMessageButton, ClearAllButton, UndoButton, RedoButton, PreviewButton } from './makeAdComponents';
@@ -7,11 +8,11 @@ let nextId = 0;
 let adId = 0;
 
 const MakeAd = () => {
-  const [title, setTitle] = useState('');
-  const [deadline, setDeadline] = useState('');
-  const [sequence, setSequence] = useState([]);
-  const [history, setHistory] = useState([]);
-  const [undohistory, setundoHistory] = useState([]);
+  const [title, setTitle] = useLocalStorage('title','');
+  const [deadline, setDeadline] = useState('deadline','');
+  const [sequence, setSequence] = useLocalStorage('adsequence',[]);
+  const [history, setHistory] = useLocalStorage('history',[]);
+  const [undohistory, setundoHistory] = useLocalStorage('undohistory',[]);
   const [showPreview, setShowPreview] = useState(false);
   const [advertisement, setAdvertisement] = useState([]);
 

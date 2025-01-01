@@ -6,7 +6,7 @@ export const Field = ({ component, onChange, onDelete }) => {
   };
 
   return (
-    <div className="w-full flex justify-between gap-x-2 items-center py-2 px-4 bg-gray-50 rounded-md shadow-sm hover:shadow-md transition-all duration-300 ease-in-out transform hover:scale-[1.04] hover:ring-1 hover:ring-black">
+    <div className="w-full flex justify-between gap-x-2 items-center py-2 px-4 bg-gray-50 rounded-md shadow-sm hover:shadow-md transition-all duration-300 ease-in-out transform hover:scale-[1.02] hover:ring-1 hover:ring-black">
       <button
         onClick={() => onDelete(component.id)}
         className="px-3 py-1 text-sm bg-red-500 text-white rounded-full hover:bg-red-600 active:scale-95 transition-all duration-300"
@@ -39,7 +39,7 @@ export const FieldMessage = ({ component, onChange, onDelete }) => {
   };
 
   return (
-    <div className="w-full flex items-center gap-x-2 py-2 px-4 bg-gray-50 rounded-md shadow-sm hover:shadow-md transition-all duration-300 ease-in-out transform hover:scale-[1.04] hover:ring-1 hover:ring-black">
+    <div className="w-full flex items-center gap-x-2 py-2 px-4 bg-gray-50 rounded-md shadow-sm hover:shadow-md transition-all duration-300 ease-in-out transform hover:scale-[1.02] hover:ring-1 hover:ring-black">
       <button
         onClick={() => onDelete(component.id)}
         className="px-3 py-1 text-sm bg-red-500 text-white  rounded-full hover:bg-red-600 active:scale-95 transition-all duration-300"
@@ -83,7 +83,7 @@ export const FieldList = ({ component, onChange, onDelete }) => {
   };
 
   return (
-    <div className="w-full flex flex-col gap-2 py-4 pr-6 pl-4 bg-gray-50 rounded-md shadow-sm hover:shadow-md transition-all duration-300 ease-in-out transform hover:scale-[1.04] hover:ring-1 hover:ring-black">
+    <div className="w-full flex flex-col gap-2 py-4 pr-6 pl-4 bg-gray-50 rounded-md shadow-sm hover:shadow-md transition-all duration-300 ease-in-out transform hover:scale-[1.02] hover:ring-1 hover:ring-black">
       <div className="flex">
         <button
           className="px-3 text-sm py-1 bg-red-500 text-white rounded-full hover:bg-red-600 active:scale-95 transition-all duration-300"
@@ -125,7 +125,7 @@ export const FieldList = ({ component, onChange, onDelete }) => {
               className="px-3 py-1 bg-red-500 text-white rounded-full hover:bg-red-600 active:scale-95 transition-all duration-300"
               onClick={() => handleDeleteItem(index)}
             >
-              ✖
+              X
             </button>
           )}
         </div>
@@ -165,11 +165,11 @@ export const FieldMessageButton = ({ onClick }) => (
 
 export const ClearAllButton = ({ onClick, disabled }) => (
   <button
-    onClick={onClick}
+    onDoubleClick={onClick}
     className='w-full bg-red-500 text-white py-2 px-4 rounded-md shadow-md hover:bg-red-600 active:scale-95 disabled:bg-red-900 disabled:active:scale-100'
     disabled={disabled} // Disable button if isDisabled is true
   >
-    Clear All
+    Double click to clear all
   </button>
 );
 
