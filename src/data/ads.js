@@ -37,7 +37,7 @@ export const advertisements = [
         creator: "SAC"
     },
     {
-        id: 1,
+        id: 2,
         title: "PROMETEO 2025",
         sequence: [
             {
@@ -69,7 +69,7 @@ export const advertisements = [
         creator: "ACAC"
     },
     {
-        id: 1,
+        id: 3,
         title: "VARCHAS 2025",
         sequence: [
             {
@@ -101,7 +101,7 @@ export const advertisements = [
         creator: "SAC"
     },
     {
-        id: 1,
+        id: 4,
         title: "PROMETEO 2025",
         sequence: [
             {
@@ -133,7 +133,7 @@ export const advertisements = [
         creator: "ACAC"
     },
     {
-        id: 1,
+        id: 5,
         title: "VARCHAS 2025",
         sequence: [
             {

@@ -1,18 +1,19 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const CardField = ({ label, value }) => (
   <div className="w-full flex justify-between items-center p-3 hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors">
-    <p className="font-semibold text-gray-700 dark:text-gray-300">{label}</p>
-    <p className="text-gray-600 dark:text-gray-400">{value}</p>
+    <p className="font-semibold  dark:text-gray-300">{label}</p>
+    <p className=" dark:text-gray-400">{value}</p>
   </div>
 );
 
 const CardFieldList = ({ label, items }) => (
   <div className="w-full flex justify-between items-start p-3 hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors">
-    <p className="w-1/3 font-semibold text-gray-700 dark:text-gray-300">{label}</p>
+    <p className="w-1/3 font-semibold  dark:text-gray-300">{label}</p>
     <ul className="w-2/3 space-y-1">
       {items.map((element, index) => (
-        <li key={index} className="text-right text-gray-600 dark:text-gray-400">{element}</li>
+        <li key={index} className="text-right  dark:text-gray-400">{element}</li>
       ))}
     </ul>
   </div>
@@ -24,7 +25,7 @@ const CardMessage = ({ message }) => {
 
   return (
     <div className="w-full p-3">
-      <p className="text-gray-600 dark:text-gray-400 bg-gray-50 dark:bg-gray-900 rounded-lg p-4 transition-all">
+      <p className=" dark:text-gray-400 bg-gray-50 text-justify dark:bg-gray-900 rounded-lg p-4 transition-all">
         {isExpanded ? message : truncatedMessage}
         {message.length > 215 && (
           <button
@@ -85,8 +86,8 @@ const Card = ({ advertisement = defaultAdvertisement }) => {
     >
       <div className="border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden">
         <h1 
-          className={`bg-purple-600 text-white py-4 px-6 text-xl font-bold text-center transition-all duration-300 ${
-            isHovered ? 'tracking-wider' : ''
+          className={`bg-black text-white py-4 px-6 text-xl font-bold text-center transition-all duration-300 ${
+            isHovered ? 'tracking-[10px]' : ''
           }`}
         >
           {advertisement.title}
@@ -97,20 +98,23 @@ const Card = ({ advertisement = defaultAdvertisement }) => {
         </div>
 
         <div className="p-4 flex justify-between gap-4">
-          <button className="w-1/2 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transform transition-all duration-300 hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2">
+          <Link
+          to='/showAd'
+          state={{ad:advertisement}}
+          className="w-1/2 py-2 bg-purple-600 text-center hover:bg-purple-700 text-white rounded-lg transform transition-all duration-300 hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2">
             Know More
-          </button>
+          </Link>
           <button className="w-1/2 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transform transition-all duration-300 hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
             Apply
           </button>
         </div>
       </div>
 
-      <div className="mt-2 px-4 py-3 bg-gray-100 dark:bg-gray-900 rounded-b-xl flex justify-between items-center text-sm">
-        <span className={`font-medium ${timeColorClass}`}>
+      <div className="mt-2 px-4 py-3 bg-gray-100 dark:bg-gray-900 rounded-b-xl flex justify-between items-center">
+        <span className={`${timeColorClass}`}>
           Time left: {daysLeft}d {hoursLeft}h
         </span>
-        <span className="text-gray-600 dark:text-gray-400">
+        <span className=" dark:text-gray-400">
           By {advertisement.creator}
         </span>
       </div>

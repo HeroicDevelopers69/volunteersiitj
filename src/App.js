@@ -9,6 +9,8 @@ import ContactUs from './pages/contactUs';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
 import AboutUs from './pages/aboutus';
+import ShowAd from './pages/showAd';
+import ShowNews from './pages/showNews';
 
 function App() {
   const location = useLocation();
@@ -91,6 +93,16 @@ function App() {
             <Route path='/makeAdvertisement' element={
               <motion.div {...pageTransitions.fade}>
                 <MakeAdvertisement />
+              </motion.div>
+            } />
+            <Route path='/showAd' element={
+              <motion.div {...pageTransitions.fade}>
+                <ShowAd />
+              </motion.div>
+            } />
+            <Route path='/showNews' element={
+              <motion.div {...pageTransitions.fade}>
+                <ShowNews />
               </motion.div>
             } />
             <Route path='/contactus' element={

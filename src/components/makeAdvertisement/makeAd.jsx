@@ -171,7 +171,7 @@ const MakeAd = () => {
   };
 
   return (
-    <div className="mt-10 p-6 bg-gray-100 min-h-[600px] flex flex-col gap-6 dark:bg-gray-900">
+    <div className="mt-20 p-6 bg-gray-100 min-h-[600px] flex flex-col gap-6 dark:bg-gray-900">
       <h1 className="text-3xl font-bold dark:text-white transition-all duration-300 ease-in-out">Step 1 - Create Your Advertisement</h1>
       <div className="flex flex-col md:flex-row gap-6 h-full">
         <div className="w-full min-h-[500px] overflow-y-visible bg-white shadow-lg rounded-md p-6 flex flex-col gap-4 transition-all duration-300 ease-in-out">
