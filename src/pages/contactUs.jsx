@@ -1,56 +1,153 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 
-  
-const contactUsEmails = ['b24cm1008@iitj.ac.in', 'b24cm1008@iitj.ac.in', 'b24cm1008@iitj.ac.in']
-const contactUsNumbers = ['+91 8340376572', '+91 8340376572', '+91 8340376572']
+const contactUsEmails = ['contact@example.com', 'support@example.com', 'info@example.com'];
+const contactUsNumbers = ['+91 1234567890', '+91 9876543210', '+91 1122334455'];
 
 const ContactUs = () => {
-  const [formData,setFormData] = useState({
-    name:'',
-    email:'',
-    message:''
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    contactNumber: '',
+    message: ''
   });
 
-  const handleSubmit = (e)=>{
-    // Handle submit logic
-  }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!formData.contactNumber || !formData.name || !formData.email || !formData.message) {
+      alert("All fields are required!");
+      return;
+    }
+    alert(`Message sent by ${formData.name}`);
+    setFormData({ name: '', email: '', contactNumber: '', message: '' });
+  };
+
+  const handleContactNumberChange = (e) => {
+    // Only allow numbers and prevent non-numeric input
+    const value = e.target.value;
+    if (/^\d*$/.test(value)) {
+      setFormData({ ...formData, contactNumber: value });
+    }
+  };
 
   return (
-    <div className='w-full py-40 flex mt-5'>
-      <div className='w-full flex flex-col justify-center items-center  gap-y-4'>
-        <div className='min-w-52 flex flex-col gap-y-4'>
-          <h1 className='text-3xl font-bold'>Email us on</h1>
-          {contactUsEmails.map((element, index) => {
-            return <a href={`mailto:${element}`} key={index} className='pl-8 text-center hover:underline cursor-pointer hover:text-blue-500'>{element}</a>
-          })}
-        </div>
-        <div className='min-w-52 flex flex-col gap-y-4'>
-          <h1 className='text-3xl font-bold'>Call us on</h1>
-          {contactUsNumbers.map((element, index) => {
-            return <span onClick={() => { navigator.clipboard.writeText(element) }} key={index} className='pl-8 text-center transition-transform hover:scale-105 cursor-pointer'>{element}</span>
-          })}
-        </div>
-      </div>
-      <div className='w-full flex justify-center items-center'>
-        <div className='w-64 flex flex-col gap-2 justify-between'>
-          <div>
-            <label className='text-lg'>Name: </label>
-            <input className='w-full px-1 py-1 border-2 border-gray-400 hover:border-gray-500' type="text" value={formData.name} onChange={(e)=>setFormData({...formData,name:e.target.value})}/>
+    <div className="mt-7 shadow-md shadow-black/75 dark:border-white border-lg w-full min-h-screen flex flex-col items-center bg-gradient-to-br from-gray-200 via-gray-300 to-gray-400 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 transition-colors duration-300">
+      {/* Hero Section */}
+      <motion.div
+        className="w-full max-w-5xl mx-auto text-center py-16"
+        initial={{ opacity: 0, y: -30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+      >
+        <h1 className="text-5xl font-extrabold text-gray-900 dark:text-white">
+          Get in <span className="text-blue-600 dark:text-blue-400">Touch</span>
+        </h1>
+        <p className="mt-4 text-lg text-gray-600 dark:text-gray-300">
+          We’d love to hear from you. Whether you have a question or just want to say hello, our team is always ready to help.
+        </p>
+      </motion.div>
+
+      {/* Contact Info Section (Emails and Numbers stacked vertically) */}
+      <motion.div
+        className="w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-10 mb-16 px-4"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.6, staggerChildren: 0.2 }}
+      >
+        {/* Contact Information (Email & Phone) */}
+        <div className="w-full flex flex-col justify-start items-start gap-8">
+          {/* Email Section */}
+          <div className="w-[400px] p-6 shadow-black/25 dark:shadow-white/20 bg-white dark:bg-gray-800 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+            <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4">Email Us</h2>
+            {contactUsEmails.map((email, index) => (
+              <motion.a
+                key={index}
+                href={`mailto:${email}`}
+                className="block text-lg text-blue-600 dark:text-blue-400 hover:underline mb-2"
+                whileHover={{ scale: 1.05 }}
+              >
+                {email}
+              </motion.a>
+            ))}
           </div>
-          <div>
-            <label  className='text-lg'>Email: </label>
-            <input className='w-full px-1 py-1 border-2 border-gray-400 hover:border-gray-500' type="text" value={formData.email} onChange={(e)=>setFormData({...formData,email:e.target.value})}/>
+
+          {/* Phone Section */}
+          <div className="w-[400px] p-6 bg-white shadow-black/25 dark:shadow-white/20 dark:bg-gray-800 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+            <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4">Call Us</h2>
+            {contactUsNumbers.map((number, index) => (
+              <motion.span
+                key={index}
+                onClick={() => navigator.clipboard.writeText(number)}
+                className="block text-lg text-gray-800 dark:text-gray-300 cursor-pointer hover:text-blue-600 dark:hover:text-blue-400 mb-2"
+                whileHover={{ scale: 1.05 }}
+              >
+                {number}
+              </motion.span>
+            ))}
           </div>
-          <div>
-            <label  className='text-lg'>Message: </label>
-            <textarea className='w-full min-h-16 px-1 py-1 border-2 border-gray-400 hover:border-gray-500'value={formData.message} onChange={(e)=>setFormData({...formData,message:e.target.value})}/>
-          </div>
-          <button onClick={handleSubmit} className='w-full bg-blue-800 text-white p-2 transition-transform hover:scale-105 active:bg-blue-700'>Submit</button>
         </div>
 
-      </div>
+        {/* Contact Form Section (On the right of the contact info) */}
+        <motion.div
+          className="w-full max-w-lg shadow-black/25 bg-white dark:shadow-white/20 dark:bg-gray-800 p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+        >
+          <form className="space-y-6" onSubmit={handleSubmit}>
+            <div>
+              <label className="block text-lg font-semibold text-gray-800 dark:text-gray-300 mb-2">Name</label>
+              <input
+                type="text"
+                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none dark:bg-gray-700 dark:text-gray-200"
+                value={formData.name}
+                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-lg font-semibold text-gray-800 dark:text-gray-300 mb-2">Email</label>
+              <input
+                type="email"
+                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none dark:bg-gray-700 dark:text-gray-200"
+                value={formData.email}
+                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-lg font-semibold text-gray-800 dark:text-gray-300 mb-2">Contact Number</label>
+              <input
+                type="tel"
+                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none dark:bg-gray-700 dark:text-gray-200"
+                value={formData.contactNumber}
+                onChange={handleContactNumberChange}
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-lg font-semibold text-gray-800 dark:text-gray-300 mb-2">Message</label>
+              <textarea
+                rows="4"
+                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none dark:bg-gray-700 dark:text-gray-200"
+                value={formData.message}
+                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                required
+              />
+            </div>
+            <motion.button
+              type="submit"
+              className="w-full py-2 text-lg font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              Send Message
+            </motion.button>
+          </form>
+        </motion.div>
+      </motion.div>
     </div>
-  )
-}
+  );
+};
 
-export default ContactUs
+export default ContactUs;
