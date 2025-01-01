@@ -51,7 +51,7 @@ const Navbar = () => {
               className="h-8 w-auto transform transition-transform duration-300 group-hover:scale-110" 
             />
             <span className="text-2xl font-bold text-white">
-              Volunteers
+              VolunteersIITJ
             </span>
           </Link>
 
