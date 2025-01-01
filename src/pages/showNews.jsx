@@ -6,7 +6,7 @@ const ShowNews = () => {
     const news = location.state?.news;
 
     return (
-        <div className='w-full flex justify-center py-10'>
+        <div className='w-full flex justify-center py-10 mt-10'>
             <div className='w-full flex flex-col gap-y-2 max-w-2xl bg-white'>
                 <div className='max-h-96'>
                     <img className='w-full' src={news.imgsrc} alt="IMG" />

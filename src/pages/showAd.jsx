@@ -39,7 +39,7 @@ const ShowAd = () => {
     }
 
     return (
-        <div className='w-full flex justify-center py-7'>
+        <div className='w-full flex justify-center py-7 mt-10'>
             <div className='w-full max-w-2xl bg-white'>
                 <h1 className='w-full text-center bg-black text-white py-2 text-xl font-semibold'>{advertisement.title}</h1>
                 <div className='w-full p-2 flex flex-col gap-y-2'>
