@@ -16,11 +16,10 @@ const MakeAd = () => {
   const [showPreview, setShowPreview] = useState(false);
   const [advertisement, setAdvertisement] = useState([]);
 
-
   const handleClick = (type) => {
     const id = nextId++;
     let newComponent = { id, type };
-
+  
     switch (type) {
       case 'field':
         newComponent = { ...newComponent, label: '', value: '' };
@@ -34,13 +33,16 @@ const MakeAd = () => {
       default:
         break;
     }
-
+  
     setSequence((prevSequence) => {
       const updatedSequence = [...prevSequence, newComponent];
-      setHistory((prevHistory) => [...prevHistory, { action: 'add', component: newComponent }]);
+      setHistory((prevHistory) => [
+        ...prevHistory,
+        { action: 'add', component: newComponent, index: prevSequence.length }, // Track index
+      ]);
       return updatedSequence;
     });
-  };
+  };  
 
   const handleChange = (id, name, value) => {
     setSequence((prevSequence) =>
@@ -49,19 +51,18 @@ const MakeAd = () => {
       )
     );
     setHistory((prevHistory) =>
-      prevHistory.map((entry) =>{
-        if(entry.component && entry.component.id === id){
-          return{ ...entry, component: { ...entry.component, [name]: value } } 
+      prevHistory.map((entry) => {
+        if (entry.component && entry.component.id === id) {
+          return { ...entry, component: { ...entry.component, [name]: value } };
         }
-        return entry
-      }
-      )
+        return entry;
+      })
     );
   };
 
   const handleDelete = (id) => {
     const deleted = sequence.find((component) => component.id === id);
-    setHistory([...history, { action: 'delete', component: deleted }]);
+    setHistory([...history, { action: 'delete', component: deleted, index: sequence.indexOf(deleted) }]);
     setSequence(sequence.filter((component) => component.id !== id));
   };
 
@@ -73,13 +74,13 @@ const MakeAd = () => {
 
   const handleUndo = () => {
     if (history.length === 0) return;
-
+  
     const newHistory = [...history];
     const lastAction = newHistory.pop();
-
+  
     if (lastAction) {
       setundoHistory((prevUndoHistory) => [...prevUndoHistory, lastAction]);
-
+  
       switch (lastAction.action) {
         case 'add':
           setSequence((prevSequence) =>
@@ -87,7 +88,9 @@ const MakeAd = () => {
           );
           break;
         case 'delete':
-          setSequence((prevSequence) => [...prevSequence, lastAction.component]);
+          const restored = [...sequence];
+          restored.splice(lastAction.index, 0, lastAction.component);
+          setSequence(restored);
           break;
         case 'clear':
           setSequence(lastAction.components);
@@ -95,9 +98,9 @@ const MakeAd = () => {
         default:
           break;
       }
+  
+      setHistory(newHistory); // Update history after undo operation
     }
-
-    setHistory(newHistory);
   };
 
   const handleRedo = () => {
@@ -114,9 +117,9 @@ const MakeAd = () => {
           setSequence((prevSequence) => [...prevSequence, prevAction.component]);
           break;
         case 'delete':
-          setSequence((prevSequence) =>
-            prevSequence.filter((component) => component.id !== prevAction.component.id)
-          );
+          const removed = [...sequence];
+          removed.splice(prevAction.index, 1);
+          setSequence(removed);
           break;
         case 'clear':
           setSequence([]);
@@ -136,29 +139,28 @@ const MakeAd = () => {
     } else if (!deadline) {
       alert('Please select a deadline before previewing.');
       return;
-     } else if (sequence.length < 3){
-      alert('Please add at least 3 items to preview.')
-      return; 
-     }
-     console.log(sequence);
-     setAdvertisement({
+    } else if (sequence.length < 3) {
+      alert('Please add at least 3 items to preview.');
+      return;
+    }
+    setAdvertisement({
       id: adId++,
       title: title,
       sequence: sequence,
       deadline: deadline,
-      creator: "Admin"
-     })
-     setShowPreview(true);
-  }
+      creator: 'Admin',
+    });
+    setShowPreview(true);
+  };
 
   const handleDeadlineChange = (e) => {
-    const selectedDate = new Date(e.target.value); // Convert input value to a Date object
-    const formattedDate = selectedDate.toString(); // Get the string format like "Sat Dec 31 2024 12:20:38 GMT+0530 (India Standard Time)"
+    const selectedDate = new Date(e.target.value);
+    const formattedDate = selectedDate.toString();
     setDeadline(formattedDate);
   };
 
   const handhleClose = () => {
-    setShowPreview(false)
+    setShowPreview(false);
   };
 
   const handleTitleChange = (e) => {
@@ -178,9 +180,9 @@ const MakeAd = () => {
               className="w-full px-4 py-2 text-xl font-semibold border-b mb-4 focus:outline-none transition-all duration-300"
               placeholder="Enter Advertisement Title"
               value={title}
-              onChange={handleTitleChange} // Use the new handler
+              onChange={handleTitleChange}
             />
-            <span className="text-gray-500">{title.length}/15</span> {/* Character counter */}
+            <span className="text-gray-500">{title.length}/15</span>
           </div>
           <div className="flex flex-col gap-4">
             {sequence.map((component) => {
@@ -228,7 +230,7 @@ const MakeAd = () => {
             {deadline && <div className="text-gray-700 mt-2">{deadline}</div>}
           </div>
         </div>
-        <div className="md:w-1/3 w-full flex flex-col  gap-4">
+        <div className="md:w-1/3 w-full flex flex-col gap-4">
           <FieldButton onClick={() => handleClick('field')} />
           <FieldListButton onClick={() => handleClick('fieldList')} />
           <FieldMessageButton onClick={() => handleClick('fieldMessage')} />
@@ -250,7 +252,6 @@ const MakeAd = () => {
             >
               <i className="fas fa-times text-2xl"></i>
             </button>
-            {/* Other content */}
           </div>
           <Card advertisement={advertisement} />
         </div>

@@ -16,7 +16,7 @@ const AboutUserCard = ({ user }) => {
                     alt={name}
                     className="w-full h-56 object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black opacity-70 group-hover:opacity-90 transition-opacity duration-500"></div>
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black dark:to-gray-600 opacity-70 group-hover:opacity-90 transition-opacity duration-500"></div>
             </div>
 
             {/* Content Section */}
