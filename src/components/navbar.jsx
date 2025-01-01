@@ -17,15 +17,17 @@ const AnimatedUnderline = ({ link, text }) => {
 const Navbar = () => {
   return (
     <div className='flex items-center tracking-tight font-roboto justify-between relative bg-transparent text-white m-0 z-20'>
-      <div className="start flex cursor-pointer">
+      <Link to='/' className="start flex cursor-pointer">
         <img src='/assets/images/logo.svg' alt="Logo" className='h-[30px]' />
         <div className="name ml-[10px] text-[24px] hover:underline">Volunteers</div>
-      </div>
+      </Link>
       <div className="buttons items-center md:flex h-[20px] hidden">
         <AnimatedUnderline link='/' text='Forms' />
         <AnimatedUnderline link='/advertiserDashboard' text='Dashboard' />
+        <AnimatedUnderline link='/makeAdvertisement' text='Make Ad' />
         <AnimatedUnderline link='/' text='News' />
         <AnimatedUnderline link='/contactus' text='Contact Us' />
+        <AnimatedUnderline link='/aboutus' text='About Us' />
       </div>
       <div className="flex items-center relative md:hidden">
         <ShowMenu />

@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 // Category one : Text, Number, email
 
 export const CategoryOneTemplate = ({ type, data, onChange,onDelete }) => {
