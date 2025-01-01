@@ -86,7 +86,7 @@ const Card = ({ advertisement = defaultAdvertisement }) => {
       <div className="border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden">
         <h1 
           className={`bg-purple-600 text-white py-4 px-6 text-xl font-bold text-center transition-all duration-300 ${
-            isHovered ? 'tracking-wider' : ''
+            isHovered ? 'tracking-[10px]' : ''
           }`}
         >
           {advertisement.title}
