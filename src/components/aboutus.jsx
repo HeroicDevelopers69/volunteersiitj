@@ -4,7 +4,7 @@ import { teamofHeroic } from '../data/team';
 
 const About = () => {
     return (
-        <div className="mt-7 relative h-auto bg-gradient-to-br from-gray-100 via-gray-300 to-gray-500 dark:from-gray-900 dark:via-gray-800 dark:to-gray-700 p-10">
+        <div className="mt-7 shadow-md rounded-sm shadow-black/75 dark:shadow-white/25 relative h-auto bg-gradient-to-br from-gray-100 via-gray-300 to-gray-500 dark:from-gray-900 dark:via-gray-800 dark:to-gray-700 p-10">
             {/* Header Section */}
             <div className="relative flex justify-center items-center mb-12">
                 <h1 className="relative group text-xl md:text-4xl font-extrabold text-center text-gray-800 dark:text-white">
