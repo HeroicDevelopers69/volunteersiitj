@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 
 const CardField = ({ label, value }) => {
   return (
@@ -15,7 +16,7 @@ const CardFieldList = ({ label, items }) => {
       <p className='w-full font-bold tracking-tight whitespace-nowrap'>{label}:</p>
       <ul className='w-full flex flex-col items-end'>
         {items.map((element) => {
-          return <li>{element}</li>
+          return <li key={element}>{element}</li>
         })}
       </ul>
     </div>
@@ -36,15 +37,15 @@ const Card = ({advertisement}) => {
   for(let component of advertisement.sequence){
     switch (component.type){
       case 'field':{
-        content.push(<CardField label={component.label} value={component.value}/>)
+        content.push(<CardField label={component.label} value={component.value} key={component.label}/>)
         break
       }
       case 'fieldList':{
-        content.push(<CardFieldList label={component.label} items={component.items} />)
+        content.push(<CardFieldList label={component.label} items={component.items} key={component.label}/>)
         break
       }
       case 'fieldMessage':{
-        content.push(<CardMessage message={component.message}/>)
+        content.push(<CardMessage message={component.message} key={component.message}/>)
         break
       }
     }
@@ -73,9 +74,12 @@ const Card = ({advertisement}) => {
         </h1>
         {content.map((element)=> {return element})}
         <div className='w-full px-2 pt-4 pb-2 flex justify-between'>
-          <button className='px-3 py-2 bg-purple-700 text-white border-2 dark:border-black rounded-sm transition-transform duration-100 hover:scale-110 active:bg-purple-600 active:border-purple-900'>
+          <Link 
+          to='/showAd'
+          state={{ad:advertisement}}
+          className='px-3 py-2 bg-purple-700 text-white border-2 dark:border-black rounded-sm transition-transform duration-100 hover:scale-110 active:bg-purple-600 active:border-purple-900'>
             Know More
-          </button>
+          </Link>
           <button className='px-3 py-2 bg-green-700 text-white border-2 rounded-sm transition-transform duration-100 hover:scale-110 active:bg-green-600 active:border-green-900 dark:border-black'>
             Apply
           </button>

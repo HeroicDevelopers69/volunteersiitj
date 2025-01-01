@@ -16,10 +16,10 @@ const Section = ({title}) => {
         </div>
         <div className='w-full grid grid-cols-1 gap-x-3 gap-y-10 md:grid-cols-2 lg:grid-cols-3'>
             {title.toLowerCase()==='apply' && advertisements.map((element)=>{
-            return <Card advertisement={element}/>
+            return <Card key={element.id} advertisement={element}/>
           })}
             {title.toLowerCase()==='news' && news.map((element)=>{
-            return <NewsCard news={element}/>
+            return <NewsCard key={element.id} news={element}/>
           })}
         </div>
     </div>
