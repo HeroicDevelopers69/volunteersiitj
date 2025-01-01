@@ -1,11 +1,8 @@
 import React from 'react'
-import MakeAd from '../components/advertiserDashboard/makeAd'
-import MakeForm from '../components/advertiserDashboard/makeForm'
+import MakeAd from '../components/makeAdvertisement/makeAd'
+import MakeForm from '../components/makeAdvertisement/makeForm'
 
-
-
-
-const AdvertiserDashboard = () => {
+const MakeAdvertisement = () => {
   return (
     <div>
       <MakeAd/>
@@ -21,4 +18,4 @@ const AdvertiserDashboard = () => {
   )
 }
 
-export default AdvertiserDashboard
+export default MakeAdvertisement

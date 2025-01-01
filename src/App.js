@@ -4,7 +4,7 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/navbar';
 import Footer from './components/footer';
 import Home from './pages/home';
-import AdvertiserDashboard from './pages/advertiserDashboard';
+import MakeAdvertisement from './pages/makeAdvertisement';
 import ContactUs from './pages/contactUs';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
@@ -88,9 +88,9 @@ function App() {
                 <Home />
               </motion.div>
             } />
-            <Route path='/advertiserDashboard' element={
+            <Route path='/makeAdvertisement' element={
               <motion.div {...pageTransitions.fade}>
-                <AdvertiserDashboard />
+                <MakeAdvertisement />
               </motion.div>
             } />
             <Route path='/contactus' element={
