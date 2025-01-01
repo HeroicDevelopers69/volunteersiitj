@@ -31,7 +31,7 @@ const ContactUs = () => {
   };
 
   return (
-    <div className="mt-7 shadow-md shadow-black/75 dark:border-white border-lg w-full min-h-screen flex flex-col items-center bg-gradient-to-br from-gray-200 via-gray-300 to-gray-400 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 transition-colors duration-300">
+    <div className="mt-[50px] shadow-md shadow-black/75 dark:border-white border-lg w-full min-h-screen flex flex-col items-center bg-gradient-to-br from-gray-200 via-gray-300 to-gray-400 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 transition-colors duration-300">
       {/* Hero Section */}
       <motion.div
         className="w-full max-w-5xl mx-auto text-center py-16"

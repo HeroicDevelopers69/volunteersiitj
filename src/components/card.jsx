@@ -1,99 +1,122 @@
-import React from 'react'
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
 
-const CardField = ({ label, value }) => {
-  return (
-    <div className='w-full flex justify-between items-center px-2 py-1'>
-      <p className='font-bold tracking-tight'>{label} -</p>
-      <p>{value}</p>
-    </div>
-  );
-}
+const CardField = ({ label, value }) => (
+  <div className="w-full flex justify-between items-center p-3 hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors">
+    <p className="font-semibold text-gray-700 dark:text-gray-300">{label}</p>
+    <p className="text-gray-600 dark:text-gray-400">{value}</p>
+  </div>
+);
 
-const CardFieldList = ({ label, items }) => {
-  return (
-    <div className='w-full flex justify-between items-start px-2 py-1'>
-      <p className='w-full font-bold tracking-tight whitespace-nowrap'>{label}:</p>
-      <ul className='w-full flex flex-col items-end'>
-        {items.map((element) => {
-          return <li key={element}>{element}</li>
-        })}
-      </ul>
-    </div>
-  );
-}
+const CardFieldList = ({ label, items }) => (
+  <div className="w-full flex justify-between items-start p-3 hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors">
+    <p className="w-1/3 font-semibold text-gray-700 dark:text-gray-300">{label}</p>
+    <ul className="w-2/3 space-y-1">
+      {items.map((element, index) => (
+        <li key={index} className="text-right text-gray-600 dark:text-gray-400">{element}</li>
+      ))}
+    </ul>
+  </div>
+);
 
 const CardMessage = ({ message }) => {
-  return (
-    <div className='w-full px-2 py-1'>
-      <p className='w-full text-justify p-1 border-2 border-gray-400'>{(message.length < 215)? message : message.substr(0, 215)+'...'}</p>
-    </div>
-  )
-}
+  const [isExpanded, setIsExpanded] = useState(false);
+  const truncatedMessage = message.length > 215 ? message.substr(0, 215) + '...' : message;
 
-const Card = ({advertisement}) => {
+  return (
+    <div className="w-full p-3">
+      <p className="text-gray-600 dark:text-gray-400 bg-gray-50 dark:bg-gray-900 rounded-lg p-4 transition-all">
+        {isExpanded ? message : truncatedMessage}
+        {message.length > 215 && (
+          <button
+            onClick={() => setIsExpanded(!isExpanded)}
+            className="text-purple-600 dark:text-purple-400 hover:text-purple-700 ml-2 font-medium"
+          >
+            {isExpanded ? 'Show less' : 'Read more'}
+          </button>
+        )}
+      </p>
+    </div>
+  );
+};
+
+// Sample data structure for demonstration
+const defaultAdvertisement = {
+  title: "Default Advertisement",
+  sequence: [],
+  deadline: new Date(Date.now() + 86400000 * 5), // 5 days from now
+  creator: "Anonymous"
+};
+
+const Card = ({ advertisement = defaultAdvertisement }) => {
+  const [isHovered, setIsHovered] = useState(false);
 
   const content = [];
-  for(let component of advertisement.sequence){
-    switch (component.type){
-      case 'field':{
-        content.push(<CardField label={component.label} value={component.value} key={component.label}/>)
-        break
-      }
-      case 'fieldList':{
-        content.push(<CardFieldList label={component.label} items={component.items} key={component.label}/>)
-        break
-      }
-      case 'fieldMessage':{
-        content.push(<CardMessage message={component.message} key={component.message}/>)
-        break
+  if (advertisement.sequence) {
+    for (let component of advertisement.sequence) {
+      if (content.length >= 5) break;
+      
+      switch (component.type) {
+        case 'field':
+          content.push(<CardField key={content.length} label={component.label} value={component.value} />);
+          break;
+        case 'fieldList':
+          content.push(<CardFieldList key={content.length} label={component.label} items={component.items} />);
+          break;
+        case 'fieldMessage':
+          content.push(<CardMessage key={content.length} message={component.message} />);
+          break;
       }
     }
-    // Limiting number of fileds to 5
-    if(content.length>5)break;
   }
 
-  let date = new Date();
-  let deadline = new Date(advertisement.deadline);
-  let timeDifference = deadline - date;
+  const date = new Date();
+  const deadline = new Date(advertisement.deadline);
+  const timeDifference = deadline - date;
   const daysLeft = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
   const hoursLeft = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
 
-  let timeColor = 'red';
-  if(daysLeft>3){
-    timeColor = 'green';
-  }
-  else if(daysLeft>1){
-    timeColor = 'yellow';
-  }
+  const timeColorClass = daysLeft > 3 ? 'text-green-500' : daysLeft > 1 ? 'text-yellow-500' : 'text-red-500';
+
   return (
-    <div className='max-w-96 bg-white dark:text-white dark:bg-black w-full transition-transform duration-300 hover:scale-[1.01] font-roboto shadow-2xl  shadow-black/75 hover:shadow-black/80  dark:shadow-white/15 dark:shadow-xl dark:border-white'>
-      <div className='max-w-96 w-full flex flex-col items-center justify-between border-2 border-gray-600 px-2 pt-2'>
-        <h1 className='bg-black dark:bg-white dark:text-black font-mono text-white w-full py-2 px-1 text-center transition-transform duration-300 tracking-wider hover:tracking-[10px]'>
+    <div
+      className="max-w-md w-full bg-white dark:bg-gray-800 rounded-xl shadow-lg transform transition-all duration-300 hover:scale-[1.02] hover:shadow-xl"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <div className="border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden">
+        <h1 
+          className={`bg-purple-600 text-white py-4 px-6 text-xl font-bold text-center transition-all duration-300 ${
+            isHovered ? 'tracking-[10px]' : ''
+          }`}
+        >
           {advertisement.title}
         </h1>
-        {content.map((element)=> {return element})}
-        <div className='w-full px-2 pt-4 pb-2 flex justify-between'>
-          <Link 
-          to='/showAd'
-          state={{ad:advertisement}}
-          className='px-3 py-2 bg-purple-700 text-white border-2 dark:border-black rounded-sm transition-transform duration-100 hover:scale-110 active:bg-purple-600 active:border-purple-900'>
+        
+        <div className="divide-y divide-gray-200 dark:divide-gray-700">
+          {content}
+        </div>
+
+        <div className="p-4 flex justify-between gap-4">
+          <button className="w-1/2 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transform transition-all duration-300 hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2">
             Know More
-          </Link>
-          <button className='px-3 py-2 bg-green-700 text-white border-2 rounded-sm transition-transform duration-100 hover:scale-110 active:bg-green-600 active:border-green-900 dark:border-black'>
+          </button>
+          <button className="w-1/2 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transform transition-all duration-300 hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
             Apply
           </button>
         </div>
       </div>
-      <div className='w-full px-2 py-1 flex justify-between bg-gray-600'>
-        <span className={`text-${timeColor}-400 font-semibold`}>Time left: {daysLeft}d {hoursLeft}h</span>
-        <span className='text-white'>By {advertisement.creator}</span>
+
+      <div className="mt-2 px-4 py-3 bg-gray-100 dark:bg-gray-900 rounded-b-xl flex justify-between items-center text-sm">
+        <span className={`font-medium ${timeColorClass}`}>
+          Time left: {daysLeft}d {hoursLeft}h
+        </span>
+        <span className="text-gray-600 dark:text-gray-400">
+          By {advertisement.creator}
+        </span>
       </div>
-
-      {/* To get required tailwind classes */}
-      <p className='hidden text-yellow-400'><span className='text-green-400'><span className='text-red-400'></span></span></p>
     </div>
-  )
-}
+  );
+};
 
-export default Card
+export default Card;
+
