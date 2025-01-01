@@ -8,6 +8,7 @@ import AdvertiserDashboard from './pages/advertiserDashboard';
 import ContactUs from './pages/contactUs';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
+import AboutUs from './pages/aboutus';
 
 function App() {
   const location = useLocation();
@@ -121,6 +122,18 @@ function App() {
                 className="w-full"
               >
                 <SignupPage />
+              </motion.div>
+            } />
+            <Route path='/aboutus' element={
+              <motion.div
+                custom={direction}
+                variants={pageTransitions.auth}
+                initial="initial"
+                animate="animate"
+                exit="exit"
+                className="w-full"
+              >
+                <AboutUs />
               </motion.div>
             } />
           </Routes>
