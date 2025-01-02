@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import ErrorMessage from '../components/error';
 
 const contactUsEmails = ['contact@example.com', 'support@example.com', 'info@example.com'];
 const contactUsNumbers = ['+91 1234567890', '+91 9876543210', '+91 1122334455'];
 
 const ContactUs = () => {
+  const [error, setError] = useState(null);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -15,10 +17,9 @@ const ContactUs = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!formData.contactNumber || !formData.name || !formData.email || !formData.message) {
-      alert("All fields are required!");
+      setError({ title: 'Error', message: 'All fields are required!' });
       return;
-    }
-    alert(`Message sent by ${formData.name}`);
+    } else if (formData.contactNumber.length <= 5 || formData.contactNumber.length > 11) return setError({ title: 'Error', message: 'Please enter a valid mobile number.' })
     setFormData({ name: '', email: '', contactNumber: '', message: '' });
   };
 
@@ -52,39 +53,51 @@ const ContactUs = () => {
         className="w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-10 mb-16 px-4"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 0.6, staggerChildren: 0.2 }}
+        transition={{ duration: 0.4 }}
       >
         {/* Contact Information (Email & Phone) */}
         <div className="w-full flex flex-col justify-start items-start gap-8">
           {/* Email Section */}
-          <div className="w-[400px] p-6 shadow-black/25 dark:shadow-white/20 bg-white dark:bg-gray-800 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
-            <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4">Email Us</h2>
-            {contactUsEmails.map((email, index) => (
-              <motion.a
-                key={index}
-                href={`mailto:${email}`}
-                className="block text-lg text-blue-600 dark:text-blue-400 hover:underline mb-2"
-                whileHover={{ scale: 1.05 }}
-              >
-                {email}
-              </motion.a>
-            ))}
-          </div>
+          <motion.div
+            initial={{ opacity: 0, y: -30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.4 }}
+          >
+            <div className="w-[400px] p-6 shadow-black/25 dark:shadow-white/20 bg-white dark:bg-gray-800 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+              <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4">Email Us</h2>
+              {contactUsEmails.map((email, index) => (
+                <motion.a
+                  key={index}
+                  href={`mailto:${email}`}
+                  className="block text-lg text-blue-600 dark:text-blue-400 hover:underline mb-2"
+                  whileHover={{ scale: 1.05 }}
+                >
+                  {email}
+                </motion.a>
+              ))}
+            </div>
+          </motion.div>
 
           {/* Phone Section */}
-          <div className="w-[400px] p-6 bg-white shadow-black/25 dark:shadow-white/20 dark:bg-gray-800 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
-            <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4">Call Us</h2>
-            {contactUsNumbers.map((number, index) => (
-              <motion.span
-                key={index}
-                onClick={() => navigator.clipboard.writeText(number)}
-                className="block text-lg text-gray-800 dark:text-gray-300 cursor-pointer hover:text-blue-600 dark:hover:text-blue-400 mb-2"
-                whileHover={{ scale: 1.05 }}
-              >
-                {number}
-              </motion.span>
-            ))}
-          </div>
+          <motion.div
+            initial={{ opacity: 0, y: -35 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.4 }}
+          >
+            <div className="w-[400px] p-6 bg-white shadow-black/25 dark:shadow-white/20 dark:bg-gray-800 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+              <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4">Call Us</h2>
+              {contactUsNumbers.map((number, index) => (
+                <motion.span
+                  key={index}
+                  onClick={() => navigator.clipboard.writeText(number)}
+                  className="block text-lg text-gray-800 dark:text-gray-300 cursor-pointer hover:text-blue-600 dark:hover:text-blue-400 mb-2"
+                  whileHover={{ scale: 1.05 }}
+                >
+                  {number}
+                </motion.span>
+              ))}
+            </div>
+          </motion.div>
         </div>
 
         {/* Contact Form Section (On the right of the contact info) */}
@@ -144,9 +157,12 @@ const ContactUs = () => {
               Send Message
             </motion.button>
           </form>
+          {error && (
+            <ErrorMessage title={error.title} message={error.message} state="true" />
+          )}
         </motion.div>
-      </motion.div>
-    </div>
+      </motion.div >
+    </div >
   );
 };
 

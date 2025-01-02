@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import {useLocalStorage} from '../../customHooks/useLocalStorage';
+import { useLocalStorage } from '../../customHooks/useLocalStorage';
 import Card from '../card';
+import ErrorMessage from '../error';  // Make sure this is correctly imported
 import { Field, FieldList, FieldMessage } from './makeAdComponents';
 import { FieldButton, FieldListButton, FieldMessageButton, ClearAllButton, UndoButton, RedoButton, PreviewButton } from './makeAdComponents';
 
@@ -8,18 +9,19 @@ let nextId = 0;
 let adId = 0;
 
 const MakeAd = () => {
-  const [title, setTitle] = useLocalStorage('title','');
-  const [deadline, setDeadline] = useState('deadline','');
-  const [sequence, setSequence] = useLocalStorage('adsequence',[]);
-  const [history, setHistory] = useLocalStorage('history',[]);
-  const [undohistory, setundoHistory] = useLocalStorage('undohistory',[]);
+  const [title, setTitle] = useLocalStorage('title', '');
+  const [deadline, setDeadline] = useState('');
+  const [sequence, setSequence] = useLocalStorage('adsequence', []);
+  const [history, setHistory] = useLocalStorage('history', []);
+  const [undohistory, setundoHistory] = useLocalStorage('undohistory', []);
   const [showPreview, setShowPreview] = useState(false);
   const [advertisement, setAdvertisement] = useState([]);
+  const [error, setError] = useState(null);
 
   const handleClick = (type) => {
     const id = nextId++;
     let newComponent = { id, type };
-  
+
     switch (type) {
       case 'field':
         newComponent = { ...newComponent, label: '', value: '' };
@@ -33,7 +35,7 @@ const MakeAd = () => {
       default:
         break;
     }
-  
+
     setSequence((prevSequence) => {
       const updatedSequence = [...prevSequence, newComponent];
       setHistory((prevHistory) => [
@@ -42,7 +44,7 @@ const MakeAd = () => {
       ]);
       return updatedSequence;
     });
-  };  
+  };
 
   const handleChange = (id, name, value) => {
     setSequence((prevSequence) =>
@@ -74,13 +76,13 @@ const MakeAd = () => {
 
   const handleUndo = () => {
     if (history.length === 0) return;
-  
+
     const newHistory = [...history];
     const lastAction = newHistory.pop();
-  
+
     if (lastAction) {
       setundoHistory((prevUndoHistory) => [...prevUndoHistory, lastAction]);
-  
+
       switch (lastAction.action) {
         case 'add':
           setSequence((prevSequence) =>
@@ -98,7 +100,7 @@ const MakeAd = () => {
         default:
           break;
       }
-  
+
       setHistory(newHistory); // Update history after undo operation
     }
   };
@@ -133,16 +135,21 @@ const MakeAd = () => {
   };
 
   const handlePreview = () => {
+    // Clear any previous error
+    setError(null);
+
+    // Check validation
     if (!title) {
-      alert('Please enter a title before previewing.');
+      setError({ title: 'Error', message: 'Please enter a title before previewing.' });
       return;
     } else if (!deadline) {
-      alert('Please select a deadline before previewing.');
+      setError({ title: 'Error', message: 'Please select a deadline before previewing.' });
       return;
     } else if (sequence.length < 3) {
-      alert('Please add at least 3 items to preview.');
+      setError({ title: 'Error', message: 'Please add at least 3 items to preview.' });
       return;
     }
+
     setAdvertisement({
       id: adId++,
       title: title,
@@ -159,7 +166,7 @@ const MakeAd = () => {
     setDeadline(formattedDate);
   };
 
-  const handhleClose = () => {
+  const handleClosePreview = () => {
     setShowPreview(false);
   };
 
@@ -243,12 +250,17 @@ const MakeAd = () => {
         </div>
       </div>
 
+      {/* Conditionally render the error message */}
+      {error && (
+        <ErrorMessage title={error.title} message={error.message} state="true" />
+      )}
+
       {showPreview && (
         <div className="fixed top-0 right-0 left-0 bottom-0 bg-black bg-opacity-50 flex flex-col justify-center items-center">
           <div className="relative w-96 text-right">
             <button
               className="transform text-white hover:text-red-600 pr-1 focus:outline-none text-right hover:scale-[1.35] active:text-red-800 active:scale-95 transition 500ms all-out"
-              onClick={handhleClose}
+              onClick={handleClosePreview}
             >
               <i className="fas fa-times text-2xl"></i>
             </button>

@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 
-const SearchBox = () => {
+const SearchBox = ({ onSearch }) => {
     const [query, setQuery] = useState('');
 
     const handleClick = () => {
-        // Add search functionality here
-        console.log('Search query:', query);
+        onSearch(query)
+        console.log(query)
     };
 
     return (
