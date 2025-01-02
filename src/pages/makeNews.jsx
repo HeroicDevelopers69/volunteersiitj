@@ -20,7 +20,7 @@ const MakeNews = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-10 px-4 flex flex-col items-center">
+    <div className="mt-[50px] min-h-screen bg-gray-50 dark:bg-gray-900 py-10 px-4 flex flex-col items-center">
       <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-200 mb-6">
         Create News
       </h1>
@@ -39,6 +39,7 @@ const MakeNews = () => {
             type="text"
             id="image"
             name="image"
+            required
             placeholder="Enter image URL"
             value={news.image}
             onChange={handleChange}
@@ -59,6 +60,7 @@ const MakeNews = () => {
             name="heading"
             placeholder="Enter news heading"
             value={news.heading}
+            required
             onChange={handleChange}
             className="w-full px-3 py-2 border rounded-lg text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray-900 border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-purple-500"
           />
@@ -78,6 +80,7 @@ const MakeNews = () => {
             value={news.description}
             onChange={handleChange}
             rows="5"
+            required
             className="w-full px-3 py-2 border rounded-lg text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray-900 border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-purple-500"
           ></textarea>
         </div>
