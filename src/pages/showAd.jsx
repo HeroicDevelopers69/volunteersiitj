@@ -38,9 +38,9 @@ const ShowAd = () => {
   }
 
   return (
-    <div className="w-full flex justify-center py-7 mt-10 bg-gradient-to-b from-blue-100 to-white">
-      <div className="w-full max-w-2xl bg-white shadow-lg rounded-lg p-6">
-        <h1 className="w-full text-center bg-gradient-to-r from-blue-500 to-blue-700 text-white py-3 text-2xl font-semibold rounded-md">
+    <div className="mt-[50px] w-full flex justify-center py-7 bg-gradient-to-b from-blue-100 to-white dark:from-gray-600 dark:to-gray-700">
+      <div className="w-full max-w-2xl bg-white dark:bg-gray-900 shadow-lg rounded-lg p-6">
+        <h1 className="w-full text-center bg-gradient-to-r from-blue-500 to-blue-700 dark:from-blue-800 dark:to-blue-900 text-white py-3 text-2xl font-semibold rounded-md">
           {advertisement.title}
         </h1>
         <div className="w-full p-4 flex flex-col gap-y-4">{content.map((element) => element)}</div>
@@ -70,18 +70,18 @@ export default ShowAd;
 
 const DetailField = ({ label, value }) => {
   return (
-    <div className="w-full px-4 py-3 flex justify-between items-center text-lg bg-gray-100 rounded-md shadow-sm transform transition-all duration-300 hover:ring-2 hover:ring-gray-500 hover:scale-105 hover:bg-gray-200">
-      <h1 className="font-semibold">{label}:</h1>
-      <span className="text-gray-700">{value}</span>
+    <div className="w-full px-4 py-3 flex justify-between items-center text-lg bg-gray-100 dark:bg-gray-500 dark:hover:bg-gray-600 rounded-md shadow-sm transform transition-all duration-300 hover:ring-2 hover:ring-gray-500 hover:scale-105 hover:bg-gray-200">
+      <h1 className="font-semibold dark:text-white">{label}:</h1>
+      <span className="text-gray-700 dark:text-white">{value}</span>
     </div>
   );
 };
 
 const DetailList = ({ label, items }) => {
   return (
-    <div className="w-full px-4 py-3 flex justify-between items-center text-lg bg-gray-100 rounded-md shadow-sm transform transition-all duration-300 hover:ring-2 hover:ring-gray-500 hover:scale-105 hover:bg-gray-200">
-      <h1 className="font-semibold">{label}:</h1>
-      <ul className="flex flex-col space-y-2 text-gray-700">
+    <div className="w-full px-4 py-3 flex justify-between items-center text-lg bg-gray-100 dark:bg-gray-500 dark:hover:bg-gray-600 rounded-md shadow-sm transform transition-all duration-300 hover:ring-2 hover:ring-gray-500 hover:scale-105 hover:bg-gray-200">
+      <h1 className="font-semibold dark:text-gray-200">{label}:</h1>
+      <ul className="flex flex-col space-y-2 text-gray-700 dark:text-white font-medium">
         {items.map((item, index) => (
           <li key={index} className="text-sm">{item}</li>
         ))}
@@ -92,8 +92,8 @@ const DetailList = ({ label, items }) => {
 
 const DetailMessage = ({ message }) => {
   return (
-    <div className="w-full px-4 py-3 text-lg bg-gray-100 rounded-md shadow-sm transform transition-all duration-300 hover:ring-2 hover:ring-gray-500 hover:scale-105 hover:bg-gray-200">
-      <p className="text-gray-700">{message}</p>
+    <div className="w-full px-4 py-3 text-lg dark:bg-gray-500 dark:hover:bg-gray-600 bg-gray-100 rounded-md shadow-sm transform transition-all duration-300 hover:ring-2 hover:ring-gray-500 hover:scale-105 hover:bg-gray-200">
+      <p className="text-gray-700 dark:text-white">{message}</p>
     </div>
   );
 };
