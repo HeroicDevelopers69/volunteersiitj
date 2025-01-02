@@ -9,7 +9,6 @@ const Home = () => {
   return (
     <>
       <Hero />
-      <ErrorMessage title='hi' message='yoooooooooooooooooo' state='true' />
       {/* There is a conditional on title in section.jsx, update that if changing title*/}
       <Section title='Apply' />
       <Section title='News' />
