@@ -60,6 +60,7 @@ const ShowAd = () => {
             Time left: {daysLeft}d {hoursLeft}h
           </span>
           <span className="text-white text-lg">By {advertisement.creator}</span>
+          <div className='hidden text-red-400'><div className='text-green-400'><div className='text-yellow-400'></div></div></div>
         </div>
       </div>
     </div>

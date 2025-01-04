@@ -9,7 +9,7 @@ const NewsCard = ({ news = { title: '', description: '', publisher: '', imgsrc: 
     to='/showNews'
     state={{news:news}} 
     className="max-w-md w-full bg-white dark:bg-gray-800 rounded-xl shadow-lg transform transition-all duration-300 hover:scale-[1.02] hover:shadow-xl cursor-pointer">
-      <div className="border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden">
+      <div className="rounded-xl overflow-hidden">
         <div className="relative w-full max-h-60 bg-gray-100 dark:bg-gray-900">
           <img
             src={news.imgsrc}
