@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const NewsCard = ({ news = { title: '', description: '', publisher: '', imgsrc: '' } }) => {
-  const [isExpanded, setIsExpanded] = useState(false);
   const [isImageLoaded, setIsImageLoaded] = useState(false);
 
   return (
@@ -11,11 +10,11 @@ const NewsCard = ({ news = { title: '', description: '', publisher: '', imgsrc: 
     state={{news:news}} 
     className="max-w-md w-full bg-white dark:bg-gray-800 rounded-xl shadow-lg transform transition-all duration-300 hover:scale-[1.02] hover:shadow-xl cursor-pointer">
       <div className="border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden">
-        <div className="relative w-full h-60 bg-gray-100 dark:bg-gray-900">
+        <div className="relative w-full max-h-60 bg-gray-100 dark:bg-gray-900">
           <img
             src={news.imgsrc}
             alt={news.title}
-            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${
+            className={`inset-0 w-full object-cover transition-opacity duration-300 ${
               isImageLoaded ? 'opacity-100' : 'opacity-0'
             }`}
             onLoad={() => setIsImageLoaded(true)}
@@ -33,26 +32,10 @@ const NewsCard = ({ news = { title: '', description: '', publisher: '', imgsrc: 
           </h1>
           
           <p className="text-gray-700 dark:text-gray-300 text-justify">
-            {isExpanded ? news.description : 
-              news.description.length > 430 ? 
-                `${news.description.substr(0, 430)}...` : 
-                news.description
-            }
-            {news.description.length > 430 && (
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setIsExpanded(!isExpanded);
-                }}
-                className="ml-2 text-purple-600 dark:text-purple-400 hover:text-purple-700 font-medium focus:outline-none"
-              >
-                {isExpanded ? 'Show less' : 'Read more'}
-              </button>
-            )}
+            {news.description.length > 430 ? `${news.description.substr(0, 430)}...` : news.description}
           </p>
         </div>
       </div>
-
       <div className="mt-2 px-4 py-3 bg-gray-700 dark:bg-gray-900 rounded-b-xl flex justify-between items-center text-sm text-white">
         <span>Published By</span>
         <span className="font-medium">{news.publisher}</span>
