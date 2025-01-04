@@ -1,26 +1,32 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 
-const SearchBox = () => {
+const SearchBox = ({ onSearch }) => {
     const [query, setQuery] = useState('');
 
-    const handleClick =()=>{
-        
-    }
+    const handleClick = () => {
+        onSearch(query)
+        console.log(query)
+    };
 
     return (
-        <div className='max-w-96 flex justify-center items-center gap-2'>
+        <div className="w-full max-w-lg mx-auto flex items-center gap-4 bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md">
             <input
-            type="text"
-            placeholder='Search'
-            value={query}
-            onChange={(e)=>setQuery(e.target.value)}
-            className='text-black p-1 transition-transform duration-300 hover:scale-105 focus:scale-105 border-2 border-black'
+                type="text"
+                placeholder="Search..."
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                className="flex-1 px-4 py-2 text-gray-900 dark:text-gray-200 bg-gray-100 dark:bg-gray-700 rounded-lg border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all duration-300"
             />
-            <button onClick={handleClick} className='px-2 h-8 bg-white border-2 border-transparent border-black active:bg-gray-100 transition-transform duration-300 hover:scale-110'>
-                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z" /></svg>
+            <button
+                onClick={handleClick}
+                className="flex items-center justify-center px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white font-medium rounded-lg shadow-md transition-transform transform duration-300 hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M21.71 20.29l-3.388-3.388A8.945 8.945 0 0019 11c0-4.962-4.038-9-9-9S1 6.038 1 11s4.038 9 9 9c2.063 0 3.953-.688 5.489-1.848l3.388 3.388a1 1 0 001.415-1.415zM4 11a7 7 0 1114 0 7 7 0 01-14 0z" />
+                </svg>
             </button>
         </div>
-    )
-}
+    );
+};
 
-export default SearchBox
+export default SearchBox;

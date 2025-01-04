@@ -11,58 +11,52 @@ import SignupPage from './pages/SignupPage';
 import AboutUs from './pages/aboutus';
 import ShowAd from './pages/showAd';
 import ShowNews from './pages/showNews';
+import MakeNews from './pages/makeNews';
 
 function App() {
   const location = useLocation();
-  
-  // Animation for different transitions
-  const pageTransitions = {
-    // Default fade transition for pages
-    fade: {
-      initial: { opacity: 0 },
-      animate: { opacity: 1 },
-      exit: { opacity: 0 },
-      transition: { duration: 0.3 }
+
+  // Sliding transition variants
+  const slideVariants = {
+    initial: (direction) => ({
+      x: direction > 0 ? '100%' : '-100%',
+      opacity: 0,
+    }),
+    animate: {
+      x: 0,
+      opacity: 1,
+      transition: { duration: 0.3, ease: 'easeInOut' },
     },
-    // Special transition for pages (login/signup)
-    auth: {
-      initial: (direction) => ({
-        x: direction > 0 ? 1000 : -1000,
-        opacity: 0,
-        scale: 0.9
-      }),
-      animate: {
-        x: 0,
-        opacity: 1,
-        scale: 1,
-        transition: {
-          duration: 0.5,
-          type: "spring",
-          stiffness: 100,
-          damping: 20
-        }
-      },
-      exit: (direction) => ({
-        x: direction > 0 ? -1000 : 1000,
-        opacity: 0,
-        scale: 0.9,
-        transition: {
-          duration: 0.4
-        }
-      })
-    }
+    exit: (direction) => ({
+      x: direction > 0 ? '-100%' : '100%',
+      opacity: 0,
+      transition: { duration: 0.3, ease: 'easeInOut' },
+    }),
   };
 
-  // Custom hook to determine animation direction
+  // Determine animation direction
   const useAnimationDirection = () => {
     const [direction, setDirection] = React.useState(0);
-    
+
     React.useEffect(() => {
-      if (location.pathname === '/login') {
-        setDirection(1);
-      } else if (location.pathname === '/signup') {
-        setDirection(-1);
-      }
+      const pathOrder = [
+        '/', // Home
+        '/makeAdvertisement',
+        '/showAd',
+        '/showNews',
+        '/contactus',
+        '/login',
+        '/signup',
+        '/aboutus',
+        '/makeNews',
+      ];
+
+      // Track path changes and update direction
+      setDirection((prevDirection) => {
+        const currentIndex = pathOrder.indexOf(location.pathname);
+        const previousIndex = pathOrder.indexOf(location.state?.previousPath || '/');
+        return currentIndex > previousIndex ? 1 : -1;
+      });
     }, [location]);
 
     return direction;
@@ -70,85 +64,32 @@ function App() {
 
   const direction = useAnimationDirection();
 
-  // Helper to determine which animation to use
-  const getAnimationVariants = (path) => {
-    if (path === '/login' || path === '/signup') {
-      return pageTransitions.auth;
-    }
-    return pageTransitions.fade;
-  };
-
   return (
-    <div className='w-full bg-gray-200 dark:bg-black min-h-screen'>
+    <div className="w-full bg-gray-200 dark:bg-black min-h-screen">
       <div className="max-w-7xl w-11/12 mx-auto px-4 pt-4 flex flex-col">
         <Navbar />
         <AnimatePresence mode="wait" custom={direction}>
-          <Routes location={location} key={location.pathname}>
-            {/* Regular routes with fade transition */}
-            <Route path='/' element={
-              <motion.div {...pageTransitions.fade}>
-                <Home />
-              </motion.div>
-            } />
-            <Route path='/makeAdvertisement' element={
-              <motion.div {...pageTransitions.fade}>
-                <MakeAdvertisement />
-              </motion.div>
-            } />
-            <Route path='/showAd' element={
-              <motion.div {...pageTransitions.fade}>
-                <ShowAd />
-              </motion.div>
-            } />
-            <Route path='/showNews' element={
-              <motion.div {...pageTransitions.fade}>
-                <ShowNews />
-              </motion.div>
-            } />
-            <Route path='/contactus' element={
-              <motion.div {...pageTransitions.fade}>
-                <ContactUs />
-              </motion.div>
-            } />
-            
-            {/* Auth routes with special transitions */}
-            <Route path='/login' element={
-              <motion.div
-                custom={direction}
-                variants={pageTransitions.auth}
-                initial="initial"
-                animate="animate"
-                exit="exit"
-                className="w-full"
-              >
-                <LoginPage />
-              </motion.div>
-            } />
-            <Route path='/signup' element={
-              <motion.div
-                custom={direction}
-                variants={pageTransitions.auth}
-                initial="initial"
-                animate="animate"
-                exit="exit"
-                className="w-full"
-              >
-                <SignupPage />
-              </motion.div>
-            } />
-            <Route path='/aboutus' element={
-              <motion.div
-                custom={direction}
-                variants={pageTransitions.auth}
-                initial="initial"
-                animate="animate"
-                exit="exit"
-                className="w-full"
-              >
-                <AboutUs />
-              </motion.div>
-            } />
-          </Routes>
+          <motion.div
+            key={location.pathname}
+            custom={direction}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            variants={slideVariants}
+            className="w-full"
+          >
+            <Routes location={location}>
+              <Route path="/" element={<Home />} />
+              <Route path="/makeAdvertisement" element={<MakeAdvertisement />} />
+              <Route path="/showAd" element={<ShowAd />} />
+              <Route path="/showNews" element={<ShowNews />} />
+              <Route path="/contactus" element={<ContactUs />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/signup" element={<SignupPage />} />
+              <Route path="/aboutus" element={<AboutUs />} />
+              <Route path="/makeNews" element={<MakeNews />} />
+            </Routes>
+          </motion.div>
         </AnimatePresence>
         <Footer />
       </div>
