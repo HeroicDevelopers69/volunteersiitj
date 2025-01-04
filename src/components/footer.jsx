@@ -81,11 +81,11 @@ const Footer = () => {
             <ul className="space-y-2">
               <li className="flex items-center">
                 <span className={`fa fa-phone mr-2 ${isDarkMode ? 'text-white' : 'text-black'}`} style={{ padding: '10px' }}></span>
-                <span>+1 (123) 456-7890</span>
+                <span>+91 8340 376572</span>
               </li>
               <li className="flex items-center">
                 <span className={`fas fa-envelope mr-2 ${isDarkMode ? 'text-white' : 'text-black'}`} style={{ padding: '10px' }}></span>
-                <span>contact@yourdomain.com</span>
+                <span>developers@iitj.ac.in</span>
               </li>
             </ul>
           </div>
@@ -93,7 +93,7 @@ const Footer = () => {
 
         <div className="border-t border-gray-700 mt-8 pt-6 text-center">
           <p className={`text-sm ${isDarkMode ? 'text-gray-500' : 'text-gray-700'}`}>
-            &copy; 2024 VolunteersIITJ. Empowering students through meaningful engagement.
+            &copy; 2024 Volunteers IITJ. Empowering students through meaningful engagement.
           </p>
           <div className="flex justify-center mt-4 space-x-4">
             <a href="https://github.com/HeroicDevelopers69/volunteersiitj" target='_blank' className={`text-gray-400 hover:${isDarkMode ? 'text-white' : 'text-gray-700'}`}>
