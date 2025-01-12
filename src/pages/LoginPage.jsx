@@ -1,8 +1,35 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { auth } from "../firebase/firebaseConfig.js"; // Import your Firebase config
+import { useUserDispatchContext } from '../customHooks/UserContext.jsx';
+import { validColleges } from '../data/validColleges.js';
+import { validAdvertisers } from '../data/validAdvertisers.js';
 
-export default function () {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+export default function LoginPage() {
+  const dispatch = useUserDispatchContext();
+
+  const handleGoogleSignIn = async () => {
+    const provider = new GoogleAuthProvider();
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      
+      const college = validColleges[user.email.substring(user.email.indexOf('@'),user.email.length+1)] || '';
+      const body = {
+        name: user.displayName,
+        userId: user.uid,
+        email: user.email,
+        college: college,
+        isAdvertiser: validAdvertisers.includes(user.email)
+      }
+      dispatch({
+        type: 'set',
+        ...body
+      })
+    } catch (error) {
+      console.error("Error during sign-in:", error);
+    }
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center transition-colors duration-500 dark:bg-gray-900 bg-gray-100">
@@ -13,46 +40,9 @@ export default function () {
         <p className="text-center text-gray-600 dark:text-gray-400 mb-6 animate-fadeIn">
           Log in to your account to continue.
         </p>
-        <form>
-          <div className="mb-4">
-            <label
-              htmlFor="email"
-              className="block text-gray-600 dark:text-gray-400 mb-2"
-            >
-              Email Address
-            </label>
-            <input
-              type="email"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-2 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-              placeholder="Enter your email"
-            />
-          </div>
-          <div className="mb-6">
-            <label
-              htmlFor="password"
-              className="block text-gray-600 dark:text-gray-400 mb-2"
-            >
-              Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-2 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-              placeholder="Enter your password"
-            />
-          </div>
-          <button
-            type="submit"
-            className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded-lg transition duration-300 transform hover:scale-105"
-          >
-            Log In
-          </button>
-        </form>
+        <div className='w-full text-center'>
+          <button onClick={handleGoogleSignIn} className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg transition duration-300 transform hover:scale-105">Sign in with Google</button>
+        </div>
         <div className="mt-4 text-center">
           <p className="text-gray-600 dark:text-gray-400">
             Don’t have an account?{" "}
