@@ -3,7 +3,6 @@ import Hero from '../components/homepage/hero';
 import Section from '../components/homepage/section';
 
 
-
 const Home = () => {
   return (
     <>

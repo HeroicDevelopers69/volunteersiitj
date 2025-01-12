@@ -1,9 +1,54 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { auth } from "../firebase/firebaseConfig.js"; // Import your Firebase config
+import { useUserDispatchContext } from '../customHooks/UserContext.jsx';
+import { validColleges } from '../data/validColleges.js';
+import { validAdvertisers } from '../data/validAdvertisers.js';
+
+
 
 export default function SignUpPage() {
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const dispatch = useUserDispatchContext();
+
+  const handleGoogleSignUp = async () => {
+    const provider = new GoogleAuthProvider();
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user; // Get user info
+
+      const college = validColleges[user.email.substring(user.email.indexOf('@'),user.email.length+1)] || '';
+      const body = {
+        name: user.displayName,
+        userId: user.uid,
+        email: user.email,
+        college: college,
+        isAdvertiser: validAdvertisers.includes(user.email)
+      }
+      dispatch({
+        type: 'set',
+        ...body
+      })
+      try{
+        const response = await fetch('http://localhost:5000/createUser',{
+          method: 'POST',
+          headers: {
+            "Content-Type": "application/json", // Content type of the request body
+          },
+          body: JSON.stringify(body)
+        })
+        const data = await response.json(); // Parse the JSON from the response
+        console.log(data.message);
+      }
+      catch(err){
+        console.log("Failed to register user in database",err);
+      }
+      console.log("User signed up:", user);
+      alert(`Welcome, ${user.displayName}!`);
+    } catch (error) {
+      console.error("Error during sign-up:", error);
+      alert("Sign-up failed. Please try again.");
+    }
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center transition-colors duration-500 dark:bg-gray-900 bg-gray-100">
@@ -14,62 +59,13 @@ export default function SignUpPage() {
         <p className="text-center text-gray-600 dark:text-gray-400 mb-6 animate-fadeIn">
           Join us and start your journey.
         </p>
-        <form>
-          <div className="mb-4">
-            <label
-              htmlFor="username"
-              className="block text-gray-600 dark:text-gray-400 mb-2"
-            >
-              Username
-            </label>
-            <input
-              type="text"
-              id="username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              className="w-full px-4 py-2 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-pink-500"
-              placeholder="Choose a username"
-            />
-          </div>
-          <div className="mb-4">
-            <label
-              htmlFor="email"
-              className="block text-gray-600 dark:text-gray-400 mb-2"
-            >
-              Email Address
-            </label>
-            <input
-              type="email"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-2 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-pink-500"
-              placeholder="Enter your email"
-            />
-          </div>
-          <div className="mb-6">
-            <label
-              htmlFor="password"
-              className="block text-gray-600 dark:text-gray-400 mb-2"
-            >
-              Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-2 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-pink-500"
-              placeholder="Create a password"
-            />
-          </div>
           <button
+          onClick={handleGoogleSignUp}
             type="submit"
             className="w-full bg-pink-600 hover:bg-pink-700 text-white py-2 px-4 rounded-lg transition duration-300 transform hover:scale-105"
           >
-            Sign Up
+            Sign up with Google
           </button>
-        </form>
         <div className="mt-4 text-center">
           <p className="text-gray-600 dark:text-gray-400">
             Already have an account?{" "}
