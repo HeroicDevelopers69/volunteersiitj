@@ -1,13 +1,9 @@
-import React, { useEffect, useState } from 'react'
-import { useLocalStorage } from '../../customHooks/useLocalStorage';
 import { CategoryOneTemplate, CategoryTwoTemplate, CategoryThreeTemplate, CategoryFourTemplate } from './makeFormComponents';
 
 
 let nextId = 0;
 
-const MakeForm = () => {
-  const [sequence, setSequence] = useLocalStorage('formsequence', []);
-  const [startDate, setStartDate] = useState('startdate', '');
+const MakeForm = ({advertisement,setAdvertisement}) => {
 
   const handleAdd = (type) => {
     let addtionalData = {};
@@ -49,39 +45,35 @@ const MakeForm = () => {
         addtionalData = {}
       }
     }
-    setSequence([...sequence, {
+    setAdvertisement({...advertisement,formSequence:[...advertisement.formSequence, {
       id: nextId++,
       type: type,
       label: '',
       isMandatory: true,
       ...addtionalData
-    }])
+    }]})
   }
 
   const handleChange = (id, key, value) => {
-    setSequence(sequence.map((element) => {
+    setAdvertisement({...advertisement,formSequence: advertisement.formSequence.map((element) => {
       if (element.id === id) {
         return { ...element, [key]: value }
       }
       return element
-    }))
+    })})
   }
 
   const hanldeDelete = (id) => {
-    setSequence(sequence.filter((element)=>element.id !== id))
+    setAdvertisement({...advertisement,formSequence:advertisement.formSequence.filter((element)=>element.id !== id)})
   }
 
   const handleStartDateChange = (e) => {
     const date = new Date(e.target.value);
-    setStartDate(date.toString())
+    setAdvertisement({...advertisement,formStartDate:date.toString()})
   }
 
-  useEffect(() => {
-    console.log(sequence);
-  }, [sequence]);
-
   const content = []
-  for (let item of sequence) {
+  for (let item of advertisement.formSequence) {
     if (item.type === 'text' || item.type === 'number' || item.type === 'email') {
       content.push(<CategoryOneTemplate key={item.id} type={item.type} onChange={handleChange} data={item} onDelete={hanldeDelete}/>)
     }
@@ -116,7 +108,7 @@ const MakeForm = () => {
               onChange={handleStartDateChange}
               placeholder="Select Deadline"
             />
-            {startDate && <div className="text-gray-700 mt-2">{startDate}</div>}
+            {advertisement.formStartDate && <div className="text-gray-700 mt-2">{advertisement.formStartDate}</div>}
           </div>
         </div>
         <div className='w-full md:w-1/3 flex flex-col gap-y-4'>
@@ -128,7 +120,7 @@ const MakeForm = () => {
           <Button text='File Input' bgColor='green' onClick={() => handleAdd('file')} />
           <Button text='Image Input' bgColor='green' onClick={() => handleAdd('image')} />
           <Button text='DateTime Input' bgColor='yellow' onClick={() => handleAdd('datetime')} />
-          <ClearAllButton text='Double click to clear all' bgColor='red' onClick={() => setSequence([])} disabled={sequence.length === 0}/>
+          <ClearAllButton text='Double click to clear all' bgColor='red' onClick={() => setAdvertisement({...advertisement,formSequence:[]})} disabled={advertisement.formSequence.length === 0}/>
         </div>
       </div>
     </div>

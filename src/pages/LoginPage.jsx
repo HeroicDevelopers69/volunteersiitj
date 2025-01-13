@@ -19,6 +19,7 @@ export default function LoginPage() {
         name: user.displayName,
         userId: user.uid,
         email: user.email,
+        photoURL: user.photoURL,
         college: college,
         isAdvertiser: validAdvertisers.includes(user.email)
       }
