@@ -4,6 +4,7 @@ import { auth } from "../firebase/firebaseConfig.js"; // Import your Firebase co
 import { useUserDispatchContext } from '../customHooks/UserContext.jsx';
 import { validColleges } from '../data/validColleges.js';
 import { validAdvertisers } from '../data/validAdvertisers.js';
+import { validDevelopers } from '../data/validDevelopers.js';
 
 
 
@@ -21,8 +22,10 @@ export default function SignUpPage() {
         name: user.displayName,
         userId: user.uid,
         email: user.email,
+        photoURL: user.photoURL,
         college: college,
-        isAdvertiser: validAdvertisers.includes(user.email)
+        isAdvertiser: validAdvertisers.includes(user.email),
+        isDeveloper: validDevelopers.includes(user.email)
       }
       dispatch({
         type: 'set',

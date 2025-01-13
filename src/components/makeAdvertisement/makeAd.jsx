@@ -1,21 +1,18 @@
-import React, { useState } from 'react';
+import React, {useState } from 'react';
 import { useLocalStorage } from '../../customHooks/useLocalStorage';
 import Card from '../card';
 import ErrorMessage from '../error';  // Make sure this is correctly imported
 import { Field, FieldList, FieldMessage } from './makeAdComponents';
 import { FieldButton, FieldListButton, FieldMessageButton, ClearAllButton, UndoButton, RedoButton, PreviewButton } from './makeAdComponents';
 
-let nextId = 0;
-let adId = 0;
 
-const MakeAd = () => {
-  const [title, setTitle] = useLocalStorage('title', '');
-  const [deadline, setDeadline] = useState('');
-  const [sequence, setSequence] = useLocalStorage('adsequence', []);
+let nextId = 1;
+
+const MakeAd = ({advertisement,setAdvertisement}) => {
+
   const [history, setHistory] = useLocalStorage('history', []);
   const [undohistory, setundoHistory] = useLocalStorage('undohistory', []);
   const [showPreview, setShowPreview] = useState(false);
-  const [advertisement, setAdvertisement] = useState([]);
   const [error, setError] = useState(null);
 
   const handleClick = (type) => {
@@ -36,22 +33,21 @@ const MakeAd = () => {
         break;
     }
 
-    setSequence((prevSequence) => {
-      const updatedSequence = [...prevSequence, newComponent];
-      setHistory((prevHistory) => [
-        ...prevHistory,
-        { action: 'add', component: newComponent, index: prevSequence.length }, // Track index
-      ]);
-      return updatedSequence;
-    });
+    setAdvertisement({...advertisement,sequence:[...advertisement.sequence, newComponent]});
+    setHistory([
+      ...history,
+      { action: 'add', component: newComponent, index: advertisement.sequence.length }, // Track index
+    ]);
   };
 
   const handleChange = (id, name, value) => {
-    setSequence((prevSequence) =>
-      prevSequence.map((component) =>
+    setAdvertisement((ad) =>{
+      let prevSequence = ad.sequence
+      let updatedSequence = prevSequence.map((component) =>
         component.id === id ? { ...component, [name]: value } : component
       )
-    );
+      return {...advertisement,sequence:updatedSequence}
+    });
     setHistory((prevHistory) =>
       prevHistory.map((entry) => {
         if (entry.component && entry.component.id === id) {
@@ -63,14 +59,14 @@ const MakeAd = () => {
   };
 
   const handleDelete = (id) => {
-    const deleted = sequence.find((component) => component.id === id);
-    setHistory([...history, { action: 'delete', component: deleted, index: sequence.indexOf(deleted) }]);
-    setSequence(sequence.filter((component) => component.id !== id));
+    const deleted = advertisement.sequence.find((component) => component.id === id);
+    setHistory([...history, { action: 'delete', component: deleted, index: advertisement.sequence.indexOf(deleted) }]);
+    setAdvertisement({...advertisement,sequence:advertisement.sequence.filter((component) => component.id !== id)});
   };
 
   const handleClearAll = () => {
-    setHistory([...history, { action: 'clear', components: [...sequence] }]);
-    setSequence([]);
+    setHistory([...history, { action: 'clear', components: [...advertisement.sequence] }]);
+    setAdvertisement({...advertisement,sequence:[]});
     setundoHistory([]);
   };
 
@@ -85,17 +81,15 @@ const MakeAd = () => {
 
       switch (lastAction.action) {
         case 'add':
-          setSequence((prevSequence) =>
-            prevSequence.filter((component) => component.id !== lastAction.component.id)
-          );
+          setAdvertisement({...advertisement,sequence:advertisement.sequence.filter((component) => component.id !== lastAction.component.id)});
           break;
         case 'delete':
-          const restored = [...sequence];
+          const restored = [...advertisement.sequence];
           restored.splice(lastAction.index, 0, lastAction.component);
-          setSequence(restored);
+          setAdvertisement({...advertisement,sequence:restored});
           break;
         case 'clear':
-          setSequence(lastAction.components);
+          setAdvertisement({...advertisement,sequence:lastAction.components});
           break;
         default:
           break;
@@ -116,15 +110,15 @@ const MakeAd = () => {
 
       switch (prevAction.action) {
         case 'add':
-          setSequence((prevSequence) => [...prevSequence, prevAction.component]);
+          setAdvertisement({...advertisement,sequence:[...advertisement.sequence, prevAction.component]});
           break;
         case 'delete':
-          const removed = [...sequence];
+          const removed = [...advertisement.sequence];
           removed.splice(prevAction.index, 1);
-          setSequence(removed);
+          setAdvertisement({...advertisement,sequence:removed});
           break;
         case 'clear':
-          setSequence([]);
+          setAdvertisement({...advertisement,sequence:[]});
           break;
         default:
           break;
@@ -139,31 +133,25 @@ const MakeAd = () => {
     setError(null);
 
     // Check validation
-    if (!title) {
+    if (!advertisement.title) {
       setError({ title: 'Error', message: 'Please enter a title before previewing.' });
       return;
-    } else if (!deadline) {
+    } else if (!advertisement.deadline) {
       setError({ title: 'Error', message: 'Please select a deadline before previewing.' });
       return;
-    } else if (sequence.length < 3) {
+    } else if (advertisement.sequence.length < 3) {
       setError({ title: 'Error', message: 'Please add at least 3 items to preview.' });
       return;
     }
 
-    setAdvertisement({
-      id: adId++,
-      title: title,
-      sequence: sequence,
-      deadline: deadline,
-      creator: 'Admin',
-    });
+
     setShowPreview(true);
   };
 
   const handleDeadlineChange = (e) => {
     const selectedDate = new Date(e.target.value);
     const formattedDate = selectedDate.toString();
-    setDeadline(formattedDate);
+    setAdvertisement({...advertisement,deadline:formattedDate});
   };
 
   const handleClosePreview = () => {
@@ -173,7 +161,7 @@ const MakeAd = () => {
   const handleTitleChange = (e) => {
     const newTitle = e.target.value;
     if (newTitle.length <= 15) {
-      setTitle(newTitle);
+      setAdvertisement({...advertisement,title:newTitle})
     }
   };
 
@@ -186,13 +174,13 @@ const MakeAd = () => {
             <input
               className="w-full px-4 py-2 text-xl font-semibold border-b mb-4 focus:outline-none transition-all duration-300"
               placeholder="Enter Advertisement Title"
-              value={title}
+              value={advertisement.title}
               onChange={handleTitleChange}
             />
-            <span className="text-gray-500">{title.length}/15</span>
+            <span className="text-gray-500">{advertisement.title.length}/15</span>
           </div>
           <div className="flex flex-col gap-4">
-            {sequence.map((component) => {
+            {advertisement.sequence.map((component) => {
               switch (component.type) {
                 case 'field':
                   return (
@@ -234,19 +222,19 @@ const MakeAd = () => {
               onChange={handleDeadlineChange}
               placeholder="Select Deadline"
             />
-            {deadline && <div className="text-gray-700 mt-2">{deadline}</div>}
+            {advertisement.deadline && <div className="text-gray-700 mt-2">{advertisement.deadline}</div>}
           </div>
         </div>
         <div className="md:w-1/3 w-full flex flex-col gap-4">
           <FieldButton onClick={() => handleClick('field')} />
           <FieldListButton onClick={() => handleClick('fieldList')} />
           <FieldMessageButton onClick={() => handleClick('fieldMessage')} />
-          <ClearAllButton onClick={handleClearAll} disabled={sequence.length === 0} />
+          <ClearAllButton onClick={handleClearAll} disabled={advertisement.sequence.length === 0} />
           <div className="flex gap-2">
             <UndoButton onClick={handleUndo} disabled={history.length === 0} />
             <RedoButton onClick={handleRedo} disabled={undohistory.length === 0} />
           </div>
-          <PreviewButton onClick={handlePreview} disabled={sequence.length === 0 || title.length === 0 || !deadline} />
+          <PreviewButton onClick={handlePreview} disabled={advertisement.sequence.length === 0 || advertisement.title.length === 0 || !advertisement.deadline} />
         </div>
       </div>
 
