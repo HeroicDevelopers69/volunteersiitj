@@ -1,31 +1,30 @@
-import { createContext, useReducer, useContext, useEffect} from 'react';
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-
+import { createContext, useReducer, useContext, useEffect } from 'react';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 export function fetchUser(dispatch) {
   const auth = getAuth();
   const unsubscribe = onAuthStateChanged(auth, (user) => {
     if (user) {
-      const userId = 'yzBixe7M9IQIgOtcd76AFOQtQmK2'
+      const userId = user.uid;
 
       async function fetchUser(userId) {
-        console.log("Fetching user...")
+        console.log("Fetching user...");
         const response = await fetch('http://localhost:5000/getUser', {
           method: 'POST',
           headers: {
-            "Content-Type": "application/json", // Content type of the request body
+            "Content-Type": "application/json", 
           },
           body: JSON.stringify({
-            userId: userId
-          })
-        })
+            userId: userId,
+          }),
+        });
 
         const data = await response.json();
-        console.log(data.user)
+        console.log('Fetched user data:', data.user);
         dispatch({
           type: 'set',
-          user: data.user
-        })
+          user: data.user,
+        });
       }
 
       fetchUser(userId);
@@ -42,7 +41,14 @@ export function UserProvider({ children }) {
   const [User, dispatch] = useReducer(UserReducer, initialUser);
 
   useEffect(() => {
-    fetchUser(dispatch);
+    const auth = getAuth();
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        fetchUser(dispatch);
+      }
+    });
+
+    return () => unsubscribe();
   }, []);
 
   return (
@@ -62,13 +68,12 @@ export function useUserDispatchContext() {
   return useContext(UserDispatchContext);
 }
 
-
 function UserReducer(user, action) {
   switch (action.type) {
     case 'set': {
       return {
-        ...action.user
-      }
+        ...action.user,
+      };
     }
     default: {
       throw Error('Unknown action: ' + action.type);
@@ -86,5 +91,5 @@ const initialUser = {
   isDeveloper: false,
   appliedForms: [],
   madeAds: [],
-  madeNews: []
-}
+  madeNews: [],
+};
