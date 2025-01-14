@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import Navbar from './components/navbar';
 import Footer from './components/footer';
 import Home from './pages/home';
@@ -13,7 +13,6 @@ import ShowNews from './pages/showNews';
 import { useUserContext } from './customHooks/UserContext';
 import MakeNews from './pages/makeNews';
 import ErrorPage from './pages/error';
-import PrivateRoute from './pages/privacy';
 
 function App() {
   const user = useUserContext();
@@ -26,7 +25,7 @@ function App() {
       window.scrollTo(0, homey);
       localStorage.removeItem('knowMorePosition');
     } else {
-      window.scrollTo(0, 0);
+      window.scrollTo(0, 0); // Sets the scroll position to the top
     }
   }, [pathname]);
 
@@ -35,42 +34,38 @@ function App() {
       <div className="max-w-7xl w-11/12 mx-auto px-4 pt-4 flex flex-col">
         <Navbar />
         <Routes>
-          {/* Home and public routes */}
           <Route path="/" element={<Home />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/signup" element={<SignupPage />} />
+          {user.name !== '' ? (
+            <>
+              <Route path="/showAd" element={<ShowAd />} />
+              <Route path="/showNews" element={<ShowNews />} />
+              <Route path="/contactus" element={<ContactUs />} />
+              <Route path="/aboutus" element={<AboutUs />} />
 
-          {/* Protected Routes */}
-          <Route
-            path="/showAd"
-            element={<PrivateRoute element={<ShowAd />} />}
-          />
-          <Route
-            path="/showNews"
-            element={<PrivateRoute element={<ShowNews />} />}
-          />
-          <Route
-            path="/contactus"
-            element={<PrivateRoute element={<ContactUs />} />}
-          />
-          <Route
-            path="/aboutus"
-            element={<PrivateRoute element={<AboutUs />} />}
-          />
-          <Route
-            path="/makeNews"
-            element={<PrivateRoute element={<MakeNews />} isadmin='true' />}
-          />
-          <Route
-            path="/advertiserDashboard"
-            element={<PrivateRoute element={<MakeNews />} isadmin='true' />}
-          />
-          <Route
-            path="/makeAdvertisement"
-            element={<PrivateRoute element={<MakeAdvertisement />} isadmin='true' />}
-          />
-
-          {/* Error route */}
+              {admin ? (
+                <>
+                  <Route path="/makeNews" element={<MakeNews />} />
+                  <Route path="/advertiserDashboard" element={<MakeNews />} />
+                  <Route path="/makeAdvertisement" element={<MakeAdvertisement />} />
+                </>
+              ) : (
+                <>
+                  <Route path="/makeNews" element={<Navigate to="/error" />} />
+                  <Route path="/advertiserDashboard" element={<Navigate to="/error" />} />
+                  <Route path="/makeAdvertisement" element={<Navigate to="/error" />} />
+                </>
+              )}
+            </>
+          ) : (
+            <>
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/signup" element={<SignupPage />} />
+              <Route path="/showAd" element={<Navigate to="/error" />} />
+              <Route path="/showNews" element={<Navigate to="/error" />} />
+              <Route path="/contactus" element={<Navigate to="/error" />} />
+              <Route path="/aboutus" element={<Navigate to="/error" />} />
+            </>
+          )}
           <Route path="/error" element={<ErrorPage />} />
         </Routes>
         <Footer />
