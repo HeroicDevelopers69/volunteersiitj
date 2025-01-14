@@ -5,11 +5,12 @@ import { useUserDispatchContext } from '../customHooks/UserContext.jsx';
 import { validColleges } from '../data/validColleges.js';
 import { validAdvertisers } from '../data/validAdvertisers.js';
 import { validDevelopers } from '../data/validDevelopers.js';
-
+import { useNavigate } from 'react-router-dom';
 
 
 export default function SignUpPage() {
   const dispatch = useUserDispatchContext();
+  const navigate = useNavigate();
 
   const handleGoogleSignUp = async () => {
     const provider = new GoogleAuthProvider();
@@ -17,7 +18,7 @@ export default function SignUpPage() {
       const result = await signInWithPopup(auth, provider);
       const user = result.user; // Get user info
 
-      const college = validColleges[user.email.substring(user.email.indexOf('@'),user.email.length+1)] || '';
+      const college = validColleges[user.email.substring(user.email.indexOf('@'),user.email.length+1)] || 'NONE';
       const body = {
         name: user.displayName,
         userId: user.uid,
@@ -51,6 +52,8 @@ export default function SignUpPage() {
       console.error("Error during sign-up:", error);
       alert("Sign-up failed. Please try again.");
     }
+    navigate('/');
+    window.location.reload();
   };
 
   return (
