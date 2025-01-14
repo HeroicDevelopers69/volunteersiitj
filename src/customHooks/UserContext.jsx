@@ -6,7 +6,7 @@ export function fetchUser(dispatch) {
   const auth = getAuth();
   const unsubscribe = onAuthStateChanged(auth, (user) => {
     if (user) {
-      const userId = 'yzBixe7M9IQIgOtcd76AFOQtQmK2'
+      const userId = user.uid
 
       async function fetchUser(userId) {
         console.log("Fetching user...")

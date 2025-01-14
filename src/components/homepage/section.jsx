@@ -1,18 +1,16 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import SearchBox from '../searchBox';
 import Card from '../card';
 import NewsCard from '../newsCard';
 
-import { advertisements } from '../../data/ads';
-import { news } from '../../data/news';
 
-const Section = ({ title }) => {
-  // Determine initial data based on title
-  const data = title.toLowerCase() === 'apply' ? advertisements : news;
-
-  // State for filtered data
+const Section = ({ title, data }) => {
   const [filtData, setFiltData] = useState(data);
 
+  useEffect(()=>{
+    setFiltData(data);
+  },[data]);
+  
   // Handle search functionality
   const HandleSearch = (query) => {
     if (!query) return setFiltData(data)
@@ -35,9 +33,9 @@ const Section = ({ title }) => {
       {/* Display Cards */}
       <div className="w-full grid grid-cols-1 gap-x-3 gap-y-10 md:grid-cols-2 lg:grid-cols-3">
         {title.toLowerCase() === 'apply' &&
-          filtData.map((element) => (
-            <Card key={element.id} advertisement={element} />
-          ))}
+          filtData.map((element) =>
+            <Card key={element.advertisementId} advertisement={element} />
+          )}
         {title.toLowerCase() === 'news' &&
           filtData.map((element) => <NewsCard key={element.id} news={element} />)}
       </div>
@@ -46,3 +44,4 @@ const Section = ({ title }) => {
 };
 
 export default Section;
+
