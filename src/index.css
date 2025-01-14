@@ -12,6 +12,6 @@
 }
 
 #pane.show {
-  transform: translateY(-0%);
+  transform: translateY(-10%);
   opacity: 1;
 }

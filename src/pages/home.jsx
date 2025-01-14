@@ -1,44 +1,55 @@
-import React, {useEffect,useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import Hero from '../components/homepage/hero';
 import Section from '../components/homepage/section';
-
+import SuccessMessage from '../components/success';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { news } from '../data/news';
 import { advertisements } from '../data/ads';
 
 async function fetchAllAds() {
-  try{
+  try {
     const response = await fetch("http://localhost:5000/getAllAds");
     const data = await response.json();
-    return data.allAds
-  }
-  catch(err){
-    console.log("FRONTEND : Error while fetching ads",err);
+    return data.allAds;
+  } catch (err) {
+    console.log("FRONTEND : Error while fetching ads", err);
     return false;
   }
 }
 
 const Home = () => {
-  const [ads,setAds] = useState(advertisements);
+  const [ads, setAds] = useState(advertisements);
+  const [success, setSuccess] = useState(null);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    // Fetch ads when the component mounts
+    if (location.state) {
+      setSuccess(location.state);
+      navigate(location.pathname, { replace: true });
+    }
+  }, [location, navigate]);
+
+  useEffect(() => {
     const fetchAds = async () => {
       console.log("Fetching Advertisements");
-      const allads = await fetchAllAds();
-      setAds(allads);
-      console.log(allads)
+      const allAds = await fetchAllAds();
+      setAds(allAds);
+      console.log(allAds);
     };
     fetchAds();
-  }, []); // Dependency array to run effect only once
+  }, []);
 
   return (
     <>
       <Hero />
-      {/* There is a conditional on title in section.jsx, update that if changing title*/}
       <Section title='Apply' data={ads} />
       <Section title='News' data={news} />
+      {success && (
+        <SuccessMessage title={success.title} message={success.message} state="true" />
+      )}
     </>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

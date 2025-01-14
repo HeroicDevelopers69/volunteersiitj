@@ -52,12 +52,14 @@ export default function SignUpPage() {
       console.error("Error during sign-up:", error);
       alert("Sign-up failed. Please try again.");
     }
-    navigate('/');
+    navigate('/', {
+      state: {title:'Welcome', message:'Successfully created your account'}
+    });
     window.location.reload();
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center transition-colors duration-500 dark:bg-gray-900 bg-gray-100">
+    <div className="mt-[50px] min-h-screen flex items-center justify-center transition-colors duration-500 dark:bg-gray-900 bg-gray-100">
       <div className="max-w-md w-full bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg dark:shadow-gray-700/50">
         <h2 className="text-3xl font-bold mb-4 text-center text-gray-800 dark:text-white animate-fadeIn">
           Create an Account
