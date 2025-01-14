@@ -29,13 +29,12 @@ const MobileMenuItem = ({ to, children }) => (
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false); // New state for profile menu
+  const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
+  const [userProfilePhoto, setUserProfilePhoto] = useState('');
+  const user = useUserContext(); // Use the user context
 
-  const { user, logout } = useUserContext(); // Access user and logout from context
-  const userProfilePhoto = user?.photoURL || '';  // Safely access photoURL
-
-  const profileMenuRef = useRef(null); // Ref for profile menu
-  const profilePhotoRef = useRef(null); // Ref for profile photo
+  const profileMenuRef = useRef(null);
+  const profilePhotoRef = useRef(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -43,7 +42,6 @@ const Navbar = () => {
     };
     window.addEventListener('scroll', handleScroll);
 
-    // Close profile menu when clicking outside the menu or profile photo
     const handleClickOutside = (event) => {
       if (
         profileMenuRef.current &&
@@ -62,19 +60,39 @@ const Navbar = () => {
     };
   }, []);
 
+  // Fetch user data after the component mounts
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const response = await fetch('http://localhost:5000/getUser', {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userId: user.userId,
+        }),
+      });
+
+      const data = await response.json();
+      setUserProfilePhoto(data?.user.photoURL || '');
+    };
+
+    if (user && user.userId) {
+      fetchUserData();
+    }
+  }, [user]);
+
   const handleProfileClick = () => {
     setIsProfileMenuOpen(!isProfileMenuOpen); // Toggle profile menu on click
   };
 
   const handleLogout = () => {
-    logout();
   };
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 mb-7 ${
-        isScrolled ? 'bg-gray-900/80 backdrop-blur-md shadow-lg' : 'bg-gray-900/90'
-      }`}
+      className={`fixed h-[60px] top-0 left-0 right-0 z-50 transition-all duration-300 mb-7 ${isScrolled ? 'bg-gray-900/80 backdrop-blur-md shadow-lg' : 'bg-gray-900/90'
+        }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
