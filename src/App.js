@@ -13,6 +13,7 @@ import ShowNews from './pages/showNews';
 import { useUserContext } from './customHooks/UserContext';
 import MakeNews from './pages/makeNews';
 import ErrorPage from './pages/error';
+import Profile from './pages/profile';
 
 function App() {
   const user = useUserContext();
@@ -41,6 +42,7 @@ function App() {
               <Route path="/showNews" element={<ShowNews />} />
               <Route path="/contactus" element={<ContactUs />} />
               <Route path="/aboutus" element={<AboutUs />} />
+              <Route path="/profile" element={<Profile />} />
 
               {admin ? (
                 <>
@@ -63,6 +65,7 @@ function App() {
               <Route path="/showAd" element={<Navigate to="/error" />} />
               <Route path="/showNews" element={<Navigate to="/error" />} />
               <Route path="/contactus" element={<Navigate to="/error" />} />
+              <Route path="/profile" element={<Navigate to="/error" />} />
               <Route path="/aboutus" element={<Navigate to="/error" />} />
             </>
           )}
