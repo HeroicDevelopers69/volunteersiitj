@@ -75,6 +75,9 @@ function UserReducer(user, action) {
         ...action.user,
       };
     }
+    case 'reset': {
+      return initialUser;
+    }
     default: {
       throw Error('Unknown action: ' + action.type);
     }
