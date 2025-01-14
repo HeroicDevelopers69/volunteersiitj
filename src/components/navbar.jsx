@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import ShowMenu from './buttons/menu';
 import { useUserContext, useUserDispatchContext } from '../customHooks/UserContext'; // Import useUserContext
 import { getAuth, signOut } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
 
 const NavLink = ({ to, children }) => {
   return (
@@ -35,7 +36,9 @@ const Navbar = () => {
   const [logged, setLogged] = useState(false);
   const [name, setName] = useState();
   const [admin, setAdmin] = useState(false);
+  const [disable, setDisabled] = useState(false);
   const user = useUserContext();
+  const navigate = useNavigate();
   const dispatch = useUserDispatchContext();
 
   const profileMenuRef = useRef(null);
@@ -84,6 +87,7 @@ const Navbar = () => {
       setUserProfilePhoto(data?.user.photoURL || '');
       setName(data?.user.name.length > 10 ? `${data?.user.name.substring(0, 10)}...` : data?.user.name);
       setLogged(true);
+      setDisabled(false)
       setAdmin(data?.user.isAdvertiser);
     };
 
@@ -101,13 +105,18 @@ const Navbar = () => {
       const auth = getAuth();
       await signOut(auth);
       setLogged(false);
+      setDisabled(false)
       setAdmin(false);
       setUserProfilePhoto('');
       dispatch({ type: 'reset' });
+      setName('');
       window.location.reload();
     } catch (error) {
     }
   };
+  const profile = () => {
+    navigate('/profile')
+  }
 
   return (
     <nav
@@ -154,7 +163,7 @@ const Navbar = () => {
             >
               <div
                 className="h-10 w-10 rounded-full bg-gray-700 mt-1 flex items-center justify-center border-2 border-white cursor-pointer"
-                onClick={handleProfileClick}
+                onClick={logged && !disable ? handleProfileClick : null}
               >
                 {userProfilePhoto ? (
                   <img
@@ -177,7 +186,7 @@ const Navbar = () => {
             ref={profileMenuRef}
           >
             <div className='px-1 py-1 text-center text-white duration-200 rounded-lg font-medium'>{name}</div>
-            <button to="/profile" className='px-1 py-1 text-center text-white hover:text-gray-300 duration-200 rounded-lg hover:scale-110 transition-all active:scale-95'>Profile</button>
+            <button onClick={profile} className='px-1 py-1 text-center text-white hover:text-gray-300 duration-200 rounded-lg hover:scale-110 transition-all active:scale-95'>Profile</button>
             <button onClick={handleLogout} className='px-1 py-1 text-center text-white hover:text-gray-300 duration-200 rounded-lg hover:scale-110 transition-all active:scale-95'>Logout</button>
           </div>
         )}
