@@ -69,8 +69,8 @@ const Card = ({ advertisement = defaultAdvertisement }) => {
   const timeColorClass = daysLeft > 3 ? 'text-green-500' : daysLeft > 1 ? 'text-yellow-500' : 'text-red-500';
 
   return (
-    <div className="max-w-md w-full bg-white dark:bg-gray-800 rounded-xl shadow-lg transform transition-all duration-300 hover:scale-[1.02] hover:shadow-xl">
-      <div className="rounded-xl overflow-hidden">
+    <div className="max-w-md w-full bg-white dark:bg-gray-800 rounded-xl shadow-lg transform transition-all duration-300 hover:scale-[1.02] hover:shadow-xl flex flex-col justify-between">
+      <div className="w-full h-max rounded-xl overflow-hidden">
         <h1
           className='bg-black text-white dark:bg-gray-200 dark:text-black py-4 px-6 text-xl font-bold text-center transition-all duration-300 hover:tracking-[10px]'>
           {advertisement.title}
@@ -80,6 +80,8 @@ const Card = ({ advertisement = defaultAdvertisement }) => {
           {content}
         </div>
 
+      </div>
+      <div>
         <div className="p-4 flex border-0 justify-between gap-4">
           <Link
             to='/showAd'
@@ -98,15 +100,14 @@ const Card = ({ advertisement = defaultAdvertisement }) => {
             Apply
           </button>
         </div>
-      </div>
-
-      <div className="mt-2 px-4 py-3 bg-gray-700 dark:bg-gray-900 rounded-b-xl flex justify-between">
-        <span className={`${timeColorClass} font-semibold whitespace-nowrap`}>
-          Time left: {daysLeft}d {hoursLeft}h
-        </span>
-        <span className="text-white text-right">
-          By {advertisement.creator}
-        </span>
+        <div className="mt-2 px-4 py-3 bg-gray-700 dark:bg-gray-900 rounded-b-xl flex justify-between">
+          <span className={`${timeColorClass} font-semibold whitespace-nowrap`}>
+            Time left: {daysLeft}d {hoursLeft}h
+          </span>
+          <span className="text-white text-right">
+            By {advertisement.creator}
+          </span>
+        </div>
       </div>
     </div>
   );
