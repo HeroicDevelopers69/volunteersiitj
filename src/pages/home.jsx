@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import Hero from '../components/homepage/hero';
 import Section from '../components/homepage/section';
+import SuccessMessage from '../components/success';
+import { useLocation, useNavigate } from 'react-router-dom'; 
 
 
 async function fetchAllAds() {
@@ -30,6 +32,9 @@ async function fetchAllNews() {
 const Home = () => {
   const [ads,setAds] = useState([]);
   const [news,setNews] = useState([]);
+  const [success, setSuccess] = useState(null);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchAds = async () => {
@@ -48,6 +53,13 @@ const Home = () => {
     };
     fetchNews();
   }, []); // Dependency array to run effect only once
+
+  useEffect(() => {
+    if (location.state) {
+      setSuccess(location.state);
+      navigate(location.pathname, { replace: true });
+    }
+  }, [location, navigate]);
 
   return (
     <>
