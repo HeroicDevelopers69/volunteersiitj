@@ -37,7 +37,7 @@ const Section = ({ title, data }) => {
             <Card key={element.advertisementId} advertisement={element} />
           )}
         {title.toLowerCase() === 'news' &&
-          filtData.map((element) => <NewsCard key={element.id} news={element} />)}
+          filtData.map((element) => <NewsCard key={element.newsId} news={element} />)}
       </div>
     </div>
   );

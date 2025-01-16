@@ -2,8 +2,6 @@ import React, {useEffect,useState} from 'react';
 import Hero from '../components/homepage/hero';
 import Section from '../components/homepage/section';
 
-import { news } from '../data/news';
-import { advertisements } from '../data/ads';
 
 async function fetchAllAds() {
   try{
@@ -17,8 +15,21 @@ async function fetchAllAds() {
   }
 }
 
+async function fetchAllNews() {
+  try{
+    const response = await fetch("http://localhost:5000/getAllNews");
+    const data = await response.json();
+    return data.allNews
+  }
+  catch(err){
+    console.log("FRONTEND : Error while fetching news",err);
+    return false;
+  }
+}
+
 const Home = () => {
-  const [ads,setAds] = useState(advertisements);
+  const [ads,setAds] = useState([]);
+  const [news,setNews] = useState([]);
 
   useEffect(() => {
     // Fetch ads when the component mounts
@@ -26,9 +37,17 @@ const Home = () => {
       console.log("Fetching Advertisements");
       const allads = await fetchAllAds();
       setAds(allads);
-      console.log(allads)
+      console.log("Fetched ads",allads)
     };
     fetchAds();
+
+    const fetchNews = async () => {
+      console.log("Fetching News");
+      const allnews = await fetchAllNews();
+      setNews(allnews);
+      console.log("Fetched news",allnews)
+    };
+    fetchNews();
   }, []); // Dependency array to run effect only once
 
   return (

@@ -8,11 +8,11 @@ const NewsCard = ({ news = { title: '', description: '', publisher: '', imgsrc: 
     <Link
     to='/showNews'
     state={{news:news}} 
-    className="max-w-md w-full bg-white dark:bg-gray-800 rounded-xl shadow-lg transform transition-all duration-300 hover:scale-[1.02] hover:shadow-xl cursor-pointer">
+    className="max-w-md w-full flex flex-col justify-between bg-white dark:bg-gray-800 rounded-xl shadow-lg transform transition-all duration-300 hover:scale-[1.02] hover:shadow-xl cursor-pointer">
       <div className="rounded-xl overflow-hidden">
         <div className="relative w-full max-h-60 bg-gray-100 dark:bg-gray-900">
           <img
-            src={news.imgsrc}
+            src={news.imageURL}
             alt={news.title}
             className={`inset-0 w-full object-cover transition-opacity duration-300 ${
               isImageLoaded ? 'opacity-100' : 'opacity-0'
@@ -32,13 +32,13 @@ const NewsCard = ({ news = { title: '', description: '', publisher: '', imgsrc: 
           </h1>
           
           <p className="text-gray-700 dark:text-gray-300 text-justify">
-            {news.description.length > 430 ? `${news.description.substr(0, 430)}...` : news.description}
+            {news.para1.length > 430 ? `${news.para1.substr(0, 430)}...` : news.para1}
           </p>
         </div>
       </div>
       <div className="mt-2 px-4 py-3 bg-gray-700 dark:bg-gray-900 rounded-b-xl flex justify-between items-center text-sm text-white">
         <span>Published By</span>
-        <span className="font-medium">{news.publisher}</span>
+        <span className="font-medium">{news.creator}</span>
       </div>
     </Link>
   );
