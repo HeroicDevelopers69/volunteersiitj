@@ -17,7 +17,6 @@ import Profile from './pages/profile';
 
 function App() {
   const user = useUserContext();
-  const admin = user.isAdvertiser;
   const homey = localStorage.getItem('knowMorePosition');
   const { pathname } = useLocation();
 
@@ -36,40 +35,29 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
-          {user.name !== '' ? (
-            <>
-              <Route path="/showAd" element={<ShowAd />} />
-              <Route path="/showNews" element={<ShowNews />} />
-              <Route path="/contactus" element={<ContactUs />} />
-              <Route path="/aboutus" element={<AboutUs />} />
-              <Route path="/profile" element={<Profile />} />
-
-              {admin ? (
-                <>
-                  <Route path="/makeNews" element={<MakeNews />} />
-                  <Route path="/advertiserDashboard" element={<MakeNews />} />
-                  <Route path="/makeAdvertisement" element={<MakeAdvertisement />} />
-                </>
-              ) : (
-                <>
-                  <Route path="/makeNews" element={<Navigate to="/error" />} />
-                  <Route path="/advertiserDashboard" element={<Navigate to="/error" />} />
-                  <Route path="/makeAdvertisement" element={<Navigate to="/error" />} />
-                </>
-              )}
-            </>
-          ) : (
-            <>
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/signup" element={<SignupPage />} />
-              <Route path="/showAd" element={<Navigate to="/error" />} />
-              <Route path="/showNews" element={<Navigate to="/error" />} />
-              <Route path="/contactus" element={<Navigate to="/error" />} />
-              <Route path="/profile" element={<Navigate to="/error" />} />
-              <Route path="/aboutus" element={<Navigate to="/error" />} />
-            </>
-          )}
+          <Route path="/showAd" element={<ShowAd />} />
+          <Route path="/showNews" element={<ShowNews />} />
+          <Route path="/contactus" element={<ContactUs />} />
+          <Route path="/aboutus" element={<AboutUs />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<SignupPage />} />
           <Route path="/error" element={<ErrorPage />} />
+
+          {user.isAdvertiser &&
+            <>
+              <Route path="/makeNews" element={<MakeNews />} />
+              <Route path="/advertiserDashboard" element={<MakeNews />} />
+              <Route path="/makeAdvertisement" element={<MakeAdvertisement />} />
+            </>
+          }
+          {/* {!user.isAdvertiser &&
+            <>
+              <Route path="/makeNews" element={<ErrorPage />} />
+              <Route path="/advertiserDashboard" element={<ErrorPage />} />
+              <Route path="/makeAdvertisement" element={<ErrorPage />} />
+            </>
+          } */}
         </Routes>
         <Footer />
       </div>
