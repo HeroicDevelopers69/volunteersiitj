@@ -1,47 +1,24 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { useUserContext } from '../../customHooks/UserContext';
 
 const Hero = () => {
-  // Animation variants for the buttons
+  const user = useUserContext();
+
   const buttonVariants = {
-    hover: {
-      scale: 1.1,
-      transition: {
-        duration: 0.2,
-        ease: "easeOut"
-      }
-    },
-    tap: {
-      scale: 0.95
-    }
+    hover: { scale: 1.1, transition: { duration: 0.2, ease: "easeOut" } },
+    tap: { scale: 0.95 }
   };
 
   const buttonContainerVariants = {
-    initial: { 
-      opacity: 0,
-      y: 20
-    },
-    animate: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        staggerChildren: 0.1,
-        delayChildren: 0.8
-      }
-    }
+    initial: { opacity: 0, y: 20 },
+    animate: { opacity: 1, y: 0, transition: { duration: 0.6, staggerChildren: 0.1, delayChildren: 0.8 } }
   };
 
   const buttonChildVariants = {
-    initial: { 
-      opacity: 0,
-      y: 20
-    },
-    animate: {
-      opacity: 1,
-      y: 0
-    }
+    initial: { opacity: 0, y: 20 },
+    animate: { opacity: 1, y: 0 }
   };
 
   return (
@@ -62,49 +39,51 @@ const Hero = () => {
             </h1>
           </div>
         </div>
-        
-        <motion.div 
-          className="flex gap-4 mt-8"
-          variants={buttonContainerVariants}
-          initial="initial"
-          animate="animate"
-        >
-          <motion.div variants={buttonChildVariants}>
-            <motion.div
-              variants={buttonVariants}
-              whileHover="hover"
-              whileTap="tap"
-              className="relative"
-            >
-              <Link
-                to="/login"
-                className="inline-block px-8 py-3 text-lg font-semibold text-white border-2 border-white rounded-full 
-                          backdrop-blur-sm bg-white/10 hover:bg-white/20 transition-colors duration-300
-                          shadow-[0_0_15px_rgba(255,255,255,0.1)] hover:shadow-[0_0_20px_rgba(255,255,255,0.2)]"
-              >
-                Login
-              </Link>
-            </motion.div>
-          </motion.div>
 
-          <motion.div variants={buttonChildVariants}>
-            <motion.div
-              variants={buttonVariants}
-              whileHover="hover"
-              whileTap="tap"
-              className="relative"
-            >
-              <Link
-                to="/signup"
-                className="inline-block px-8 py-3 text-lg font-semibold text-black bg-white rounded-full
-                          hover:bg-opacity-90 transition-colors duration-300
-                          shadow-[0_0_15px_rgba(255,255,255,0.2)] hover:shadow-[0_0_20px_rgba(255,255,255,0.3)]"
+        {user.name === '' && (
+          <motion.div
+            className="flex gap-4 mt-8"
+            variants={buttonContainerVariants}
+            initial="initial"
+            animate="animate"
+          >
+            <motion.div variants={buttonChildVariants}>
+              <motion.div
+                variants={buttonVariants}
+                whileHover="hover"
+                whileTap="tap"
+                className="relative"
               >
-                Sign Up
-              </Link>
+                <Link
+                  to="/login"
+                  className="inline-block px-8 py-3 text-lg font-semibold text-white border-2 border-white rounded-full 
+                            backdrop-blur-sm bg-white/10 hover:bg-white/20 transition-colors duration-300
+                            shadow-[0_0_15px_rgba(255,255,255,0.1)] hover:shadow-[0_0_20px_rgba(255,255,255,0.2)]"
+                >
+                  Login
+                </Link>
+              </motion.div>
+            </motion.div>
+
+            <motion.div variants={buttonChildVariants}>
+              <motion.div
+                variants={buttonVariants}
+                whileHover="hover"
+                whileTap="tap"
+                className="relative"
+              >
+                <Link
+                  to="/signup"
+                  className="inline-block px-8 py-3 text-lg font-semibold text-black bg-white rounded-full
+                            hover:bg-opacity-90 transition-colors duration-300
+                            shadow-[0_0_15px_rgba(255,255,255,0.2)] hover:shadow-[0_0_20px_rgba(255,255,255,0.3)]"
+                >
+                  Sign Up
+                </Link>
+              </motion.div>
             </motion.div>
           </motion.div>
-        </motion.div>
+        )}
       </div>
     </>
   );

@@ -32,7 +32,7 @@ const Section = ({ title, data }) => {
 
       {/* Display Cards */}
       <div className="w-full grid grid-cols-1 gap-x-3 gap-y-10 md:grid-cols-2 lg:grid-cols-3">
-        {title.toLowerCase() === 'apply' &&
+        {title.toLowerCase() === 'apply' && filtData &&
           filtData.map((element) =>
             <Card key={element.advertisementId} advertisement={element} />
           )}

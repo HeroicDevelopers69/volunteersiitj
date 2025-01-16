@@ -1,10 +1,10 @@
-import React, {useEffect,useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import Hero from '../components/homepage/hero';
 import Section from '../components/homepage/section';
 
 
 async function fetchAllAds() {
-  try{
+  try {
     const response = await fetch("http://localhost:5000/getAllAds");
     const data = await response.json();
     return data.allAds
@@ -32,7 +32,6 @@ const Home = () => {
   const [news,setNews] = useState([]);
 
   useEffect(() => {
-    // Fetch ads when the component mounts
     const fetchAds = async () => {
       console.log("Fetching Advertisements");
       const allads = await fetchAllAds();
@@ -53,11 +52,13 @@ const Home = () => {
   return (
     <>
       <Hero />
-      {/* There is a conditional on title in section.jsx, update that if changing title*/}
       <Section title='Apply' data={ads} />
       <Section title='News' data={news} />
+      {success && (
+        <SuccessMessage title={success.title} message={success.message} state="true" />
+      )}
     </>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
