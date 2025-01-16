@@ -100,11 +100,11 @@ const Card = ({ advertisement = defaultAdvertisement }) => {
         </div>
       </div>
 
-      <div className="mt-2 px-4 py-3 bg-gray-700 dark:bg-gray-900 rounded-b-xl flex justify-between items-center">
-        <span className={`${timeColorClass} font-semibold`}>
+      <div className="mt-2 px-4 py-3 bg-gray-700 dark:bg-gray-900 rounded-b-xl flex justify-between">
+        <span className={`${timeColorClass} font-semibold whitespace-nowrap`}>
           Time left: {daysLeft}d {hoursLeft}h
         </span>
-        <span className="text-white">
+        <span className="text-white text-right">
           By {advertisement.creator}
         </span>
       </div>

@@ -5,7 +5,6 @@ const SearchBox = ({ onSearch }) => {
 
     const handleClick = () => {
         onSearch(query)
-        console.log(query)
     };
 
     return (
