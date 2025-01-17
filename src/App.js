@@ -14,6 +14,7 @@ import { useUserContext } from './customHooks/UserContext';
 import MakeNews from './pages/makeNews';
 import ErrorPage from './pages/error';
 import Profile from './pages/profile';
+import Loading from './components/loading';
 
 function App() {
   const user = useUserContext();
@@ -51,13 +52,13 @@ function App() {
               <Route path="/makeAdvertisement" element={<MakeAdvertisement />} />
             </>
           }
-          {/* {!user.isAdvertiser &&
+          {!user.isAdvertiser &&
             <>
-              <Route path="/makeNews" element={<ErrorPage />} />
-              <Route path="/advertiserDashboard" element={<ErrorPage />} />
-              <Route path="/makeAdvertisement" element={<ErrorPage />} />
+              <Route path="/makeNews" element={<Loading />} />
+              <Route path="/advertiserDashboard" element={<Loading />} />
+              <Route path="/makeAdvertisement" element={<Loading />} />
             </>
-          } */}
+          }
         </Routes>
         <Footer />
       </div>
