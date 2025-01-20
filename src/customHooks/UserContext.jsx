@@ -22,12 +22,13 @@ export function fetchUser(dispatch) {
         const data = await response.json();
         console.log('Fetched user data:', data.user);
         dispatch({
-          type: 'set',
+          type: 'login',
           user: data.user,
         });
       }
 
       fetchUser(userId);
+      
     }
   });
 
@@ -70,12 +71,12 @@ export function useUserDispatchContext() {
 
 function UserReducer(user, action) {
   switch (action.type) {
-    case 'set': {
+    case 'login': {
       return {
         ...action.user,
       };
     }
-    case 'reset': {
+    case 'logout': {
       return initialUser;
     }
     default: {
