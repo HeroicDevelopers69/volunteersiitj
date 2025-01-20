@@ -39,7 +39,11 @@ const UserContext = createContext(null);
 const UserDispatchContext = createContext(null);
 
 export function UserProvider({ children }) {
-  const [User, dispatch] = useReducer(UserReducer, initialUser);
+  const [User, dispatch] = useReducer(UserReducer, loadInitialUser());
+
+  useEffect(() => {
+    localStorage.setItem('user', JSON.stringify(User));
+  }, [User]);
 
   useEffect(() => {
     const auth = getAuth();
@@ -83,6 +87,11 @@ function UserReducer(user, action) {
       throw Error('Unknown action: ' + action.type);
     }
   }
+}
+
+function loadInitialUser() {
+  const savedUser = localStorage.getItem('user');
+  return savedUser ? JSON.parse(savedUser) : initialUser;
 }
 
 const initialUser = {
