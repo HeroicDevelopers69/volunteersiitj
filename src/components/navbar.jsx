@@ -153,8 +153,7 @@ const Navbar = () => {
                     onError={() => {console.log("Failed to fetch profile photo")}}
                   />
                 ) : (
-                  // <i className="fas fa-user text-white text-xl"></i>
-                  <img src='https://images.pexels.com/photos/36478/amazing-beautiful-beauty-blue.jpg?cs=srgb&dl=pexels-pixabay-36478.jpg&fm=jpg'></img>
+                  <i className="fas fa-user text-white text-xl"></i>
                 )}
               </div>
             </div>
