@@ -18,17 +18,19 @@ import Loading from './components/loading';
 
 function App() {
   const user = useUserContext();
-  const homey = localStorage.getItem('knowMorePosition');
+
   const { pathname } = useLocation();
 
   useEffect(() => {
+    const homey = localStorage.getItem('homeY');
     if (homey && pathname === '/') {
       window.scrollTo(0, homey);
-      localStorage.removeItem('knowMorePosition');
-    } else {
-      window.scrollTo(0, 0); // Sets the scroll position to the top
+    }
+    else{
+      window.scrollTo(0, 0);
     }
   }, [pathname]);
+
 
   return (
     <div className="w-full bg-gray-200 dark:bg-black min-h-screen">

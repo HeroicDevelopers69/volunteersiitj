@@ -22,12 +22,13 @@ export function fetchUser(dispatch) {
         const data = await response.json();
         console.log('Fetched user data:', data.user);
         dispatch({
-          type: 'set',
+          type: 'login',
           user: data.user,
         });
       }
 
       fetchUser(userId);
+      
     }
   });
 
@@ -38,7 +39,11 @@ const UserContext = createContext(null);
 const UserDispatchContext = createContext(null);
 
 export function UserProvider({ children }) {
-  const [User, dispatch] = useReducer(UserReducer, initialUser);
+  const [User, dispatch] = useReducer(UserReducer, loadInitialUser());
+
+  useEffect(() => {
+    localStorage.setItem('user', JSON.stringify(User));
+  }, [User]);
 
   useEffect(() => {
     const auth = getAuth();
@@ -70,18 +75,23 @@ export function useUserDispatchContext() {
 
 function UserReducer(user, action) {
   switch (action.type) {
-    case 'set': {
+    case 'login': {
       return {
         ...action.user,
       };
     }
-    case 'reset': {
+    case 'logout': {
       return initialUser;
     }
     default: {
       throw Error('Unknown action: ' + action.type);
     }
   }
+}
+
+function loadInitialUser() {
+  const savedUser = localStorage.getItem('user');
+  return savedUser ? JSON.parse(savedUser) : initialUser;
 }
 
 const initialUser = {

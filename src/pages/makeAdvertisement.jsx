@@ -1,7 +1,7 @@
 import React from 'react'
 import MakeAd from '../components/makeAdvertisement/makeAd'
 import MakeForm from '../components/makeAdvertisement/makeForm'
-import { useLocalStorage } from '../customHooks/useLocalStorage';
+import  useLocalStorage  from '../customHooks/useLocalStorage';
 import { useUserContext, fetchUser, useUserDispatchContext } from '../customHooks/UserContext';
 import { nanoid } from 'nanoid';
 

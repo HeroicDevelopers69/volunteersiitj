@@ -32,14 +32,12 @@ const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
-  const [userProfilePhoto, setUserProfilePhoto] = useState('');
-  const [logged, setLogged] = useState(false);
-  const [name, setName] = useState();
-  const [admin, setAdmin] = useState(false);
-  const [disable, setDisabled] = useState(false);
+  const [disabled, setDisabled] = useState(true);
+
   const user = useUserContext();
-  const navigate = useNavigate();
   const dispatch = useUserDispatchContext();
+
+  const navigate = useNavigate();
 
   const profileMenuRef = useRef(null);
   const mobileMenuRef = useRef(null);
@@ -72,27 +70,8 @@ const Navbar = () => {
   }, []);
 
   useEffect(() => {
-    const fetchUserData = async () => {
-      const response = await fetch('http://localhost:5000/getUser', {
-        method: 'POST',
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          userId: user.userId,
-        }),
-      });
-
-      const data = await response.json();
-      setUserProfilePhoto(data?.user.photoURL || '');
-      setName(data?.user.name.length > 10 ? `${data?.user.name.substring(0, 10)}...` : data?.user.name);
-      setLogged(true);
-      setDisabled(false)
-      setAdmin(data?.user.isAdvertiser);
-    };
-
-    if (user && user.userId) {
-      fetchUserData();
+    if(user.photoURL){
+      setDisabled(false);
     }
   }, [user]);
 
@@ -102,16 +81,17 @@ const Navbar = () => {
 
   const handleLogout = async () => {
     try {
+      setDisabled(true);
+
       const auth = getAuth();
       await signOut(auth);
-      setLogged(false);
+      dispatch({ type: 'logout' });
+
       setDisabled(false)
-      setAdmin(false);
-      setUserProfilePhoto('');
-      dispatch({ type: 'reset' });
-      setName('');
-      window.location.reload();
-    } catch (error) {
+
+    } 
+    catch (error) {
+      alert(error);
     }
   };
   const profile = () => {
@@ -135,9 +115,9 @@ const Navbar = () => {
           <div className="flex">
             <div className="hidden md:flex items-center space-x-4">
               <NavLink to="/">Home</NavLink>
-              {logged && (
+              {user.userId!=='' && (
                 <>
-                  {admin && (
+                  {user.isAdvertiser && (
                     <>
                       <NavLink to="/advertiserDashboard">Dashboard</NavLink>
                       <NavLink to="/makeAdvertisement">Make Ad</NavLink>
@@ -163,13 +143,14 @@ const Navbar = () => {
             >
               <div
                 className="h-10 w-10 rounded-full bg-gray-700 mt-1 flex items-center justify-center border-2 border-white cursor-pointer"
-                onClick={logged && !disable ? handleProfileClick : null}
-              >
-                {userProfilePhoto ? (
+                onClick={user.userId!=='' && !disabled ? handleProfileClick : null}
+                >
+                {(user.photoURL) ? (
                   <img
-                    src={userProfilePhoto}
+                    src={user.photoURL}
                     alt="Profile"
                     className="h-9 w-9 rounded-full object-cover"
+                    onError={() => {console.log("Failed to fetch profile photo")}}
                   />
                 ) : (
                   <i className="fas fa-user text-white text-xl"></i>
@@ -185,7 +166,7 @@ const Navbar = () => {
             className="w-[130px] absolute right-5 md:right-[100px] top-16 dark:bg-gray-900/95 rounded-lg flex flex-col space-y-1 p-1 shadow-sm dark:shadow-white/25 shadow-black/25 mt-2 bg-gray-700"
             ref={profileMenuRef}
           >
-            <div className='px-1 py-1 text-center text-white duration-200 rounded-lg font-medium'>{name}</div>
+            <div className='px-1 py-1 text-center text-white duration-200 rounded-lg font-medium'>{user.name}</div>
             <button onClick={profile} className='px-1 py-1 text-center text-white hover:text-gray-300 duration-200 rounded-lg hover:scale-110 transition-all active:scale-95'>Profile</button>
             <button onClick={handleLogout} className='px-1 py-1 text-center text-white hover:text-gray-300 duration-200 rounded-lg hover:scale-110 transition-all active:scale-95'>Logout</button>
           </div>
@@ -198,9 +179,9 @@ const Navbar = () => {
         >
           <div className="px-2 pt-1 pb-3 space-y-1 bg-gray-900/95 rounded-lg shadow-xl mt-2">
             <MobileMenuItem to="/">Forms</MobileMenuItem>
-            {logged && (
+            {user.userId!=='' && (
               <>
-                {admin && (
+                {user.isAdvertiser && (
                   <>
                     <MobileMenuItem to="/advertiserDashboard">Dashboard</MobileMenuItem>
                     <NavLink to="/makeAdvertisement">Make Ad</NavLink>

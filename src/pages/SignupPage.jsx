@@ -29,7 +29,7 @@ export default function SignUpPage() {
         isDeveloper: validDevelopers.includes(user.email)
       }
       dispatch({
-        type: 'set',
+        type: 'login',
         ...body
       })
       try{

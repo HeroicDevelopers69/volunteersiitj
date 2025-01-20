@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { auth } from '../firebase/firebaseConfig';
 import { useUserDispatchContext } from '../customHooks/UserContext';
@@ -28,7 +28,7 @@ export default function LoginPage() {
         isAdvertiser: validAdvertisers.includes(user.email),
       };
       dispatch({
-        type: 'set',
+        type: 'login',
         ...body,
       });
       navigate('/', {
