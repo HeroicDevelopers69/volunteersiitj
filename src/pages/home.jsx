@@ -3,6 +3,7 @@ import Hero from '../components/homepage/hero';
 import Section from '../components/homepage/section';
 import SuccessMessage from '../components/success';
 import { useLocation, useNavigate } from 'react-router-dom'; 
+import useSessionStorage from '../customHooks/useSessionStorage';
 
 
 async function fetchAllAds() {
@@ -30,8 +31,8 @@ async function fetchAllNews() {
 }
 
 const Home = () => {
-  const [ads,setAds] = useState([]);
-  const [news,setNews] = useState([]);
+  const [ads,setAds] = useSessionStorage('allads',[]);
+  const [news,setNews] = useSessionStorage('allnews',[]);
   const [success, setSuccess] = useState(null);
   const location = useLocation();
   const navigate = useNavigate();

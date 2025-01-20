@@ -8,6 +8,7 @@ const NewsCard = ({ news = { title: '', description: '', publisher: '', imgsrc: 
     <Link
     to='/showNews'
     state={{news:news}} 
+    onClick={() => localStorage.setItem('homeY', window.scrollY)}
     className="max-w-md w-full flex flex-col justify-between bg-white dark:bg-gray-800 rounded-xl shadow-lg transform transition-all duration-300 hover:scale-[1.02] hover:shadow-xl cursor-pointer">
       <div className="rounded-xl overflow-hidden">
         <div className="relative w-full max-h-60 bg-gray-100 dark:bg-gray-900">
