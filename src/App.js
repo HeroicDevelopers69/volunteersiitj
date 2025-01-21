@@ -15,6 +15,7 @@ import MakeNews from './pages/makeNews';
 import ErrorPage from './pages/error';
 import Profile from './pages/profile';
 import Loading from './components/loading';
+import ShowForm from './pages/showForm';
 
 function App() {
   const user = useUserContext();
@@ -40,6 +41,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/showAd" element={<ShowAd />} />
           <Route path="/showNews" element={<ShowNews />} />
+          <Route path="/showForm" element={<ShowForm />} />
           <Route path="/contactus" element={<ContactUs />} />
           <Route path="/aboutus" element={<AboutUs />} />
           <Route path="/profile" element={<Profile />} />

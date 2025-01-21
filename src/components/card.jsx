@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import { useRef } from 'react';
 
 const CardField = ({ label, value }) => (
   <div className="w-full flex justify-between items-center p-3 hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors">
@@ -35,6 +34,7 @@ const CardMessage = ({ message }) => {
 const defaultAdvertisement = {
   title: "Default Advertisement",
   sequence: [],
+  formSequence: [],
   deadline: new Date(Date.now() + 86400000 * 5), // 5 days from now
   creator: "Anonymous"
 };
@@ -89,9 +89,13 @@ const Card = ({ advertisement = defaultAdvertisement }) => {
             className="w-1/2 py-2 bg-purple-600 text-center hover:bg-purple-700 text-white rounded-lg transform transition-all duration-300 hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2">
             Know More
           </Link>
-          <button className="w-1/2 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transform transition-all duration-300 hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
+          <Link
+          to='/showForm'
+          state={{ form: advertisement.formSequence }}
+          onClick={() => localStorage.setItem('homeY', window.scrollY)}
+          className="w-1/2 py-2 bg-green-600 text-center hover:bg-green-700 text-white rounded-lg transform transition-all duration-300 hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
             Apply
-          </button>
+          </Link>
         </div>
         <div className="mt-2 px-4 py-3 bg-gray-700 dark:bg-gray-900 rounded-b-xl flex justify-between">
           <span className={`${timeColorClass} font-semibold whitespace-nowrap`}>

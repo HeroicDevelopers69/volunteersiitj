@@ -2,7 +2,6 @@ import React from 'react';
 import { useLocation, Link } from 'react-router-dom';
 
 const ShowAd = () => {
-  window.scrollTo(0, 0);
   const location = useLocation();
   const advertisement = location.state?.ad;
 
