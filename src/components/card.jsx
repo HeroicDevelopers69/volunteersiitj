@@ -39,7 +39,7 @@ const defaultAdvertisement = {
   creator: "Anonymous"
 };
 
-const Card = ({ advertisement = defaultAdvertisement }) => {
+const Card = ({ advertisement = defaultAdvertisement, boo = true}) => {
   const content = [];
   if (advertisement.sequence) {
     for (let component of advertisement.sequence) {
@@ -86,14 +86,14 @@ const Card = ({ advertisement = defaultAdvertisement }) => {
             to='/showAd'
             state={{ ad: advertisement }}
             onClick={() => localStorage.setItem('homeY', window.scrollY)}
-            className="w-1/2 py-2 bg-purple-600 text-center hover:bg-purple-700 text-white rounded-lg transform transition-all duration-300 hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2">
+            className="w-full py-2 bg-purple-600 text-center hover:bg-purple-700 text-white rounded-lg transform transition-all duration-300 hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2">
             Know More
           </Link>
           <Link
-          to='/showForm'
-          state={{ form: advertisement }}
-          onClick={() => localStorage.setItem('homeY', window.scrollY)}
-          className="w-1/2 py-2 bg-green-600 text-center hover:bg-green-700 text-white rounded-lg transform transition-all duration-300 hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
+            to='/showForm'
+            state={{ form: advertisement }}
+            onClick={() => localStorage.setItem('homeY', window.scrollY)}
+            className={`w-full py-2 bg-green-600 text-center hover:bg-green-700 text-white rounded-lg transform transition-all duration-300 hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 ${boo ? '' : 'hidden'}`}>
             Apply
           </Link>
         </div>

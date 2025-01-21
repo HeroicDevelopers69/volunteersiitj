@@ -16,6 +16,7 @@ import ErrorPage from './pages/error';
 import Profile from './pages/profile';
 import Loading from './components/loading';
 import ShowForm from './pages/showForm';
+import MyForms from './pages/myforms';
 
 function App() {
   const user = useUserContext();
@@ -27,7 +28,7 @@ function App() {
     if (homey && pathname === '/') {
       window.scrollTo(0, homey);
     }
-    else{
+    else {
       window.scrollTo(0, 0);
     }
   }, [pathname]);
@@ -44,10 +45,11 @@ function App() {
           <Route path="/showForm" element={<ShowForm />} />
           <Route path="/contactus" element={<ContactUs />} />
           <Route path="/aboutus" element={<AboutUs />} />
-          <Route path="/profile" element={<Loading />} />
+          <Route path="/profile" element={<Profile />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/error" element={<ErrorPage />} />
+          <Route path="/profile/myforms" element={<MyForms />} />
 
           {user.isAdvertiser &&
             <>
