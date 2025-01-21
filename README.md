@@ -27,13 +27,12 @@ Whether you're a fresher looking to get involved or an experienced volunteer wan
 Here are some important links that will help you stay connected and engaged with **IIT Jodhpur**:
 
 - 🏛️ [IIT Jodhpur Official Website](https://www.iitj.ac.in)
-- 📢 [IIT Jodhpur News & Announcements](https://www.iitj.ac.in/news)
-- 🎓 [IIT Jodhpur Student Portal](https://portal.iitj.ac.in)
-- 🌍 [IIT Jodhpur Campus Life](https://www.iitj.ac.in/campus-life)
-- 🎉 [Technica - IIT Jodhpur's Technical Fest](https://technica.iitj.ac.in)
-- 🎭 [Spring Fest - IIT Jodhpur's Cultural Fest](https://springfest.iitj.ac.in)
-- 🧑‍🤝‍🧑 [Social Outreach Programs at IITJ](https://www.iitj.ac.in/outreach)
-- 📚 [IIT Jodhpur Research and Innovation](https://www.iitj.ac.in/research)
+- 📢 [IIT Jodhpur News & Announcements](https://www.youtube.com/@IITJodhpurOfficial)
+- 🎓 [IIT Jodhpur Student Portal](https://erp.iitj.ac.in)
+- 🌍 [IIT Jodhpur Campus Life](https://iitj.ac.in/students/index.php?id=student_campus_life_welcome)
+- 🎉 [Prometeo - IIT Jodhpur's Technical Fest](https://prometeo.iitj.ac.in)
+- 🎭 [Ignus - IIT Jodhpur's Cultural Fest](https://www.instagram.com/ignus_iitj/?hl=en)
+- 📚 [IIT Jodhpur Research and Innovation](https://iitj.ac.in/infra/offices/index.php?id=office_of_rnd)
 
 ---
 
@@ -64,7 +63,7 @@ Don’t miss out on important volunteering opportunities and event updates. Foll
 
 - 📱 **Telegram Group** for Volunteers: [Join Here](https://t.me/volunteerIITJ)
 - 📧 **Email Updates**: Subscribe to our newsletter for the latest news on events and volunteering.
-- 📰 **IITJ News Portal**: [Check Latest Announcements](https://www.iitj.ac.in/news)
+- 📰 **IITJ News Portal**: [Check Latest Announcements](https://iitj.ac.in/archives/news.php)
 
 ---
 
@@ -73,9 +72,9 @@ Don’t miss out on important volunteering opportunities and event updates. Foll
 ### Connect with us on Social Media:
 
 - 📸 [Instagram - IITJ Events](https://www.instagram.com/iitj)
-- 🐦 [Twitter - IITJ News](https://twitter.com/iitj)
-- 👍 [Facebook - IIT Jodhpur](https://www.facebook.com/iitjodhpur)
-- 🎥 [YouTube - IITJ Media](https://www.youtube.com/c/IITJodhpur)
+- 🐦 [Twitter - IITJ News](https://x.com/iitjodhpur)
+- 👍 [Facebook - IIT Jodhpur](https://www.facebook.com/IITJOfficial/)
+- 🎥 [YouTube - IITJ Media](https://www.youtube.com/@IITJodhpurOfficial)
 
 ### Contact Us:
 
