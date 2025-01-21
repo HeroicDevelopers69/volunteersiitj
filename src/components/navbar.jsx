@@ -91,7 +91,6 @@ const Navbar = () => {
 
     } 
     catch (error) {
-      alert(error);
     }
   };
   const profile = () => {
