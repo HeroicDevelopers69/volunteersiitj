@@ -88,12 +88,14 @@ const Navbar = () => {
       dispatch({ type: 'logout' });
 
       setDisabled(false)
+      setIsProfileMenuOpen(false)
 
     } 
     catch (error) {
     }
   };
   const profile = () => {
+    setIsProfileMenuOpen(false)
     navigate('/profile')
   }
 

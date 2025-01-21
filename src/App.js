@@ -44,7 +44,7 @@ function App() {
           <Route path="/showForm" element={<ShowForm />} />
           <Route path="/contactus" element={<ContactUs />} />
           <Route path="/aboutus" element={<AboutUs />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/profile" element={<Loading />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/error" element={<ErrorPage />} />
@@ -58,9 +58,9 @@ function App() {
           }
           {!user.isAdvertiser &&
             <>
-              <Route path="/makeNews" element={<Loading />} />
-              <Route path="/advertiserDashboard" element={<Loading />} />
-              <Route path="/makeAdvertisement" element={<Loading />} />
+              <Route path="/makeNews" element={<ErrorPage />} />
+              <Route path="/advertiserDashboard" element={<ErrorPage />} />
+              <Route path="/makeAdvertisement" element={<ErrorPage />} />
             </>
           }
         </Routes>
