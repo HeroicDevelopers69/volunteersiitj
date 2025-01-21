@@ -56,10 +56,14 @@ const MyForms = () => {
 
             {/* Display Filtered Ads */}
             {filteredAds.length > 0 ? (
-                <>
-                    {filteredAds.map((element) => (
-                        <Card key={element.advertisementId} advertisement={element} boo={false} />
-                    ))}
+                <div className="flex flex-col">
+                    <div className="w-full grid grid-cols-1 gap-x-3 gap-y-10 md:grid-cols-2 lg:grid-cols-3">
+                        {/* The flex-wrap property ensures the items will wrap if there isn't enough space */}
+                        {filteredAds.map((element) => (
+                            <Card key={element.advertisementId} advertisement={element} boo={false} />
+                        ))}
+
+                    </div>
                     {/* Go Back Button */}
                     <div className="mt-6 flex justify-end">
                         <button
@@ -68,12 +72,11 @@ const MyForms = () => {
                             Go Back
                         </button>
                     </div>
-                </>
+                </div>
             ) : (
                 <div className="flex flex-col items-center justify-center bg-gray-100 dark:bg-gray-800 p-6 rounded-lg shadow-lg mt-8">
                     <p className="text-xl font-semibold text-red-500">No matching ads found.</p>
                     <p className="text-sm text-gray-600 dark:text-gray-300 mt-2">It looks like you haven't applied to any relevant ads yet.</p>
-
                     {/* Go Back Button */}
                     <div className="mt-6 flex justify-center">
                         <button
