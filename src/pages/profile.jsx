@@ -51,9 +51,16 @@ const Profile = () => {
                     <Loading />
                 )}
             </div>
-            <button className="w-[175px] h=[700px] md:mx-11 mx-auto px-6 py-2 mt-5 text-lg font-semibold text-white bg-blue-600 rounded-lg shadow-md transition duration-300 transform hover:bg-blue-700 dark:bg-blue-800 dark:hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400" onClick={handleApplied}>
-                Applied Forms
-            </button>
+            <div className="flex">
+                <button className="w-[175px] h=[700px] md:mx-11 mx-auto px-6 py-2 mt-5 text-lg font-semibold text-white bg-blue-600 rounded-lg shadow-md transition duration-300 transform hover:bg-blue-700 dark:bg-blue-800 dark:hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400" onClick={handleApplied}>
+                    Applied Forms
+                </button>
+                <button
+                    onClick={() => navigate(-1)}
+                    className="w-[175px] h=[700px] md:mx-11 mx-auto px-6 py-2 mt-5 text-lg font-semibold text-white bg-blue-600 rounded-lg shadow-md transition duration-300 transform hover:bg-blue-700 dark:bg-blue-800 dark:hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                    Go Back
+                </button>
+            </div>
         </div>
     );
 };
