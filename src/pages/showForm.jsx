@@ -64,7 +64,6 @@ const ShowForm = () => {
           appliedForms: {
             id: addSequence.advertisementId,
             status: 'pending',
-            res: responses,
           },
         },
       };
@@ -76,7 +75,18 @@ const ShowForm = () => {
         },
         body: JSON.stringify(body),
       });
-      await response.json();
+      const response2 = await fetch('http://localhost:5000/submitForm', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userId : user.userId,
+          adId: addSequence.advertisementId,
+          data: responses
+        }),
+      })
+
       navigate('/', {
         state: { title: addSequence.title, message: `Applied Successfully` }
       });
